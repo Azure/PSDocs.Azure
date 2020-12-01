@@ -1,0 +1,7 @@
+
+.vs/
+out/
+reports/
+**/bin/
+**/obj/
+*.user
