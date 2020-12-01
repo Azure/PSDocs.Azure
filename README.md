@@ -6,7 +6,26 @@ Generate markdown from Azure infrastructure as code (IaC) artifacts.
 
 ## Getting started
 
-**More to come**
+### Building locally
+
+```powershell
+./build.ps1
+```
+
+### Running locally
+
+```powershell
+Import-Module .\out\modules\PSDocs.Azure;
+
+$publishPath = Join-Path -Path . -ChildPath out/docs/;
+foreach ($template in (Get-ChildItem -Path templates/ -Filter template.json -Recurse -File)) {
+    $parentPath = $template.Directory.FullName;
+    $templateName = $template.Directory.Parent.Name;
+    $version = $template.Directory.Name;
+    $docName = "$($templateName)_$version";
+    Invoke-PSDocument -Module PSDocs.Azure -OutputPath $publishPath -InputObject $template.FullName -InstanceName $docName -Name 'README' -Verbose;
+}
+```
 
 ## Changes and versioning
 
