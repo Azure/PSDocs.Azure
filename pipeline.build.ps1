@@ -254,4 +254,4 @@ task Test Build, Rules, TestModule
 task Release ReleaseModule, TagBuild
 
 # Synopsis: Build and test. Entry point for CI Build stage
-task . Build, Rules, TestDotNet
+task . Build, Rules
