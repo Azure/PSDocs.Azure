@@ -4,6 +4,33 @@ Generate markdown from Azure infrastructure as code (IaC) artifacts.
 
 ![ci-badge]
 
+Features of PSDocs for Azure include:
+
+- [Ready to go](docs/features.md#ready-to-go) - Use pre-built templates.
+- [DevOps](docs/features.md#devops) - Generate within a continuous integration (CI) pipeline.
+- [Cross-platform](docs/features.md#cross-platform) - Run on MacOS, Linux, and Windows.
+
+## Support
+
+This project uses GitHub Issues to track bugs and feature requests.
+Please search the existing issues before filing new issues to avoid duplicates.
+
+- For new issues, file your bug or feature request as a new [Issue].
+
+If you have any problems with the [PSDocs][engine] engine, please check the project GitHub [issues](https://github.com/BernieWhite/PSDocs/issues) page instead.
+
+Support for this project/ product is limited to the resources listed above.
+
+## Getting the modules
+
+This project requires the `PSDocs` PowerShell module. For details on each see [install].
+
+You can download and install these modules from the PowerShell Gallery.
+
+Module             | Description | Downloads / instructions
+------             | ----------- | ------------------------
+PSDocs.Azure | Generate documentation from Azure infrastructure as code (IaC) artifacts. | [latest][module] / [instructions][install]
+
 ## Getting started
 
 ### Building locally
@@ -58,7 +85,7 @@ or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any addi
 This project is [licensed under the MIT License](LICENSE).
 
 [issue]: https://github.com/https://github.com/Azure/PSDocs.Azure/issues
-[install]: docs/scenarios/install-instructions.md
-[ci-badge]: https://dev.azure.com/bewhite/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=main
+[install]: docs/install-instructions.md
+[ci-badge]: https://dev.azure.com/PSDocs/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
 [engine]: https://github.com/BernieWhite/PSDocs
