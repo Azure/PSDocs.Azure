@@ -54,6 +54,8 @@ Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
 }
 ```
 
+A example of the generated document is available [here](templates/storage/v1/README.md)
+
 ## Changes and versioning
 
 Modules in this repository will use the [semantic versioning](http://semver.org/) model to declare breaking changes from v1.0.0.

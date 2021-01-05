@@ -88,7 +88,7 @@ function global:GetTemplateExample {
             }
             $baseContent.parameters[$property.Name] = $param
         }
-        $baseContent | ConvertTo-Json -Depth 100;
+        $baseContent;
     }
 }
 
@@ -119,28 +119,28 @@ Document 'README' {
     $metadata.Description
 
     # Add each parameter to a table
-    Section 'Parameters' {
-        $parameters | Table -Property @{ Name = 'Parameter name'; Expression = { $_.Name }},Description
+    Section $LocalizedData.Parameters {
+        $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, $LocalizedData.Description
 
         foreach ($parameter in $parameters) {
             Section $parameter.Name {
                 $parameter.Description;
 
                 if (![String]::IsNullOrEmpty($parameter.DefaultValue)) {
-                    "- Default value: ``$($parameter.DefaultValue)``"
+                    $LocalizedData.DefaultValue -f [String]::Concat('`', $parameter.DefaultValue, '`');
                 }
                 if ($Null -ne $parameter.AllowedValues -and $parameter.AllowedValues.Length -gt 0) {
                     $allowedValuesString = $parameter.AllowedValues | ForEach-Object {
                         [String]::Concat('`', $_, '`')
                     }
-                    "- Allowed values: $([String]::Join(', ', $allowedValuesString))"
+                    $LocalizedData.AllowedValues -f ([String]::Join(', ', $allowedValuesString));
                 }
             }
         }
     }
 
     $example = GetTemplateExample -Path $templatePath;
-    Section 'Snippet' {
+    Section $LocalizedData.Snippets {
         $example | Code 'json'
     }
 }
