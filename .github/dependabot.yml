@@ -13,7 +13,17 @@ updates:
   directory: '/'
   schedule:
     interval: 'daily'
-  # labels:
-  # - 'ci-quality'
+  labels:
+  - 'ci-quality'
+  reviewers:
+  - 'azure/psdocs-azure'
+
+# Maintain dependencies for NuGet
+- package-ecosystem: 'nuget'
+  directory: '/'
+  schedule:
+    interval: 'daily'
+  labels:
+  - 'dependencies'
   reviewers:
   - 'azure/psdocs-azure'

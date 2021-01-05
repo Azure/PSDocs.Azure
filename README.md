@@ -45,13 +45,12 @@ PSDocs.Azure | Generate documentation from Azure infrastructure as code (IaC) ar
 ```powershell
 Import-Module .\out\modules\PSDocs.Azure;
 
-$publishPath = Join-Path -Path . -ChildPath out/docs/;
-foreach ($template in (Get-ChildItem -Path templates/ -Filter template.json -Recurse -File)) {
-    $parentPath = $template.Directory.FullName;
+Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+    $template = Get-Item -Path $_.TemplateFile;
     $templateName = $template.Directory.Parent.Name;
     $version = $template.Directory.Name;
     $docName = "$($templateName)_$version";
-    Invoke-PSDocument -Module PSDocs.Azure -OutputPath $publishPath -InputObject $template.FullName -InstanceName $docName -Name 'README' -Verbose;
+    Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs -InputObject $template.FullName -InstanceName $docName;
 }
 ```
 

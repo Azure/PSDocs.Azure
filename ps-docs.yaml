@@ -1,0 +1,5 @@
+# PSDocs options for QA
+
+output:
+  culture:
+  - 'en-US'
