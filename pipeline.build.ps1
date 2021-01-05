@@ -114,6 +114,7 @@ task VersionModule ModuleDependencies, {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
         }
     };
+    Update-ModuleManifest -Path $manifestPath -RequiredModules $requiredModules;
 }
 
 # Synopsis: Publish to PowerShell Gallery
@@ -154,10 +155,13 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 0.21.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 0.21.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.0.1 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.0.1 -Scope CurrentUser -Force;
     }
-    Import-Module -Name PSRule -Verbose:$False;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion '0.1.0-B2012007' -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion '0.1.0-B2012007' -AllowPrerelease -Scope CurrentUser -Force;
+    }
+    Import-Module -Name PSRule.Rules.MSFT.OSS -Verbose:$False;
 }
 
 # Synopsis: Install PSDocs
@@ -175,6 +179,7 @@ task Rules PSRule, {
         Style = $AssertStyle
         OutputFormat = 'NUnit3'
         ErrorAction = 'Stop'
+        Module = 'PSRule.Rules.MSFT.OSS'
     }
     Assert-PSRule @assertParams -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
 }
@@ -196,11 +201,52 @@ task CopyModule {
     Copy-Item -Path LICENSE -Destination out/modules/PSDocs.Azure;
 
     # Copy third party notices
-    # Copy-Item -Path ThirdPartyNotices.txt -Destination out/modules/PSDocs.Azure;
+    Copy-Item -Path ThirdPartyNotices.txt -Destination out/modules/PSDocs.Azure;
+}
+
+task BuildDotNet {
+    exec {
+        # Build library
+        # Add build version -p:versionPrefix=$ModuleVersion
+        dotnet publish src/PSDocs.Azure -c $Configuration -f netstandard2.0 -o $(Join-Path -Path $PWD -ChildPath out/modules/PSDocs.Azure) -p:version=$Build
+    }
 }
 
 # Synopsis: Build modules only
-task BuildModule CopyModule
+task BuildModule BuildDotNet, CopyModule
+
+# Synopsis: Build help
+task BuildHelp BuildModule, PlatyPS, {
+
+    if (!(Test-Path out/modules/PSDocs.Azure/en-US/)) {
+        $Null = New-Item -Path out/modules/PSDocs.Azure/en-US/ -ItemType Directory -Force;
+    }
+    if (!(Test-Path out/modules/PSDocs.Azure/en-AU/)) {
+        $Null = New-Item -Path out/modules/PSDocs.Azure/en-AU/ -ItemType Directory -Force;
+    }
+    if (!(Test-Path out/modules/PSDocs.Azure/en-GB/)) {
+        $Null = New-Item -Path out/modules/PSDocs.Azure/en-GB/ -ItemType Directory -Force;
+    }
+
+    # Avoid YamlDotNet issue in same app domain
+    exec {
+        $pwshPath = (Get-Process -Id $PID).Path;
+        &$pwshPath -Command {
+            # Generate MAML and about topics
+            Import-Module -Name PlatyPS -Verbose:$False;
+            $Null = New-ExternalHelp -OutputPath 'out/docs/PSDocs.Azure' -Path '.\docs\commands\en-US' -Force;
+        }
+    }
+
+    if (!(Test-Path -Path 'out/docs/PSDocs.Azure/PSDocs.Azure-help.xml')) {
+        throw 'Failed find generated cmdlet help.';
+    }
+
+    # Copy generated help into module out path
+    $Null = Copy-Item -Path out/docs/PSDocs.Azure/* -Destination out/modules/PSDocs.Azure/en-US;
+    $Null = Copy-Item -Path out/docs/PSDocs.Azure/* -Destination out/modules/PSDocs.Azure/en-AU;
+    $Null = Copy-Item -Path out/docs/PSDocs.Azure/* -Destination out/modules/PSDocs.Azure/en-GB;
+}
 
 task TestModule ModuleDependencies, Pester, PSScriptAnalyzer, {
     # Run Pester tests
@@ -229,10 +275,6 @@ task TestModule ModuleDependencies, Pester, PSScriptAnalyzer, {
 # Synopsis: Run script analyzer
 task Analyze Build, PSScriptAnalyzer, {
     Invoke-ScriptAnalyzer -Path out/modules/PSDocs.Azure;
-}
-
-# Synopsis: Build help
-task BuildHelp BuildModule, {
 }
 
 # Synopsis: Add shipit build tag

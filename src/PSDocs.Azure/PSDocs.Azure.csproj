@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <OutputType>Library</OutputType>
+    <ProjectGuid>{1DF0509F-4D84-445F-BB98-CEA69EDD68FE}</ProjectGuid>
+    <!-- <DebugType>portable</DebugType> -->
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <!-- <TreatWarningsAsErrors>true</TreatWarningsAsErrors> -->
+    <Authors>Bernie White</Authors>
+    <AssemblyTitle>PSDocs</AssemblyTitle>
+    <RepositoryUrl>https://github.com/Azure/PSDocs.Azure</RepositoryUrl>
+    <PackageLicenseExpression>https://github.com/Azure/PSDocs.Azure/blob/main/LICENSE</PackageLicenseExpression>
+    <Version>0.0.1</Version>
+    <Copyright>Copyright (c) Microsoft Corporation. Licensed under the MIT License.</Copyright>
+    <Description>Generate markdown from Azure infrastructure as code (IaC) artifacts.
+
+This project uses GitHub Issues to track bugs and feature requests. See GitHub project for more information.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <DefineConstants>Windows</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="5.0.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="PowerShellStandard.Library" Version="5.1.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\Diagnostics.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Diagnostics.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PSDocsResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PSDocsResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Diagnostics.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Diagnostics.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PSDocsResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PSDocsResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

@@ -5,6 +5,7 @@ input:
   - '.vscode/'
   - '*.md'
   - '*.Designer.cs'
+  - '*.resx'
 
 output:
   culture:
