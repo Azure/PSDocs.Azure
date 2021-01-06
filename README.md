@@ -34,27 +34,123 @@ PSDocs.Azure | Generate documentation from Azure infrastructure as code (IaC) ar
 
 ## Getting started
 
-### Building locally
+### Annotate templates file
 
-```powershell
-./build.ps1
+In its simplest structure, an Azure template has the following elements:
+
+```json
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {  },
+  "variables": {  },
+  "functions": [  ],
+  "resources": [  ],
+  "outputs": {  }
+}
 ```
+
+Additionally a `metadata` property can be added in most places throughout the template.
+For example:
+
+```json
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "name": "Storage Account",
+        "description": "Create or update a Storage Account."
+    },
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. The name of the Storage Account."
+            }
+        },
+        "tags": {
+            "type": "object",
+            "defaultValue": {
+            },
+            "metadata": {
+                "description": "Optional. Tags to apply to the resource.",
+                "example": {
+                    "service": "<service_name>",
+                    "env": "prod"
+                }
+            }
+        }
+    },
+    "resources": [
+    ]
+}
+```
+
+This metadata and the template structure itself can be used to dynamically generate documentation.
+Documenting templates in this way allows you to:
+
+- Include meaningful information with minimal effort.
+- Use DevOps culture to author infrastructure code and documentation side-by-side.
+  - Review pull requests (PR) with changes and documentation together.
+  - Use continuous integration and deployment to release changes.
+- Keep documentation up-to-date.
+No separate wiki or document to keep in sync.
+
+PSDocs interprets the template structure and metadata to generate documentation as markdown.
+Generating documentation as markdown allows you to publish web-based content on a variety of platforms.
+
+PSDocs supports the following metadata:
+
+Field | Scope | Type | Description
+----- | ----- | ---- | -----------
+`name`  | Template | `string` | Used for markdown page title.
+`description` | Template | `string` | Used as the top description for the markdown page.
+`description` | Parameter | `string` | Used as the description for the parameter.
+`example`     | Parameter | `string`, `boolean`, `object`, or `array` | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead.
+`ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.
+
+An example of an Azure Storage Account template with metadata included is available [here](templates/storage/v1/template.json).
 
 ### Running locally
 
-```powershell
-Import-Module .\out\modules\PSDocs.Azure;
+To run PSDocs for Azure locally use the `Invoke-PSDocument` cmdlet.
 
+```powershell
+# Import module
+Import-Module PSDocs.Azure;
+
+# Generate markdown
+Invoke-PSDocument -Module PSDocs.Azure -InputObject '<template_file_path>';
+```
+
+This will generate a `README.md` with the generated markdown.
+
+### Scanning for templates
+
+To scan for templates in a directory the `Get-AzDocTemplateFile` cmdlet can be used.
+
+```powershell
+# Import module
+Import-Module PSDocs.Azure;
+
+# Scan for Azure template file recursively in the templates/ directory
 Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+    # Generate a standard name of the markdown file. i.e. <name>_<version>.md
     $template = Get-Item -Path $_.TemplateFile;
     $templateName = $template.Directory.Parent.Name;
     $version = $template.Directory.Name;
     $docName = "$($templateName)_$version";
-    Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs -InputObject $template.FullName -InstanceName $docName;
+
+    # Generate markdown
+    Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
 }
 ```
 
-A example of the generated document is available [here](templates/storage/v1/README.md)
+In this example template files are stored in a directory structure such as `templates/<name>/<version>/template.json`.
+i.e. `templates/storage/v1/template.json`.
+
+The example finds all the Azure template files and outputs a markdown file for each in `out/docs/`.
+An example of the generated markdown is available [here](templates/storage/v1/README.md)
 
 ## Changes and versioning
 
