@@ -33,9 +33,15 @@ function global:GetTemplateExample {
         [String]$Path
     )
     process {
+        if (![System.IO.Path]::IsPathRooted($Path)) {
+            $Path = Join-Path -Path $PWD -ChildPath $Path;
+        }
         $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        $normalPath = $Path.Substring(([String]$PWD).Length);
-        $normalPath = ($normalPath -replace '\\', '/').TrimStart('/');
+        $normalPath = $Path;
+        if ($normalPath.StartsWith($PWD, [System.StringComparison]::InvariantCultureIgnoreCase)) {
+            $normalPath = $Path.Substring(([String]$PWD).Length);
+            $normalPath = ($normalPath -replace '\\', '/').TrimStart('/');
+        }
         $baseContent = [PSCustomObject]@{
             '$schema'= "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json`#"
             contentVersion = '1.0.0.0'
