@@ -34,18 +34,12 @@ Describe 'Templates' -Tag 'Template' {
             $result = Get-AzDocTemplateFile -Path $templatePath | ForEach-Object {
                 $template = Get-Item -Path $_.TemplateFile;
                 $parentPath = $template.Directory.FullName;
-                Invoke-PSDocument @invokeParams -OutputPath $parentPath -InputObject $template.FullName;
+                $expectedContent = Get-Content -Path (Join-Path -Path $parentPath -ChildPath 'README.md') -Raw;
+                $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -PassThru;
+                $actualContent | Should -BeExactly $expectedContent;
+                $actualContent;
             }
             $result | Should -Not -BeNullOrEmpty;
-
-            # No updated files
-            $result = @(git status --porcelain=v1 | ForEach-Object {
-                $line = $_;
-                if (![String]::IsNullOrEmpty($line) -and $line -contains 'templates/') {
-                    $line;
-                }
-            });
-            $result | Should -BeNullOrEmpty;
         }
     }
 }

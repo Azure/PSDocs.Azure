@@ -49,6 +49,7 @@ Describe 'PSDocs' -Tag 'PSDocs', 'Common' {
                     Module = 'PSDocs.Azure'
                     OutputPath = $outputPath
                     InputObject = './template.json'
+                    Option = @{ 'Output.Culture' = 'en-US' }
                 }
                 $result = Invoke-PSDocument @invokeParams;
                 $result | Should -Not -BeNullOrEmpty;
