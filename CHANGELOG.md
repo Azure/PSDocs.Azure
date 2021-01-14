@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+What's changed since v0.1.0:
+
+- Bug fixes:
+  - Fixed snippet with short relative template causes exception. [#26](https://github.com/Azure/PSDocs.Azure/issues/26)
+
 ## v0.1.0
 
 - Initial release.
