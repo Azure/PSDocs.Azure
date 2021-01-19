@@ -42,6 +42,16 @@ Describe 'PSDocs' -Tag 'PSDocs', 'Common' {
             $result | Should -Not -BeNullOrEmpty;
         }
 
+        It 'With basic template' {
+            $invokeParams = @{
+                Module = 'PSDocs.Azure'
+                OutputPath = $outputPath
+                InputObject = (Join-Path -Path $rootPath -ChildPath 'tests/PSDocs.Azure.Tests/basic.template.json')
+            }
+            $result = Invoke-PSDocument @invokeParams;
+            $result | Should -Not -BeNullOrEmpty;
+        }
+
         It 'With relative path' {
             Push-Location -Path (Join-Path -Path $rootPath -ChildPath 'templates/storage/v1/');
             try {
