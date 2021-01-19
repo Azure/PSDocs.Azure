@@ -8,7 +8,7 @@ Parameter name | Description
 -------------- | -----------
 storageAccountName | Required. The name of the Storage Account.
 location       | Optional. The Azure region to deploy to.
-sku            | Optional. Crease the Storage Account as LRS or GRS.
+sku            | Optional. Create the Storage Account as LRS or GRS.
 suffixLength   | Optional. Determine how many additional characters are added to the storage account name as a suffix.
 containers     | Optional. An array of storage containers to create on the storage account.
 lifecycleRules | Optional. An array of lifecycle management policies for the storage account.
@@ -33,7 +33,7 @@ Optional. The Azure region to deploy to.
 
 ### sku
 
-Optional. Crease the Storage Account as LRS or GRS.
+Optional. Create the Storage Account as LRS or GRS.
 
 - Default value: `Standard_LRS`
 
@@ -94,6 +94,13 @@ Optional. Set to the objectId of Azure Key Vault to delegated permission for use
 ### tags
 
 Optional. Tags to apply to the resource.
+
+## Outputs
+
+Name | Type | Description
+---- | ---- | -----------
+blobEndpoint | string | A URI to the blob storage endpoint.
+resourceId | string | A unique resource identifier for the storage account.
 
 ## Snippets
 

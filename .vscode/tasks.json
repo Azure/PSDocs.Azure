@@ -39,6 +39,17 @@
             "detail": "Clean output directories.",
             "command": "Invoke-Build Clean",
             "problemMatcher": []
+        },
+        {
+            "label": "Update template docs",
+            "detail": "Generate template markdown docs.",
+            "type": "shell",
+            "command": "Invoke-Build UpdateTemplateDocs",
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true,
+                "panel": "dedicated"
+            }
         }
     ]
 }

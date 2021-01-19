@@ -272,6 +272,16 @@ task TestModule ModuleDependencies, Pester, PSScriptAnalyzer, {
     }
 }
 
+task UpdateTemplateDocs Build, {
+    Import-Module (Join-Path -Path $PWD -ChildPath 'out/modules/PSDocs.Azure')
+
+    # Scan for Azure template file recursively in the templates/ directory
+    Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+        $template = Get-Item -Path $_.TemplateFile;
+        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputObject $template.FullName;
+    }
+}
+
 # Synopsis: Run script analyzer
 task Analyze Build, PSScriptAnalyzer, {
     Invoke-ScriptAnalyzer -Path out/modules/PSDocs.Azure;
