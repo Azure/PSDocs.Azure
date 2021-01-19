@@ -15,12 +15,22 @@ function global:GetTemplateParameter {
     process {
         $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
         foreach ($property in $template.parameters.PSObject.Properties) {
-            [PSCustomObject]@{
+            $result = [PSCustomObject]@{
                 Name = $property.Name
-                Description = $property.Value.metadata.description
-                DefaultValue = $property.Value.defaultValue
-                AllowedValues = $property.Value.allowedValues
+                Description = ''
+                DefaultValue = $Null
+                AllowedValues = $Null
             }
+            if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
+                $result.Description = $property.Value.metadata.description;
+            }
+            if ([bool]$property.Value.PSObject.Properties['defaultValue']) {
+                $result.DefaultValue = $property.Value.defaultValue;
+            }
+            if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
+                $result.AllowedValues = $property.Value.allowedValues;
+            }
+            $result;
         }
     }
 }
@@ -52,8 +62,9 @@ function global:GetTemplateExample {
         }
         foreach ($property in $template.parameters.PSObject.Properties) {
             $propertyValue = $Null;
+            $hasMetadata = [bool]$property.Value.PSObject.Properties['metadata'];
 
-            if ($True -eq $property.Value.metadata.ignore) {
+            if ($hasMetadata -and [bool]$property.Value.metadata.PSObject.Properties['ignore'] -and $True -eq $property.Value.metadata.ignore) {
                 continue;
             }
 
@@ -70,10 +81,10 @@ function global:GetTemplateExample {
                 continue;
             }
 
-            if ($Null -ne $property.Value.metadata.example) {
+            if ($hasMetadata -and [bool]$property.Value.metadata.PSObject.Properties['example'] -and $Null -ne $property.Value.metadata.example) {
                 $propertyValue = $property.Value.metadata.example;
             }
-            elseif ($Null -ne $property.Value.defaultValue) {
+            elseif ([bool]$property.Value.PSObject.Properties['defaultValue'] -and $Null -ne $property.Value.defaultValue) {
                 $propertyValue = $property.Value.defaultValue;
             }
             elseif ($property.Value.type -eq 'array') {
@@ -154,7 +165,9 @@ Document 'README' {
     }
 
     # Write opening line
-    $metadata.Description
+    if ($Null -ne $metadata -and [bool]$metadata.PSObject.Properties['description']) {
+        $metadata.description
+    }
 
     # Add table and detail for each parameter
     Section $LocalizedData.Parameters {
