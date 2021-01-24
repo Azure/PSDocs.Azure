@@ -21,7 +21,7 @@ jobs:
        }
     displayName: 'Export template data'
     
-  # STEP 2: Copy files and publish to a storage account
+  # STEP 2: Copy files to a storage account
   - task: AzureFileCopy@4
     displayName: 'Copy files and publish to a storage account'
     inputs:

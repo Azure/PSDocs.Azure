@@ -1,9 +1,34 @@
-- name: Azure Blob Storage Upload
-  uses: bacongobbler/azure-blob-storage-upload@v1.1.1
-  with:
-    # The connection string for the storage account
-    connection_string: ${{ secrets.STORAGEACCOUNTSECRET }}
-    # The name of the storage account container these assets will be uploaded to
-    container_name: ps-docs
-    # The name of the directory you want to upload
-    source_dir: 'out/docs/*'
+
+name: Analyze templates
+on:
+- pull_request
+jobs:
+  analyze_arm:
+    name: Analyze templates
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    # STEP 1: Generate Markdowns using PSDocs
+    - name: Export templates
+      run: | 
+       Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
+       # Scan for Azure template file recursively in the templates/ directory
+       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+         $template = Get-Item -Path $_.TemplateFile;
+         $templateName = $template.Directory.Parent.Name;
+         $version = $template.Directory.Name;
+         $docName = "$($templateName)_$version";
+       # Generate markdown
+         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+       }
+      shell: pwsh
+      
+    # STEP 2: Copy files to a storage account
+    - name: Azure Blob Storage Upload
+      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+      with:
+        connection_string: ${{ secrets.STORAGEACCOUNTSECRET }}
+        container_name: ps-docs
+        source_dir: 'out/docs/*'
