@@ -31,4 +31,5 @@ jobs:
       with:
         connection_string: ${{ secrets.STORAGEACCOUNTSECRET }}
         container_name: ps-docs
-        source_dir: 'out/docs/*'
+        source_dir: 'out/docs'
+        sync: false
