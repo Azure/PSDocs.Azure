@@ -11,16 +11,27 @@ jobs:
     vmImage: 'ubuntu-18.04'
   steps:
 
-  # STEP 1: Install PS Docs Module
+  # STEP 1: Generate Markdowns using PSDocs
   - powershell: | 
-     Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force
-     Get-AzRuleTemplateLink | Export-AzTemplateRuleData -OutputPath 'out/templates/';
+      Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
+       # Scan for Azure template file recursively in the templates/ directory
+       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+         $template = Get-Item -Path $_.TemplateFile;
+         $templateName = $template.Directory.Parent.Name;
+         $version = $template.Directory.Name;
+         $docName = "$($templateName)_$version";
+       # Generate markdown
+         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+       }
     displayName: 'Export template data'
-
-  # STEP 5: Run analysis against exported data
-  - task: ps-rule-assert@0
-    displayName: Analyze Azure template files
+    
+  # STEP 2: Copy files and publish to artefacts
+  - task: AzureFileCopy@4
     inputs:
-      inputType: inputPath
-      inputPath: 'out/templates/'     # Read objects from JSON files in 'out/templates/'.
-      modules: 'PSRule.Rules.Azure'   # Analyze objects using the rules within the PSRule.Rules.Azure PowerShell module.
+      SourcePath: 'out/docs/*'
+      azureSubscription: 'viperdan-01(3fa83f0a-a4d6-46b0-9bbd-e9f6835cc419)'
+      Destination: 'AzureBlob'
+      storage: 'targetcopydisk112'
+      ContainerName: 'ps-docs'
+
