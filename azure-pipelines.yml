@@ -8,9 +8,8 @@ jobs:
 - job: 'analyze_arm'
   displayName: 'Analyze templates'
   pool:
-    vmImage: 'ubuntu-18.04'
+    vmImage: 'windows-2019'
   steps:
-
   # STEP 1: Generate Markdowns using PSDocs
   - powershell: | 
       Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
