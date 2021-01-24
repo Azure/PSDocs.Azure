@@ -1,9 +1,6 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 jobs:
 - job: 'analyze_arm'
   displayName: 'Analyze templates'
