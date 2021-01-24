@@ -162,7 +162,7 @@ i.e. `templates/storage/v1/template.json`.
 The example finds all the Azure template files and outputs a markdown file for each in `out/docs/`.
 An example of the generated markdown is available [here](templates/storage/v1/README.md)
 
-### using with Azure Pipelines
+### Using with Azure Pipelines
 The following example shows how to setup Azure Pipelines to generate Readme.md.  This example copies the generated markdowns to a designated blob storage. 
 
 - Create a new YAML pipeline with the Starter pipeline template.
@@ -172,6 +172,8 @@ The following example shows how to setup Azure Pipelines to generate Readme.md. 
   - Generate a standard name of the markdown file i.e. <name>_<version>.md
   - Generate the markdown to a specific directory
 - Add an AzureFileCopy task to copy the generated markdown to an Azure Storage Blob container
+
+For example:
 
 ```yaml
 # Example: .azure-pipelines/psdocs-blobstorage.yaml
@@ -207,6 +209,15 @@ jobs:
       storage: '<storageaccountname>' 
       ContainerName: 'ps-docs'
 ```
+
+### Using with GitHub Actions
+The following example shows how to setup GitHub Actions to validate templates pre-flight.
+
+See Creating a workflow file.
+ using PowerShell.
+Reference Microsoft/ps-rule with modules: 'PSRule.Rules.Azure'.
+For example:
+
 
 ## Changes and versioning
 
