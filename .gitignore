@@ -5,4 +5,4 @@ reports/
 **/bin/
 **/obj/
 *.user
-#.azure-pipelines/psdocs-blobstorage.yaml
+.azure-pipelines/psdocs-blobstorage.yaml
