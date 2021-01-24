@@ -1,6 +1,7 @@
 name: Generate ARM templates docs
 on:
-- pull_request
+  push:
+    branches: [ main ]
 jobs:
   analyze_arm:
     name: Generate ARM template docs
