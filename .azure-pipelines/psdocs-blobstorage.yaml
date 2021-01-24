@@ -23,7 +23,7 @@ jobs:
     
   # STEP 2: Copy files to a storage account
   - task: AzureFileCopy@4
-    displayName: 'Copy files and publish to a storage account'
+    displayName: 'Copy files to a storage account'
     inputs:
       SourcePath: 'out/docs/*'
       azureSubscription: 'psdocstest'
