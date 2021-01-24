@@ -163,7 +163,7 @@ The example finds all the Azure template files and outputs a markdown file for e
 An example of the generated markdown is available [here](templates/storage/v1/README.md)
 
 ### Using with Azure Pipelines
-The following example shows how to setup Azure Pipelines to generate Readme.md.  This example copies the generated markdowns to a designated blob storage. 
+The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format.  This example copies the generated markdown files to a designated blob storage. 
 
 - Create a new YAML pipeline with the Starter pipeline template.
 - Add a PowerShell task to:
