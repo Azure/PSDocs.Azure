@@ -1,0 +1,33 @@
+name: Generate ARM templates docs
+on:
+- pull_request
+jobs:
+  analyze_arm:
+    name: Generate ARM template docs
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    # STEP 1: Generate Markdowns using PSDocs
+    - name: Generate ARM markdowns
+      run: | 
+       Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
+       # Scan for Azure template file recursively in the templates/ directory
+       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+         $template = Get-Item -Path $_.TemplateFile;
+         $templateName = $template.Directory.Parent.Name;
+         $version = $template.Directory.Name;
+         $docName = "$($templateName)_$version";
+       # Generate markdown
+         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+       }
+      shell: pwsh
+
+    # STEP 2: Copy files to a storage account
+    - name: Copy files to a storage account
+      uses: bacongobbler/azure-blob-storage-upload@v1.1.1
+      with:
+        connection_string: ${{ secrets.STORAGEACCOUNTSECRET }}
+        container_name: ps-docs
+        source_dir: 'out/docs/*'
