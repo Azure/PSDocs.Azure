@@ -29,7 +29,7 @@ jobs:
   - task: AzureFileCopy@4
     inputs:
       SourcePath: 'out/docs/*'
-      azureSubscription: 'viperdan-01(3fa83f0a-a4d6-46b0-9bbd-e9f6835cc419)'
+      azureSubscription: 'psdocstest'
       Destination: 'AzureBlob'
       storage: 'targetcopydisk112'
       ContainerName: 'ps-docs'
