@@ -1,9 +1,8 @@
-trigger:
-- main
+# Example: .azure-pipelines/psdocs-blobstorage.yaml
 
 jobs:
-- job: 'analyze_arm'
-  displayName: 'Analyze templates'
+- job: 'generate_arm_template_documentation'
+  displayName: 'Generate ARM template docs'
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -22,12 +21,13 @@ jobs:
        }
     displayName: 'Export template data'
     
-  # STEP 2: Copy files and publish to artefacts
+  # STEP 2: Copy files and publish to a storage account
   - task: AzureFileCopy@4
+    displayName: 'Copy files and publish to a storage account'
     inputs:
       SourcePath: 'out/docs/*'
       azureSubscription: 'psdocstest'
       Destination: 'AzureBlob'
-      storage: 'targetcopydisk112'
+      storage: 'targetcopydisk112' 
       ContainerName: 'ps-docs'
 

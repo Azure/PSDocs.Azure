@@ -82,7 +82,16 @@ For example:
         }
     },
     "resources": [
-    ]
+    ],
+    "outputs": {
+        "resourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+            "metadata": {
+                "description": "A unique resource identifier for the storage account."
+            }
+        }
+    }
 }
 ```
 
@@ -108,6 +117,7 @@ Field | Scope | Type | Description
 `description` | Parameter | `string` | Used as the description for the parameter.
 `example`     | Parameter | `string`, `boolean`, `object`, or `array` | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead.
 `ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.
+`description` | Output    | `string`  | Used as the description for the output.
 
 An example of an Azure Storage Account template with metadata included is available [here](templates/storage/v1/template.json).
 
@@ -151,6 +161,52 @@ i.e. `templates/storage/v1/template.json`.
 
 The example finds all the Azure template files and outputs a markdown file for each in `out/docs/`.
 An example of the generated markdown is available [here](templates/storage/v1/README.md)
+
+### using with Azure Pipelines
+The following example shows how to setup Azure Pipelines to generate Readme.md.  This example copies the generated markdowns to a designated blob storage. 
+
+- Create a new YAML pipeline with the Starter pipeline template.
+- Add a PowerShell task to:
+  - Install [PSDocs.Azure extension][extension].
+  - Scan for Azure template file recursively in the templates/ directory
+  - Generate a standard name of the markdown file i.e. <name>_<version>.md
+  - Generate the markdown to a specific directory
+- Add an AzureFileCopy task to copy the generated markdown to an Azure Storage Blob container
+
+```yaml
+# Example: .azure-pipelines/psdocs-blobstorage.yaml
+
+jobs:
+- job: 'generate_arm_template_documentation'
+  displayName: 'Generate ARM template docs'
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  # STEP 1: Generate Markdowns using PSDocs
+  - powershell: | 
+      Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
+       # Scan for Azure template file recursively in the templates/ directory
+       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+         $template = Get-Item -Path $_.TemplateFile;
+         $templateName = $template.Directory.Parent.Name;
+         $version = $template.Directory.Name;
+         $docName = "$($templateName)_$version";
+       # Generate markdown
+         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+       }
+    displayName: 'Export template data'
+    
+  # STEP 2: Copy files to a storage account
+  - task: AzureFileCopy@4
+    displayName: 'Copy files to a storage account blob container'
+    inputs:
+      SourcePath: 'out/docs/*'
+      azureSubscription: 'psdocstest'
+      Destination: 'AzureBlob'
+      storage: '<storageaccountname>' 
+      ContainerName: 'ps-docs'
+```
 
 ## Changes and versioning
 
