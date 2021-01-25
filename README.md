@@ -163,15 +163,17 @@ The example finds all the Azure template files and outputs a markdown file for e
 An example of the generated markdown is available [here](templates/storage/v1/README.md)
 
 ### Using with Azure Pipelines
-The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format.  This example copies the generated markdown files to a designated blob storage. 
+
+The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format.
+This example copies the generated markdown files to a designated blob storage. 
 
 - Create a new YAML pipeline with the Starter pipeline template.
 - Add a PowerShell task to:
-  - Install [PSDocs.Azure extension][extension].
-  - Scan for Azure template file recursively in the templates/ directory
-  - Generate a standard name of the markdown file i.e. <name>_<version>.md
-  - Generate the markdown to a specific directory
-- Add an [AzureFileCopy task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops) to copy the generated markdown to an Azure Storage Blob container
+  - Install [PSDocs.Azure][module] module.
+  - Scan for Azure template file recursively in the templates/ directory.
+  - Generate a standard name of the markdown file. i.e. `<name>_<version>`.md
+  - Generate the markdown to a specific directory.
+- Add an [AzureFileCopy task](https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops) to copy the generated markdown to an Azure Storage Blob container.
 
 For example:
 
@@ -187,16 +189,16 @@ jobs:
   # STEP 1: Generate Markdowns using PSDocs
   - powershell: | 
       Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
-       # Scan for Azure template file recursively in the templates/ directory
-       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
-       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
-         $template = Get-Item -Path $_.TemplateFile;
-         $templateName = $template.Directory.Parent.Name;
-         $version = $template.Directory.Name;
-         $docName = "$($templateName)_$version";
-       # Generate markdown
-         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
-       }
+        # Scan for Azure template file recursively in the templates/ directory
+        Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+        # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+        $template = Get-Item -Path $_.TemplateFile;
+        $templateName = $template.Directory.Parent.Name;
+        $version = $template.Directory.Name;
+        $docName = "$($templateName)_$version";
+        # Generate markdown
+        Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+      }
     displayName: 'Export template data'
     
   # STEP 2: Copy files to a storage account
@@ -211,25 +213,29 @@ jobs:
 ```
 
 ### Using with GitHub Actions
-The following example shows how to setup GitHub Actions to copy generated markdowns to an Azure blob storage account.
 
-- Create a new YAML pipeline with the Starter pipeline template.
-- Add a PowerShell task to:
-  - Install [PSDocs.Azure extension][extension].
-  - Scan for Azure template file recursively in the templates/ directory
-  - Generate a standard name of the markdown file i.e. <name>_<version>.md
-  - Generate the markdown to a specific directory
-- Use an [Azure Blob Storage Upload action](https://github.com/marketplace/actions/azure-blob-storage-upload) to copy the generated markdown to an Azure Storage Blob container
+The following example shows how to setup GitHub Actions to copy generated markdown files to an Azure blob storage account.
+
+- See [Creating a workflow file][create-workflow] to create an empty workflow file.
+- Add a PowerShell step to:
+  - Install [PSDocs.Azure][module] module.
+  - Scan for Azure template file recursively in the templates/ directory.
+  - Generate a standard name of the markdown file. i.e. `<name>_<version>`.md
+  - Generate the markdown to a specific directory.
+- Set the `STORAGEACCOUNTSECRET` action secret.
+- Use an [Azure Blob Storage Upload action](https://github.com/marketplace/actions/azure-blob-storage-upload) to copy the generated markdown to an Azure Storage Blob container.
 
 For example:
 
 ```yaml
+# Example: .github/workflows/arm-docs.yaml
+
 name: Generate ARM templates docs
 on:
   push:
     branches: [ main ]
 jobs:
-  analyze_arm:
+  arm_docs:
     name: Generate ARM template docs
     runs-on: ubuntu-latest
     steps:
@@ -238,17 +244,17 @@ jobs:
     # STEP 1: Generate Markdowns using PSDocs
     - name: Generate ARM markdowns
       run: | 
-       Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
-       # Scan for Azure template file recursively in the templates/ directory
-       Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
-       # Generate a standard name of the markdown file. i.e. <name>_<version>.md
-         $template = Get-Item -Path $_.TemplateFile;
-         $templateName = $template.Directory.Parent.Name;
-         $version = $template.Directory.Name;
-         $docName = "$($templateName)_$version";
-       # Generate markdown
-         Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
-       }
+        Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force;
+        # Scan for Azure template file recursively in the templates/ directory
+        Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+          # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+          $template = Get-Item -Path $_.TemplateFile;
+          $templateName = $template.Directory.Parent.Name;
+          $version = $template.Directory.Name;
+          $docName = "$($templateName)_$version";
+          # Generate markdown
+          Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName;
+        }
       shell: pwsh
 
     # STEP 2: Copy files to a storage account
@@ -297,3 +303,4 @@ This project is [licensed under the MIT License](LICENSE).
 [ci-badge]: https://dev.azure.com/PSDocs/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
 [engine]: https://github.com/BernieWhite/PSDocs
+[create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
