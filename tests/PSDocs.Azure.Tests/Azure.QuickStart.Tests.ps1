@@ -27,6 +27,7 @@ Describe 'Templates' -Tag 'QuickStart' {
         It 'Generates expected output' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
+                Option = (New-PSDocumentOption)
             }
 
             Push-Location -Path $here;
