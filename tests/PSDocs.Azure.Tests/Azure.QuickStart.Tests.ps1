@@ -27,7 +27,6 @@ Describe 'Templates' -Tag 'QuickStart' {
         It 'Generates expected output' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
-                Option = @{ 'Configuration.AZURE_QUICKSTARTTEMPLATE' = $True }
             }
 
             Push-Location -Path $here;
