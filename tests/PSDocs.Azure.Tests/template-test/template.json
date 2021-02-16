@@ -1,0 +1,366 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "name": "Storage Account",
+        "description": "Create or update a Storage Account."
+    },
+    "parameters": {
+        "storageAccountName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. The name of the Storage Account."
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Optional. The Azure region to deploy to.",
+                "example": "EastUS",
+                "ignore": true
+            }
+        },
+        "sku": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Standard_GRS"
+            ],
+            "metadata": {
+                "description": "Optional. Create the Storage Account as LRS or GRS."
+            }
+        },
+        "suffixLength": {
+            "type": "int",
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 13,
+            "metadata": {
+                "description": "Optional. Determine how many additional characters are added to the storage account name as a suffix.",
+                "ignore": true
+            }
+        },
+        "containers": {
+            "type": "array",
+            "defaultValue": [
+            ],
+            "metadata": {
+                "description": "Optional. An array of storage containers to create on the storage account.",
+                "example": [
+                    {
+                        "name": "logs",
+                        "publicAccess": "None",
+                        "metadata": {}
+                    }
+                ]
+            }
+        },
+        "lifecycleRules": {
+            "type": "array",
+            "defaultValue": [
+            ],
+            "metadata": {
+                "description": "Optional. An array of lifecycle management policies for the storage account.",
+                "example": {
+                    "enabled": true,
+                    "name": "<rule_name>",
+                    "type": "Lifecycle",
+                    "definition": {
+                        "actions": {
+                            "baseBlob": {
+                                "delete": {
+                                    "daysAfterModificationGreaterThan": 7
+                                }
+                            }
+                        },
+                        "filters": {
+                            "blobTypes": [
+                                "blockBlob"
+                            ],
+                            "prefixMatch": [
+                                "logs/"
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "blobSoftDeleteDays": {
+            "type": "int",
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 365,
+            "metadata": {
+                "description": "Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.",
+                "example": 7
+            }
+        },
+        "containerSoftDeleteDays": {
+            "type": "int",
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 365,
+            "metadata": {
+                "description": "Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.",
+                "example": 7
+            }
+        },
+        "shares": {
+            "type": "array",
+            "defaultValue": [
+            ],
+            "metadata": {
+                "description": "Optional. An array of file shares to create on the storage account.",
+                "example": [
+                    {
+                        "name": "<share_name>",
+                        "shareQuota": 5,
+                        "metadata": {}
+                    }
+                ]
+            }
+        },
+        "useLargeFileShares": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. Determines if large file shares are enabled. This can not be disabled once enabled.",
+                "ignore": true
+            }
+        },
+        "shareSoftDeleteDays": {
+            "type": "int",
+            "defaultValue": 0,
+            "minValue": 0,
+            "maxValue": 365,
+            "metadata": {
+                "description": "Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.",
+                "example": 7
+            }
+        },
+        "allowBlobPublicAccess": {
+            "type": "bool",
+            "defaultValue": false,
+            "metadata": {
+                "description": "Optional. Determines if any containers can be configured with the anonymous access types of blob or container."
+            }
+        },
+        "keyVaultPrincipalId": {
+            "type": "string",
+            "defaultValue": "",
+            "metadata": {
+                "description": "Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.",
+                "ignore": true
+            }
+        },
+        "tags": {
+            "type": "object",
+            "defaultValue": {
+            },
+            "metadata": {
+                "description": "Optional. Tags to apply to the resource.",
+                "example": {
+                    "service": "<service_name>",
+                    "env": "prod"
+                }
+            }
+        }
+    },
+    "variables": {
+        "storageAccountName": "[concat(parameters('storageAccountName'), if(greater(parameters('suffixLength'), 0), substring(uniqueString(resourceGroup().id), 0, parameters('suffixLength')), ''))]",
+        "blobSoftDeleteLookup": {
+            "true": {
+                "enabled": true,
+                "days": "[parameters('blobSoftDeleteDays')]"
+            },
+            "false": {
+                "enabled": false
+            }
+        },
+        "containerSoftDeleteLookup": {
+            "true": {
+                "enabled": true,
+                "days": "[parameters('containerSoftDeleteDays')]"
+            },
+            "false": null
+        },
+        "shareSoftDeleteLookup": {
+            "true": {
+                "enabled": true,
+                "days": "[parameters('shareSoftDeleteDays')]"
+            },
+            "false": {
+                "enabled": false
+            }
+        },
+        "largeFileSharesState": "[if(parameters('useLargeFileShares'), 'Enabled', 'Disabled')]",
+        "storageAccountKeyOperatorRoleId": "[resourceId('Microsoft.Authorization/roleDefinitions', '81a9662b-bebf-436f-a333-f67b29880f12')]"
+    },
+    "resources": [
+        {
+            "comments": "Storage Account",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[variables('storageAccountName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('sku')]",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [
+                    ],
+                    "ipRules": [
+                    ],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot",
+                "largeFileSharesState": "[variables('largeFileSharesState')]",
+                "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
+                "minimumTlsVersion": "TLS1_2"
+            },
+            "tags": "[parameters('tags')]",
+            "resources": [
+                {
+                    "comments": "Configure blob storage services",
+                    "type": "Microsoft.Storage/storageAccounts/blobServices",
+                    "apiVersion": "2019-06-01",
+                    "name": "[concat(variables('storageAccountName'), '/default')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "sku": {
+                        "name": "[parameters('sku')]"
+                    },
+                    "properties": {
+                        "cors": {
+                            "corsRules": [
+                            ]
+                        },
+                        "deleteRetentionPolicy": "[variables('blobSoftDeleteLookup')[string(greater(parameters('blobSoftDeleteDays'), 0))]]",
+                        "containerDeleteRetentionPolicy": "[variables('containerSoftDeleteLookup')[string(greater(parameters('containerSoftDeleteDays'), 0))]]"
+                    }
+                },
+                {
+                    "comments": "Configure file storage services",
+                    "type": "Microsoft.Storage/storageAccounts/fileServices",
+                    "apiVersion": "2019-06-01",
+                    "name": "[concat(variables('storageAccountName'), '/default')]",
+                    "dependsOn": [
+                        "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+                    ],
+                    "sku": {
+                        "name": "[parameters('sku')]"
+                    },
+                    "properties": {
+                        "shareDeleteRetentionPolicy": "[variables('shareSoftDeleteLookup')[string(greater(parameters('shareSoftDeleteDays'), 0))]]"
+                    }
+                }
+            ]
+        },
+        {
+            "comments": "Create a blob container",
+            "condition": "[not(equals(length(parameters('containers')), 0))]",
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[if(equals(length(parameters('containers')), 0), concat(variables('storageAccountName'), '/default/empty'), concat(variables('storageAccountName'), '/default/', parameters('containers')[copyIndex('containerIndex')].name))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "copy": {
+                "mode": "Parallel",
+                "count": "[if(equals(length(parameters('containers')), 0), 1, length(parameters('containers')))]",
+                "name": "containerIndex"
+            },
+            "properties": {
+                "metadata": "[parameters('containers')[copyIndex('containerIndex')].metadata]",
+                "publicAccess": "[parameters('containers')[copyIndex('containerIndex')].publicAccess]"
+            }
+        },
+        {
+            "comments": "Create blob lifecycle policy",
+            "condition": "[not(empty(parameters('lifecycleRules')))]",
+            "name": "[concat(variables('storageAccountName'), '/default')]",
+            "type": "Microsoft.Storage/storageAccounts/managementPolicies",
+            "apiVersion": "2019-06-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "policy": {
+                    "rules": "[parameters('lifecycleRules')]"
+                }
+            }
+        },
+        {
+            "comments": "Create a share",
+            "condition": "[not(equals(length(parameters('shares')), 0))]",
+            "type": "Microsoft.Storage/storageAccounts/fileServices/shares",
+            "apiVersion": "2019-06-01",
+            "name": "[if(equals(length(parameters('shares')), 0), concat(variables('storageAccountName'), '/default/empty'), concat(variables('storageAccountName'), '/default/', parameters('shares')[copyIndex('shareIndex')].name))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/fileServices', variables('storageAccountName'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "copy": {
+                "mode": "Parallel",
+                "count": "[if(equals(length(parameters('shares')), 0), 1, length(parameters('shares')))]",
+                "name": "shareIndex"
+            },
+            "properties": {
+                "metadata": "[parameters('shares')[copyIndex('shareIndex')].metadata]",
+                "shareQuota": "[parameters('shares')[copyIndex('shareIndex')].shareQuota]"
+            }
+        },
+        {
+            "comments": "Delegate Key Vault permission to rotate keys",
+            "condition": "[not(empty(parameters('keyVaultPrincipalId')))]",
+            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', guid(parameters('keyVaultPrincipalId'), variables('storageAccountKeyOperatorRoleId')))]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
+            ],
+            "properties": {
+                "roleDefinitionId": "[variables('storageAccountKeyOperatorRoleId')]",
+                "principalId": "[parameters('keyVaultPrincipalId')]",
+                "scope": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+                "principalType": "ServicePrincipal"
+            }
+        }
+    ],
+    "outputs": {
+        "blobEndpoint": {
+            "type": "string",
+            "value": "[reference(resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName')), '2019-06-01').primaryEndpoints.blob]",
+            "metadata": {
+                "description": "A URI to the blob storage endpoint."
+            }
+        },
+        "resourceId": {
+            "type": "string",
+            "value": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]",
+            "metadata": {
+                "description": "A unique resource identifier for the storage account."
+            }
+        }
+    }
+}

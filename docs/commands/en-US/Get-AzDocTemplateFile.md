@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get Azure template files.
+Get Azure template files within a directory structure.
 
 ## SYNTAX
 

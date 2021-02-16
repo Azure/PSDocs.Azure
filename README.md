@@ -266,6 +266,23 @@ jobs:
         source_dir: 'out/docs/*'
 ```
 
+## Language reference
+
+PSDocs for Azure extends PowerShell with the following cmdlets and concepts.
+
+### Commands
+
+The following commands exist in the `PSDocs.Azure` module:
+
+- [Get-AzDocTemplateFile](docs/commands/en-US/Get-AzDocTemplateFile.md) - Get Azure template files within a directory structure.
+
+### Concepts
+
+The following conceptual topics exist in the `PSDocs.Azure` module:
+
+- [Badges](docs/concepts/en-US/about_PSDocs_Azure_Badges.md)
+- [Configuration](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md)
+  - [AZURE_USE_PARAMETER_FILE_SNIPPET](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_parameter_file_snippet)
 
 ## Changes and versioning
 

@@ -2,6 +2,18 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.2.0-B2101002:
+
+- New features:
+  - Added the ability to disable parameter file snippet. [#31](https://github.com/Azure/PSDocs.Azure/issues/31)
+    - To disable parameter file snippet set configuration `AZURE_USE_PARAMETER_FILE_SNIPPET`.
+    - See [about_PSDocs_Azure_Configuration] for details.
+  - Added the ability to include badges in template document. [#30](https://github.com/Azure/PSDocs.Azure/issues/30)
+    - Set the `.ps-docs/azure-template-badges.md` file to include badge content.
+    - See [about_PSDocs_Azure_Badges] for details.
+- Engineering:
+  - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42)
+
 ## v0.2.0-B2101002 (pre-release)
 
 What's changed since v0.1.0:
@@ -28,3 +40,6 @@ What's changed since pre-release v0.1.0-B2012006:
 ## v0.1.0-B2012006 (pre-release)
 
 - Initial pre-release.
+
+[about_PSDocs_Azure_Configuration]: docs/concepts/en-US/about_PSDocs_Azure_Configuration.md
+[about_PSDocs_Azure_Badges]: docs/concepts/en-US/about_PSDocs_Azure_Badges.md
