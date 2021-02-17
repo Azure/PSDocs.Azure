@@ -25,16 +25,33 @@ The contents of this file is automatically inserted in generated output after th
 ### Include badges
 
 To include badge images use standard markdown syntax within the `azure-template-badges.md` file.
+
+> Markdown uses links to reference images.
+> A person viewing the page must have permissions to view the source image.
+> If not, the badge may be shown as a broken or placeholder image.
+
 For example:
 
 ```markdown
 ![label](https://image_uri)
 ```
 
+For example, a Github Actions badge for PSDocs.Azure would be:
+
+```markdown
+![Analyze](https://github.com/Azure/PSDocs.Azure/workflows/Analyze/badge.svg)
+```
+
 To include badges images with a clickable link use standard markdown syntax:
 
 ```markdown
 [![label](https://image_uri)](https://link_uri)
+```
+
+For example, an Azure Pipelines badge for PSDocs.Azure would be:
+
+```markdown
+[![Build Status](https://dev.azure.com/PSDocs/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=refs%2Fpull%2F44%2Fmerge)](https://dev.azure.com/PSDocs/PSDocs.Azure/_build/latest?definitionId=1&branchName=refs%2Fpull%2F44%2Fmerge)
 ```
 
 ### Dynamic links
