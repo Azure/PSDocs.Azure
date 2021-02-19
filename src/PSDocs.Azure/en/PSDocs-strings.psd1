@@ -12,4 +12,5 @@
     Type = 'Type'
     Name = 'Name'
     DefaultTitle = 'Azure template'
+    ParameterFile = 'Parameter file'
 }

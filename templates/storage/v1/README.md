@@ -104,6 +104,8 @@ resourceId | string | A unique resource identifier for the storage account.
 
 ## Snippets
 
+### Parameter file
+
 ```json
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",

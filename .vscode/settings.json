@@ -22,7 +22,10 @@
         "**/.azure-pipelines/jobs/*.yaml": "azure-pipelines"
     },
     "cSpell.words": [
-        "cmdlet"
+        "Concat",
+        "Quickstart",
+        "cmdlet",
+        "cmdlets"
     ],
     "cSpell.enabledLanguageIds": [
         "csharp",

@@ -47,11 +47,7 @@ function global:GetTemplateExample {
             $Path = Join-Path -Path $PWD -ChildPath $Path;
         }
         $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        $normalPath = $Path;
-        if ($normalPath.StartsWith($PWD, [System.StringComparison]::InvariantCultureIgnoreCase)) {
-            $normalPath = $Path.Substring(([String]$PWD).Length);
-            $normalPath = ($normalPath -replace '\\', '/').TrimStart('/');
-        }
+        $normalPath = GetTemplateRelativePath -Path $Path;
         $baseContent = [PSCustomObject]@{
             '$schema'= "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json`#"
             contentVersion = '1.0.0.0'
@@ -68,7 +64,7 @@ function global:GetTemplateExample {
                 continue;
             }
 
-            if ($property.Value.type -eq 'securestring') {
+            if ($property.Value.type -eq 'secureString') {
                 $param = [PSCustomObject]@{
                     reference = [PSCustomObject]@{
                         keyVault = [PSCustomObject]@{
@@ -106,6 +102,27 @@ function global:GetTemplateExample {
             $baseContent.parameters[$property.Name] = $param
         }
         $baseContent;
+    }
+}
+
+# Synopsis: Function to get the relative path of the template
+function global:GetTemplateRelativePath {
+    [CmdletBinding()]
+    [OutputType([String])]
+    param (
+        [Parameter(Mandatory = $True)]
+        [String]$Path
+    )
+    process {
+        if (![System.IO.Path]::IsPathRooted($Path)) {
+            $Path = [System.IO.Path]::Combine($PWD, $Path);
+        }
+        $normalPath = [System.IO.Path]::GetFullPath($Path);
+        if ($normalPath.StartsWith($PWD, [System.StringComparison]::InvariantCultureIgnoreCase)) {
+            $normalPath = $normalPath.Substring(([String]$PWD).Length);
+            $normalPath = $normalPath.Replace('\', '/').TrimStart('/')
+        }
+        return $normalPath;
     }
 }
 
@@ -164,6 +181,17 @@ Document 'README' {
         Title $LocalizedData.DefaultTitle
     }
 
+    # Add badges
+    $relativePath = (Split-Path (GetTemplateRelativePath -Path $templatePath) -Parent).Replace('\', '/').TrimStart('/');
+    $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
+    Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
+        '{{ template_path }}' = $relativePath
+        '{{ template_path_encoded }}' = $relativePathEncoded
+    }
+
+    Write-Verbose $relativePath
+    Write-Verbose $relativePathEncoded
+
     # Write opening line
     if ($Null -ne $metadata -and [bool]$metadata.PSObject.Properties['description']) {
         $metadata.description
@@ -198,9 +226,15 @@ Document 'README' {
             @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
     }
 
-    # Insert snippet
-    $example = GetTemplateExample -Path $templatePath;
+    # Insert snippets
     Section $LocalizedData.Snippets {
-        $example | Code 'json'
+
+        # Add parameter file snippet
+        if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_USE_PARAMETER_FILE_SNIPPET', $True)) {
+            Section $LocalizedData.ParameterFile {
+                $example = GetTemplateExample -Path $templatePath;
+                $example | Code 'json'
+            }
+        }
     }
 }
