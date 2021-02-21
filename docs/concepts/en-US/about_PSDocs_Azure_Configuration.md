@@ -48,6 +48,38 @@ configuration:
   AZURE_USE_PARAMETER_FILE_SNIPPET: false
 ```
 
+
+- [AZURE_USE_COMMAND_LINE_SNIPPET](#azure_use_command_line_snippet)
+
+### AZURE_USE_COMMAND_LINE_SNIPPET
+
+This configuration option determines if a command line snippet is added to documentation.
+By default, this command line snippet is not generated.
+To generate command line snippet, set this option to `true`.
+
+Syntax:
+
+```yaml
+configuration:
+  AZURE_USE_COMMAND_LINE_SNIPPET: bool # Either true or false
+```
+
+Default:
+
+```yaml
+# YAML: The default AZURE_USE_COMMAND_LINE_SNIPPET configuration option
+configuration:
+  AZURE_USE_COMMAND_LINE_SNIPPET: true
+```
+
+Example:
+
+```yaml
+# YAML: To prevent command line snippet from being generated
+configuration:
+  AZURE_USE_COMMAND_LINE_SNIPPET: false
+```
+
 ## NOTE
 
 An online version of this document is available at https://github.com/Azure/PSDocs.Azure/blob/main/docs/concepts/en-US/about_PSDocs_Azure_Configuration.md.
