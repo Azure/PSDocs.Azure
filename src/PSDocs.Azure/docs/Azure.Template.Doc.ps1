@@ -237,7 +237,7 @@ Document 'README' {
             }
         }
         # Add command line snippet
-        if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_USE_COMMAND_LINE_SNIPPET', $True)) {
+        if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_USE_COMMAND_LINE_SNIPPET', $False)) {
             Section $LocalizedData.CommandLine {
                 Section 'PowerShell' {
                     'New-AzResourceGroupDeployment -Name <deployment-name> -ResourceGroupName <resource-group-name> -TemplateFile <path-to-template> -TemplateParameterFile <path-to-templateparameter>' | Code powershell

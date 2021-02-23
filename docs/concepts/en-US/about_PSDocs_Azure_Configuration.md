@@ -18,6 +18,7 @@ For details of setting configuration options see [PSDocs options][options]
 The following configurations options are available for use:
 
 - [AZURE_USE_PARAMETER_FILE_SNIPPET](#azure_use_parameter_file_snippet)
+- [AZURE_USE_COMMAND_LINE_SNIPPET](#azure_use_command_line_snippet)
 
 ### AZURE_USE_PARAMETER_FILE_SNIPPET
 
@@ -48,8 +49,6 @@ configuration:
   AZURE_USE_PARAMETER_FILE_SNIPPET: false
 ```
 
-
-- [AZURE_USE_COMMAND_LINE_SNIPPET](#azure_use_command_line_snippet)
 
 ### AZURE_USE_COMMAND_LINE_SNIPPET
 
