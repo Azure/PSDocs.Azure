@@ -67,17 +67,17 @@ configuration:
 Default:
 
 ```yaml
-# YAML: The default AZURE_USE_COMMAND_LINE_SNIPPET configuration option
+# YAML: The default AZURE_USE_COMMAND_LINE_SNIPPET configuration option is to disable generation
 configuration:
-  AZURE_USE_COMMAND_LINE_SNIPPET: true
+  AZURE_USE_COMMAND_LINE_SNIPPET: false
 ```
 
 Example:
 
 ```yaml
-# YAML: To prevent command line snippet from being generated
+# YAML: To enable command line snippet
 configuration:
-  AZURE_USE_COMMAND_LINE_SNIPPET: false
+  AZURE_USE_COMMAND_LINE_SNIPPET: true
 ```
 
 ## NOTE

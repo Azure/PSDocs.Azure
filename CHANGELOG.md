@@ -4,7 +4,7 @@
 
 - New features:
   - Added the ability to enable manual command line snippet. [#40](https://github.com/Azure/PSDocs.Azure/issues/40)
-    - To disable parameter file snippet set configuration `AZURE_USE_COMMAND_LINE_SNIPPET`.
+    - To enable parameter file snippet set configuration `AZURE_USE_COMMAND_LINE_SNIPPET`.
     - See [about_PSDocs_Azure_Configuration] for details.
 
 ## v0.2.0-B2102005 (pre-release)
