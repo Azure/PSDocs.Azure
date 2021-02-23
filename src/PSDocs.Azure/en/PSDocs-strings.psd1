@@ -13,4 +13,5 @@
     Name = 'Name'
     DefaultTitle = 'Azure template'
     ParameterFile = 'Parameter file'
+    CommandLine = 'Command line'
 }

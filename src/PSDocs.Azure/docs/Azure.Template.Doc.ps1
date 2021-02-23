@@ -236,5 +236,16 @@ Document 'README' {
                 $example | Code 'json'
             }
         }
+        # Add command line snippet
+        if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_USE_COMMAND_LINE_SNIPPET', $False)) {
+            Section $LocalizedData.CommandLine {
+                Section 'PowerShell' {
+                    'New-AzResourceGroupDeployment -Name <deployment-name> -ResourceGroupName <resource-group-name> -TemplateFile <path-to-template> -TemplateParameterFile <path-to-templateparameter>' | Code powershell
+                }
+                Section 'Azure CLI' {
+                    'az group deployment create --name <deployment-name> --resource-group <resource-group-name> --template-file <path-to-template> --parameters @<path-to-templateparameterfile>' | Code text
+                }
+            }
+        }
     }
 }

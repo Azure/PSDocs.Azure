@@ -283,6 +283,7 @@ The following conceptual topics exist in the `PSDocs.Azure` module:
 - [Badges](docs/concepts/en-US/about_PSDocs_Azure_Badges.md)
 - [Configuration](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md)
   - [AZURE_USE_PARAMETER_FILE_SNIPPET](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_parameter_file_snippet)
+  - [AZURE_USE_COMMAND_LINE_SNIPPET](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_command_line_snippet)
 
 ## Changes and versioning
 
