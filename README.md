@@ -24,15 +24,22 @@ Support for this project/ product is limited to the resources listed above.
 
 ## Getting the modules
 
-This project requires the `PSDocs` PowerShell module. For details on each see [install].
+This project requires the `PSDocs` PowerShell module.
+For details on each see [install].
 
 You can download and install these modules from the PowerShell Gallery.
 
-Module             | Description | Downloads / instructions
-------             | ----------- | ------------------------
+Module       | Description | Downloads / instructions
+------       | ----------- | ------------------------
 PSDocs.Azure | Generate documentation from Azure infrastructure as code (IaC) artifacts. | [latest][module] / [instructions][install]
 
 ## Getting started
+
+The follow example uses PSDocs for Azure to generate markdown from an Azure template.
+The source template and generated output are provided below.
+
+- [Azure template][source-template]
+- [Output markdown][output-template]
 
 ### Annotate templates file
 
@@ -119,7 +126,7 @@ Field | Scope | Type | Description
 `ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.
 `description` | Output    | `string`  | Used as the description for the output.
 
-An example of an Azure Storage Account template with metadata included is available [here](templates/storage/v1/template.json).
+An example of an Azure Storage Account template with metadata included is available [here][source-template].
 
 ### Running locally
 
@@ -160,12 +167,12 @@ In this example template files are stored in a directory structure such as `temp
 i.e. `templates/storage/v1/template.json`.
 
 The example finds all the Azure template files and outputs a markdown file for each in `out/docs/`.
-An example of the generated markdown is available [here](templates/storage/v1/README.md)
+An example of the generated markdown is available [here][output-template]
 
 ### Using with Azure Pipelines
 
 The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format.
-This example copies the generated markdown files to a designated blob storage. 
+This example copies the generated markdown files to a designated blob storage.
 
 - Create a new YAML pipeline with the Starter pipeline template.
 - Add a PowerShell task to:
@@ -322,3 +329,5 @@ This project is [licensed under the MIT License](LICENSE).
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
 [engine]: https://github.com/BernieWhite/PSDocs
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
+[source-template]: templates/storage/v1/template.json
+[output-template]: templates/storage/v1/README.md
