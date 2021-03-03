@@ -137,10 +137,10 @@ To run PSDocs for Azure locally use the `Invoke-PSDocument` cmdlet.
 Import-Module PSDocs.Azure;
 
 # Generate markdown
-Invoke-PSDocument -Module PSDocs.Azure -InputObject '<template_file_path>';
+Invoke-PSDocument -Module PSDocs.Azure -InputObject '<template_file_path>' -OutputPath out/docs/;
 ```
 
-This will generate a `README.md` with the generated markdown.
+This will generate a `README.md` in out/docs directory with the generated markdown (also creates out/docs/ directory if it does not exist).
 
 ### Scanning for templates
 
