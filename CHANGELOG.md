@@ -24,6 +24,9 @@ What's changed since v0.1.0:
 - Engineering:
   - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42)
 
+- General Improvements
+  - Minor update to the documentation to include OutputPath to generate README.md [#50](https://github.com/Azure/PSDocs.Azure/issues/50)
+
 ## v0.2.0-B2102012 (pre-release)
 
 What's changed since pre-release v0.2.0-B2102012:
