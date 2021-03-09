@@ -2,6 +2,31 @@
 
 ## Unreleased
 
+## v0.2.0
+What's changed since v0.1.0:
+
+- New Features:
+  - Added the ability to enable manual command line snippet. [#40](https://github.com/Azure/PSDocs.Azure/issues/40)
+    - To enable parameter file snippet set configuration `AZURE_USE_COMMAND_LINE_SNIPPET`.
+    - See [about_PSDocs_Azure_Configuration] for details.
+  - Added the ability to disable parameter file snippet. [#31](https://github.com/Azure/PSDocs.Azure/issues/31)
+    - To disable parameter file snippet set configuration `AZURE_USE_PARAMETER_FILE_SNIPPET`.
+    - See [about_PSDocs_Azure_Configuration] for details.
+  - Added the ability to include badges in template document. [#30](https://github.com/Azure/PSDocs.Azure/issues/30)
+    - Set the `.ps-docs/azure-template-badges.md` file to include badge content.
+    - See [about_PSDocs_Azure_Badges] for details.
+  - Template outputs are added to generated document. [#28](https://github.com/Azure/PSDocs.Azure/issues/28)
+
+- Bug fixes:
+  - Fixed snippet with short relative template causes exception. [#26](https://github.com/Azure/PSDocs.Azure/issues/26)
+  - Fixed cannot bind argument when metadata name is not set. [#35](https://github.com/Azure/PSDocs.Azure/issues/35)
+
+- Engineering:
+  - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42)
+
+- General Improvements
+  - Minor update to the documentation to include OutputPath to generate README.md [#50](https://github.com/Azure/PSDocs.Azure/issues/50)
+
 ## v0.2.0-B2102012 (pre-release)
 
 What's changed since pre-release v0.2.0-B2102012:
