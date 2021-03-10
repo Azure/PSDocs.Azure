@@ -55,6 +55,10 @@ Check out the links below to get started.
   - [Fork a repo][github-fork].
   - [About Pull Requests][github-pr].
 
+### Release Process
+
+Refer to [release process](docs/release.md)
+
 ## Thank You!
 
 Your contributions to open source, large or small, make great projects like this possible.
