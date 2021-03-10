@@ -2,7 +2,7 @@
 
 The following sections describe the process for making a new release.
 
-- Update [CHANGELOG](..\CHANGELOG.MD) with all changes since the last release (including all pre-release versions)
+- Update [CHANGELOG](../CHANGELOG.md) with all changes since the last release (including all pre-release versions)
 - Submit a Pull Request for review
 - Navigate to [Releases](https://github.com/Azure/PSDocs.Azure/releases) and select **Draft a new release**
 - [SemVer](https://semver.org/) is used to version the releases.  To use the correct release/tag the following options are used:
