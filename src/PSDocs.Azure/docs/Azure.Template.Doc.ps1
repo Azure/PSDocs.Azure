@@ -129,15 +129,43 @@ function global:GetTemplateRelativePath {
 # A function to import metadata
 function global:GetTemplateMetadata {
     [CmdletBinding()]
+    [OutputType([Hashtable])]
     param (
         [Parameter(Mandatory = $True)]
         [String]$Path
     )
     process {
+        $metadata = @{};
+
+        # Get metadata from template file
         $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
         if ([bool]$template.PSObject.Properties['metadata']) {
-            return $template.metadata;
+            foreach ($property in $template.metadata.PSObject.Properties.GetEnumerator()) {
+                $metadata[$property.Name] = $property.Value;
+            }
         }
+
+        # Get missing metadata from metadata.json
+        $metadataFilePath = Join-Path -Path (Split-Path -Path $Path -Parent) -ChildPath 'metadata.json';
+        if (Test-Path -Path $metadataFilePath) {
+            $extraMetadata = Get-Content -Path $metadataFilePath -Raw | ConvertFrom-Json;
+            foreach ($property in $extraMetadata.PSObject.Properties.GetEnumerator()) {
+
+                if ($property.Name -eq 'itemDisplayName' -and !$metadata.ContainsKey('name')) {
+                    $metadata['name'] = $property.Value;
+                }
+                elseif ($property.Name -eq 'summary' -and !$metadata.ContainsKey('description')) {
+                    $metadata['description'] = $property.Value;
+                }
+                elseif ($property.Name -eq 'description' -and !$metadata.ContainsKey('detail')) {
+                    $metadata['detail'] = $property.Value;
+                }
+                elseif (!$metadata.ContainsKey($property.Name) -and $property.Name -ne '$schema') {
+                    $metadata[$property.Name] = $property.Value;
+                }
+            }
+        }
+        return $metadata;
     }
 }
 
@@ -174,7 +202,7 @@ Document 'README' {
     $outputs = GetTemplateOutput -Path $templatePath;
 
     # Set document title
-    if ($Null -ne $metadata -and [bool]$metadata.PSObject.Properties['name']) {
+    if ($Null -ne $metadata -and $metadata.ContainsKey('name')) {
         Title $metadata.name
     }
     else {
@@ -193,7 +221,7 @@ Document 'README' {
     Write-Verbose $relativePathEncoded
 
     # Write opening line
-    if ($Null -ne $metadata -and [bool]$metadata.PSObject.Properties['description']) {
+    if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
         $metadata.description
     }
 

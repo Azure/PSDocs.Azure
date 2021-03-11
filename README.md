@@ -41,6 +41,8 @@ The source template and generated output are provided below.
 - [Azure template][source-template]
 - [Output markdown][output-template]
 
+For frequently asked questions, see the [FAQ].
+
 ### Annotate templates file
 
 In its simplest structure, an Azure template has the following elements:
@@ -331,3 +333,4 @@ This project is [licensed under the MIT License](LICENSE).
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
 [source-template]: templates/storage/v1/template.json
 [output-template]: templates/storage/v1/README.md
+[FAQ]: docs/features.md#frequently-asked-questions-faq

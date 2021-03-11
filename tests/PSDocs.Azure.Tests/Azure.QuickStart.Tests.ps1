@@ -38,6 +38,8 @@ Describe 'Templates' -Tag 'QuickStart' {
                     $template = Get-Item -Path $_.TemplateFile;
                     $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -PassThru;
                     $actualContent | Should -BeLike '*!`[Azure Public Test Date`](https://azurequickstartsservice.blob.core.windows.net/badges/template-test/PublicLastTestDate.svg)*';
+                    $actualContent | Should -BeLike "`# Storage Account*";
+                    $actualContent | Should -BeLike "*Create or update a Storage Account.*";
                     $actualContent;
                 }
                 $result | Should -Not -BeNullOrEmpty;

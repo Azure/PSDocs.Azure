@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- General improvements:
+  - Added support for reading template metadata from `metadata.json`. [#32](https://github.com/Azure/PSDocs.Azure/issues/32)
+    - This adds additional compatibility for the Azure Quickstart templates repository.
+    - Additional metadata from `metadata.json` will be read when it exists.
+    - Template metadata take priority over `metadata.json`.
+
 ## v0.2.0
 What's changed since v0.1.0:
 

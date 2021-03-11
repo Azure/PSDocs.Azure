@@ -1,0 +1,9 @@
+{
+    "$schema": "https://aka.ms/azure-quickstart-templates-metadata-schema#",
+    "itemDisplayName": "Storage Account",
+    "description": "This template deploys an creates a Storage Account in an Azure subscription.",
+    "summary": "Create an empty Storage Account.",
+    "githubUsername": "BernieWhite",
+    "type": "QuickStart",
+    "dateUpdated": "2021-03-11"
+}
