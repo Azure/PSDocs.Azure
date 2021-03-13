@@ -48,18 +48,19 @@ PSDocs reads `metadata.json` using the following logic:
 
 1. Metadata is loaded from the template `metadata` property.
 2. When `metadata.json` exists, properties are merged with the template metadata.
-   - Properties included in template metadata take priority over `metadata.json`.
+   - Properties included in template metadata override properties included from `metadata.json`.
    - The `$schema` property from `metadata.json` is ignored.
    - For PSDocs to discover `metadata.json` it must exist in the same directory as the template file.
+   When creating `metadata.json` use only lowercase in the file name.
 
 The schema of `metadata.json` differs from template metadata.
 To maintain compatibility, PSDocs automatically maps the metadata as described in the following table.
 
-metadata.json     | Template metadata
--------------     | -----------------
-`itemDisplayName` | `name`
-`summary`         | `description`
-`description`     | `detail`
+metadata.json     |         | Template metadata | Description
+-------------     | ------- | ----------------- | ------
+`itemDisplayName` | Maps to | `name`            | Used for markdown page title.
+`summary`         | Maps to | `summary`         | Used as a short description for the markdown page.
+`description`     | Maps to | `description`     | Used as a detailed description for the markdown page.
 
 For example:
 

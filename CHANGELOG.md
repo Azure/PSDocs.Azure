@@ -13,6 +13,9 @@ What's changed since v0.2.0:
     - This adds additional compatibility for the Azure Quickstart templates repository.
     - Additional metadata from `metadata.json` will be read when it exists.
     - Template metadata take priority over `metadata.json`.
+  - Added support for the `summary` template metadata property. [#60](https://github.com/Azure/PSDocs.Azure/issues/60)
+    - The `summary` template metadata property is intended to provide a short description of the template.
+    - Use the `description` template metadata property to provide a detailed description of the template.
 
 ## v0.2.0
 

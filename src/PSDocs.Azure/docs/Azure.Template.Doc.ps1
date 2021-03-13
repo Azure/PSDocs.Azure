@@ -154,11 +154,11 @@ function global:GetTemplateMetadata {
                 if ($property.Name -eq 'itemDisplayName' -and !$metadata.ContainsKey('name')) {
                     $metadata['name'] = $property.Value;
                 }
-                elseif ($property.Name -eq 'summary' -and !$metadata.ContainsKey('description')) {
-                    $metadata['description'] = $property.Value;
+                elseif ($property.Name -eq 'summary' -and !$metadata.ContainsKey('summary')) {
+                    $metadata['summary'] = $property.Value;
                 }
-                elseif ($property.Name -eq 'description' -and !$metadata.ContainsKey('detail')) {
-                    $metadata['detail'] = $property.Value;
+                elseif ($property.Name -eq 'description' -and !$metadata.ContainsKey('description')) {
+                    $metadata['description'] = $property.Value;
                 }
                 elseif (!$metadata.ContainsKey($property.Name) -and $property.Name -ne '$schema') {
                     $metadata[$property.Name] = $property.Value;
@@ -209,6 +209,11 @@ Document 'README' {
         Title $LocalizedData.DefaultTitle
     }
 
+    # Add short description
+    if ($Null -ne $metadata -and $metadata.ContainsKey('summary')) {
+        $metadata.summary
+    }
+
     # Add badges
     $relativePath = (Split-Path (GetTemplateRelativePath -Path $templatePath) -Parent).Replace('\', '/').TrimStart('/');
     $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
@@ -220,7 +225,7 @@ Document 'README' {
     Write-Verbose $relativePath
     Write-Verbose $relativePathEncoded
 
-    # Write opening line
+    # Add detailed description
     if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
         $metadata.description
     }

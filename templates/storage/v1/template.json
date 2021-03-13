@@ -3,7 +3,8 @@
     "contentVersion": "1.0.0.0",
     "metadata": {
         "name": "Storage Account",
-        "description": "Create or update a Storage Account."
+        "summary": "Create or update a Storage Account.",
+        "description": "This template deploys a Storage Account including blob containers and files shares. Encryption in transit it enabled using a minimum of TLS 1.2."
     },
     "parameters": {
         "storageAccountName": {

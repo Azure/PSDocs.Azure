@@ -39,7 +39,8 @@ Describe 'Templates' -Tag 'QuickStart' {
                     $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -PassThru;
                     $actualContent | Should -BeLike '*!`[Azure Public Test Date`](https://azurequickstartsservice.blob.core.windows.net/badges/template-test/PublicLastTestDate.svg)*';
                     $actualContent | Should -BeLike "`# Storage Account*";
-                    $actualContent | Should -BeLike "*Create or update a Storage Account.*";
+                    $actualContent | Should -BeLike "*Create an empty Storage Account.*";
+                    $actualContent | Should -BeLike "*This template deploys a Storage Account including blob containers and files shares. Encryption in transit it enabled using a minimum of TLS 1.2.*";
                     $actualContent;
                 }
                 $result | Should -Not -BeNullOrEmpty;
