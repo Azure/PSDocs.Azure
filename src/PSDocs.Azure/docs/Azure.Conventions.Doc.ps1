@@ -11,7 +11,7 @@ Export-PSDocumentConvention 'Azure.NameByParentPath' {
 
     # Name the document <name>_<version>.md
     $docName = $version;
-    if ($version -like 'v*') {
+    if ($version -like 'v[0-9]*') {
         $docName = [String]::Concat($name, '_', $version);
     }
     $PSDocs.Document.InstanceName = $docName;

@@ -14,6 +14,7 @@ Set-StrictMode -Version latest;
 
 # Setup tests paths
 $rootPath = $PWD;
+$here = $PSScriptRoot;
 
 Import-Module (Join-Path -Path $rootPath -ChildPath out/modules/PSDocs.Azure) -Force;
 
@@ -22,8 +23,6 @@ Remove-Item -Path $outputPath -Force -Recurse -Confirm:$False -ErrorAction Ignor
 $Null = New-Item -Path $outputPath -ItemType Directory -Force;
 
 Describe 'Conventions' -Tag 'Conventions' {
-    $templatePath = Join-Path -Path $rootPath -ChildPath 'templates/';
-
     Context 'Azure.NameByParentPath' {
         It 'Uses naming convention' {
             $invokeParams = @{
@@ -31,12 +30,23 @@ Describe 'Conventions' -Tag 'Conventions' {
             }
 
             # Generates templates
+            $templatePath = Join-Path -Path $rootPath -ChildPath 'templates/';
             $result = Get-AzDocTemplateFile -Path $templatePath | ForEach-Object {
                 $template = Get-Item -Path $_.TemplateFile;
                 Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -Convention 'Azure.NameByParentPath'
             }
             $result | Should -Not -BeNullOrEmpty;
             $result[0].Name | Should -BeLike 'storage_v1.md';
+            $result;
+
+            # Generates templates without version path
+            $templatePath = Join-Path -Path $here -ChildPath 'template-test/';
+            $result = Get-AzDocTemplateFile -Path $templatePath | ForEach-Object {
+                $template = Get-Item -Path $_.TemplateFile;
+                Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -Convention 'Azure.NameByParentPath'
+            }
+            $result | Should -Not -BeNullOrEmpty;
+            $result[0].Name | Should -BeLike 'template-test.md';
             $result;
         }
     }
