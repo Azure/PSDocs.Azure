@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+What's changed since v0.2.0:
+
+- New Features:
+  - Added support for naming document by parent path using conventions. [#43](https://github.com/Azure/PSDocs.Azure/issues/43)
+    - Add the `-Convention` parameter with `Azure.NameByParentPath` to use.
+    - See [about_PSDocs_Azure_Conventions] for details.
 - General improvements:
   - Added support for reading template metadata from `metadata.json`. [#32](https://github.com/Azure/PSDocs.Azure/issues/32)
     - This adds additional compatibility for the Azure Quickstart templates repository.
@@ -9,6 +15,7 @@
     - Template metadata take priority over `metadata.json`.
 
 ## v0.2.0
+
 What's changed since v0.1.0:
 
 - New Features:
@@ -22,20 +29,21 @@ What's changed since v0.1.0:
     - Set the `.ps-docs/azure-template-badges.md` file to include badge content.
     - See [about_PSDocs_Azure_Badges] for details.
   - Template outputs are added to generated document. [#28](https://github.com/Azure/PSDocs.Azure/issues/28)
-
+- General Improvements
+  - Minor update to the documentation to include OutputPath to generate README.md [#50](https://github.com/Azure/PSDocs.Azure/issues/50)
+- Engineering:
+  - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42)
 - Bug fixes:
   - Fixed snippet with short relative template causes exception. [#26](https://github.com/Azure/PSDocs.Azure/issues/26)
   - Fixed cannot bind argument when metadata name is not set. [#35](https://github.com/Azure/PSDocs.Azure/issues/35)
 
-- Engineering:
-  - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42)
+What's changed since pre-release v0.2.0-B2102012:
 
-- General Improvements
-  - Minor update to the documentation to include OutputPath to generate README.md [#50](https://github.com/Azure/PSDocs.Azure/issues/50)
+- No additional changes.
 
 ## v0.2.0-B2102012 (pre-release)
 
-What's changed since pre-release v0.2.0-B2102012:
+What's changed since pre-release v0.2.0-B2102005:
 
 - New features:
   - Added the ability to enable manual command line snippet. [#40](https://github.com/Azure/PSDocs.Azure/issues/40)
@@ -85,3 +93,4 @@ What's changed since pre-release v0.1.0-B2012006:
 
 [about_PSDocs_Azure_Configuration]: docs/concepts/en-US/about_PSDocs_Azure_Configuration.md
 [about_PSDocs_Azure_Badges]: docs/concepts/en-US/about_PSDocs_Azure_Badges.md
+[about_PSDocs_Azure_Conventions]: docs/concepts/en-US/about_PSDocs_Azure_Conventions.md

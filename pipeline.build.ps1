@@ -234,7 +234,7 @@ task BuildHelp BuildModule, PlatyPS, {
         &$pwshPath -Command {
             # Generate MAML and about topics
             Import-Module -Name PlatyPS -Verbose:$False;
-            $Null = New-ExternalHelp -OutputPath 'out/docs/PSDocs.Azure' -Path '.\docs\commands\en-US' -Force;
+            $Null = New-ExternalHelp -OutputPath 'out/docs/PSDocs.Azure' -Path '.\docs\commands\en-US', '.\docs\concepts\en-US' -Force;
         }
     }
 
