@@ -41,6 +41,8 @@ The source template and generated output are provided below.
 - [Azure template][source-template]
 - [Output markdown][output-template]
 
+For frequently asked questions, see the [FAQ].
+
 ### Annotate templates file
 
 In its simplest structure, an Azure template has the following elements:
@@ -120,7 +122,8 @@ PSDocs supports the following metadata:
 Field | Scope | Type | Description
 ----- | ----- | ---- | -----------
 `name`  | Template | `string` | Used for markdown page title.
-`description` | Template | `string` | Used as the top description for the markdown page.
+`summary` | Template | `string` | Used as a short description for the markdown page.
+`description` | Template | `string` | Used as a detailed description for the markdown page.
 `description` | Parameter | `string` | Used as the description for the parameter.
 `example`     | Parameter | `string`, `boolean`, `object`, or `array` | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead.
 `ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.
@@ -333,3 +336,4 @@ This project is [licensed under the MIT License](LICENSE).
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
 [source-template]: templates/storage/v1/template.json
 [output-template]: templates/storage/v1/README.md
+[FAQ]: docs/features.md#frequently-asked-questions-faq

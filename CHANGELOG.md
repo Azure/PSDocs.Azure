@@ -8,6 +8,14 @@ What's changed since v0.2.0:
   - Added support for naming document by parent path using conventions. [#43](https://github.com/Azure/PSDocs.Azure/issues/43)
     - Add the `-Convention` parameter with `Azure.NameByParentPath` to use.
     - See [about_PSDocs_Azure_Conventions] for details.
+- General improvements:
+  - Added support for reading template metadata from `metadata.json`. [#32](https://github.com/Azure/PSDocs.Azure/issues/32)
+    - This adds additional compatibility for the Azure Quickstart templates repository.
+    - Additional metadata from `metadata.json` will be read when it exists.
+    - Template metadata take priority over `metadata.json`.
+  - Added support for the `summary` template metadata property. [#60](https://github.com/Azure/PSDocs.Azure/issues/60)
+    - The `summary` template metadata property is intended to provide a short description of the template.
+    - Use the `description` template metadata property to provide a detailed description of the template.
 
 ## v0.2.0
 
