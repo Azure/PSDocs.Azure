@@ -22,6 +22,7 @@ Export-PSDocumentConvention 'AddMeta' {
     $metadata = GetTemplateMetadata -Path $PSDocs.TargetObject;
     $Document.Metadata['title'] = $version;
     $Document.Metadata['parent'] = $metadata.name;
+    $Document.Metadata['grand_parent'] = 'Templates'
     $Document.Metadata['description'] = $metadata.description;
     $Document.Metadata['layout'] = 'template';
 

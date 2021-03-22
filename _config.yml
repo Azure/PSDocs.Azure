@@ -41,7 +41,7 @@ exclude:
 - tests/
 - .devcontainer/
 - docs/concepts/
-- docs/cmdlets/
+- docs/commands/
 - docs/release.md
 
 # Build settings
