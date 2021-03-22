@@ -181,7 +181,7 @@ task Rules PSRule, {
         ErrorAction = 'Stop'
         Module = 'PSRule.Rules.MSFT.OSS'
     }
-    Assert-PSRule @assertParams -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
+    Assert-PSRule @assertParams -As Summary -InputPath $PWD -Format File -OutputPath reports/ps-rule-file.xml;
 }
 
 # Synopsis: Install PlatyPS module

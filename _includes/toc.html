@@ -1,0 +1,10 @@
+<h2 class="text-delta">Table of contents</h2>
+<ul>
+    {%- assign children_list = pages_list | where: "parent", page.title | where: "grand_parent", page.parent -%}
+    {% for child in children_list %}
+    <li>
+        <a href="{{ child.url | absolute_url }}">{{ child.title }}</a>{% if child.summary %} - {{ child.summary }}{%
+        endif %}
+    </li>
+    {% endfor %}
+</ul>

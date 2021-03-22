@@ -1,0 +1,51 @@
+#
+# Deploy docs site
+#
+name: Deploy docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📂 setup
+        uses: actions/checkout@v2
+
+      - name: Use PSDocs
+        shell: pwsh
+        run: |-
+          Install-Module PSDocs -MinimumVersion '0.9.0-B2102002' -AllowPrerelease -Force;
+          Install-Module PSDocs.Azure -MinimumVersion 'v0.3.0-B2103011' -AllowPrerelease -Force;
+          Import-Module PSDocs.Azure;
+          Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
+              # Generate a standard name of the markdown file. i.e. <name>_<version>.md
+              $template = Get-Item -Path $_.TemplateFile;
+              Invoke-PSDocument -Path .ps-docs/ -Module PSDocs.Azure -OutputPath docs/templates/ -InputObject $template.FullName -Convention 'AddMeta';
+          }
+
+      - name: 💎 setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6'
+
+      - name: Install dependencies
+        run: |
+          gem install jekyll bundler
+          bundle install
+      - name: Build site
+        run: |
+          bundle exec jekyll build
+
+      - name: 🚀 deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          # if the repo you are deploying to is <username>.github.io, uncomment the line below.
+          # if you are including the line below, make sure your source files are NOT in the master branch:
+          # publish_branch: master

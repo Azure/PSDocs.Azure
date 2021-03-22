@@ -78,9 +78,9 @@ Describe 'Get-AzDocTemplateFile' -Tag 'Cmdlet', 'Common', 'Get-AzDocTemplateFile
         It 'Get template files' {
             $result = @(Get-AzDocTemplateFile -Path $templatePath);
             $result | Should -Not -BeNullOrEmpty;
-            $result.Length | Should -Be 1;
-            $result.Name | Should -BeIn 'Storage Account';
-            $result.Version.ToString() | Should -Be '1.0.0.0';
+            $result.Length | Should -Be 3;
+            $result.Name | Should -BeIn 'Container Registry', 'Key Vault', 'Storage Account';
+            $result.Version | Should -BeIn '1.0.0.0';
         }
     }
 }
