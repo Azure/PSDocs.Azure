@@ -17,7 +17,7 @@ title: PSDocs for Azure
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
   Generate documentation from Azure infrastructure as code (IaC) artifacts.
-baseurl: "/PSDocs.Azure" # the subpath of your site, e.g. /blog
+baseurl: "/PSDocs.Azure/" # the subpath of your site, e.g. /blog
 url: "https://azure.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 repo: "https://github.com/Azure/PSDocs.Azure"
 branch: main
@@ -40,6 +40,9 @@ exclude:
 - src/
 - tests/
 - .devcontainer/
+- docs/concepts/
+- docs/cmdlets/
+- docs/release.md
 
 # Build settings
 # markdown: kramdown

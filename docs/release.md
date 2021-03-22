@@ -11,5 +11,3 @@ The following sections describe the process for making a new release.
   - Wait for the deployment to be released in [PowerShell Gallery](https://www.powershellgallery.com/packages/PSDocs.Azure/)
 - After a successful release, create another PR updating:
   - [.azure-pipelines/azure-pipelines.yaml](https://github.com/Azure/PSDocs.Azure/blob/main/.azure-pipelines/azure-pipelines.yaml) with the next version increment *e.g. if the newly released version is 0.2.0, set this to `version: '0.3.0'`*
-
-

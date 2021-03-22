@@ -5,7 +5,7 @@
 layout: home
 title: Home
 nav_order: 1
-permalink: /
+permalink: /PSDocs.Azure/
 ---
 
 # Git it done
