@@ -1,220 +1,142 @@
 {"0": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "Get-AzDocTemplateFile",
-    "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/"
-  },"1": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "SYNOPSIS",
-    "content": "Get Azure template files within a directory structure. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#synopsis",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#synopsis"
-  },"2": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "SYNTAX",
-    "content": "Get-AzDocTemplateFile [[-InputPath] &lt;String[]&gt;] [[-Path] &lt;String&gt;] [&lt;CommonParameters&gt;] . ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#syntax",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#syntax"
-  },"3": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "DESCRIPTION",
-    "content": "Gets any Azure Resource Manager (ARM) template files found within the search path. By default, the current working path is used. When a JSON file is found the schema is compared to determine if it is a valid ARM template file. JSON files without a valid schema are ignored. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#description",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#description"
-  },"4": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "EXAMPLES",
-    "content": "Example 1 . PS C:\\&gt; Get-AzDocTemplateFile . Get a list of template files within the current working directory. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#examples",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#examples"
-  },"5": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "PARAMETERS",
-    "content": "-InputPath . A filter for finding template files within the search path. Type: String[] Parameter Sets: (All) Aliases: f, TemplateFile, FullName Required: False Position: 1 Default value: *.json Accept pipeline input: True (ByPropertyName) Accept wildcard characters: True . -Path . The path to search for template files within. By default, the current working path is used. Type: String Parameter Sets: (All) Aliases: p Required: False Position: 0 Default value: $PWD Accept pipeline input: False Accept wildcard characters: False . CommonParameters . This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#parameters",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#parameters"
-  },"6": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "INPUTS",
-    "content": "System.String[] . ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#inputs",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#inputs"
-  },"7": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "OUTPUTS",
-    "content": "PSDocs.Azure.Data.Metadata.ITemplateLink . ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#outputs",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#outputs"
-  },"8": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "NOTES",
-    "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#notes",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#notes"
-  },"9": {
-    "doc": "Get-AzDocTemplateFile",
-    "title": "RELATED LINKS",
-    "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/Get-AzDocTemplateFile/#related-links",
-    "relUrl": "/docs/commands/en-US/Get-AzDocTemplateFile/#related-links"
-  },"10": {
-    "doc": "PSDocs.Azure Module",
-    "title": "PSDocs.Azure Module",
-    "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/PSDocs.Azure/",
-    "relUrl": "/docs/commands/en-US/PSDocs.Azure/"
-  },"11": {
-    "doc": "PSDocs.Azure Module",
-    "title": "Description",
-    "content": "Generate documentation from Azure infrastructure as code (IaC) artifacts. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/PSDocs.Azure/#description",
-    "relUrl": "/docs/commands/en-US/PSDocs.Azure/#description"
-  },"12": {
-    "doc": "PSDocs.Azure Module",
-    "title": "PSDocs.Azure Cmdlets",
-    "content": "Get-AzDocTemplateFile . Get Azure template files. ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/commands/en-US/PSDocs.Azure/#psdocsazure-cmdlets",
-    "relUrl": "/docs/commands/en-US/PSDocs.Azure/#psdocsazure-cmdlets"
-  },"13": {
     "doc": "v1",
     "title": "Container Registry",
     "content": ". Create or update a Container Registry. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/acr_v1/#container-registry",
     "relUrl": "/docs/templates/acr/acr_v1/#container-registry"
-  },"14": {
+  },"1": {
     "doc": "v1",
     "title": "Parameters",
     "content": "| Parameter name | Description | . | registryName | Required. The name of the container registry. | . | location | Optional. The location to deploy the container registry. | . | registrySku | Optional. The container registry SKU. | . | tags | Optional. Tags to apply to the resource. | . registryName . Required. The name of the container registry. location . Optional. The location to deploy the container registry. | Default value: [resourceGroup().location] | . registrySku . Optional. The container registry SKU. | Default value: Basic . | Allowed values: Basic, Standard, Premium . | . tags . Optional. Tags to apply to the resource. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/acr_v1/#parameters",
     "relUrl": "/docs/templates/acr/acr_v1/#parameters"
-  },"15": {
+  },"2": {
     "doc": "v1",
     "title": "Snippets",
     "content": "Parameter file . { \"$schema\": \"https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#\", \"contentVersion\": \"1.0.0.0\", \"metadata\": { \"template\": \"templates/acr/v1/template.json\" }, \"parameters\": { \"registryName\": { \"value\": \"&lt;name&gt;\" }, \"registrySku\": { \"value\": \"Basic\" }, \"tags\": { \"value\": { \"service\": \"&lt;service_name&gt;\", \"env\": \"prod\" } } } } . ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/acr_v1/#snippets",
     "relUrl": "/docs/templates/acr/acr_v1/#snippets"
-  },"16": {
+  },"3": {
     "doc": "v1",
     "title": "v1",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/acr_v1/",
     "relUrl": "/docs/templates/acr/acr_v1/"
-  },"17": {
+  },"4": {
     "doc": "Storage Account",
     "title": "Storage Account",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/",
     "relUrl": "/docs/templates/storage/"
-  },"18": {
+  },"5": {
     "doc": "Container Registry",
     "title": "Container Registry",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/",
     "relUrl": "/docs/templates/acr/"
-  },"19": {
+  },"6": {
     "doc": "Key Vault",
     "title": "Key Vault",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/",
     "relUrl": "/docs/templates/keyvault/"
-  },"20": {
+  },"7": {
     "doc": "Templates",
     "title": "Templates",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/",
     "relUrl": "/docs/templates/"
-  },"21": {
+  },"8": {
     "doc": "Home",
     "title": "Git it done",
     "content": "Focus on building great solutions on Azure instead of writing documentation. PSDocs for Azure automatically generates documentation for Azure infrastructure as code (IaC) artifacts. Get started now View it on GitHub . ",
-    "url": "https://azure.github.io/PSDocs.Azure/PSDocs.Azure/#git-it-done",
-    "relUrl": "/PSDocs.Azure/#git-it-done"
-  },"22": {
+    "url": "https://azure.github.io/PSDocs.Azure/#git-it-done",
+    "relUrl": "/#git-it-done"
+  },"9": {
     "doc": "Home",
     "title": "Getting started",
-    "content": "Annotate templates file . In its simplest structure, an Azure template has the following elements: . { \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\", \"contentVersion\": \"1.0.0.0\", \"parameters\": { }, \"variables\": { }, \"functions\": [ ], \"resources\": [ ], \"outputs\": { } } . Additionally a metadata property can be added in most places throughout the template. For example: . { \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\", \"contentVersion\": \"1.0.0.0\", \"metadata\": { \"name\": \"Storage Account\", \"description\": \"Create or update a Storage Account.\" }, \"parameters\": { \"storageAccountName\": { \"type\": \"string\", \"metadata\": { \"description\": \"Required. The name of the Storage Account.\" } }, \"tags\": { \"type\": \"object\", \"defaultValue\": { }, \"metadata\": { \"description\": \"Optional. Tags to apply to the resource.\", \"example\": { \"service\": \"&lt;service_name&gt;\", \"env\": \"prod\" } } } }, \"resources\": [ ], \"outputs\": { \"resourceId\": { \"type\": \"string\", \"value\": \"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]\", \"metadata\": { \"description\": \"A unique resource identifier for the storage account.\" } } } } . PSDocs interprets the template structure and metadata to generate documentation as markdown. Generating documentation as markdown allows you to publish web-based content on a variety of platforms. PSDocs supports the following metadata: . | Field | Scope | Type | Description | . | name | Template | string | Used for markdown page title. | . | description | Template | string | Used as the top description for the markdown page. | . | description | Parameter | string | Used as the description for the parameter. | . | example | Parameter | string, boolean, object, or array | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead. | . | ignore | Parameter | boolean | When true the parameter is not included in the JSON snippet. | . | description | Output | string | Used as the description for the output. | . Using with GitHub Actions . The following example shows how to setup GitHub Actions to copy generated markdown files to an Azure blob storage account. | See Creating a workflow file to create an empty workflow file. | Add a PowerShell step to: . | Install PSDocs.Azure module. | Scan for Azure template file recursively in the templates/ directory. | Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md | Generate the markdown to a specific directory. | . | Set the STORAGEACCOUNTSECRET action secret. | Use an Azure Blob Storage Upload action to copy the generated markdown to an Azure Storage Blob container. | . For example: . # Example: .github/workflows/arm-docs.yaml name: Generate ARM templates docs on: push: branches: [ main ] jobs: arm_docs: name: Generate ARM template docs runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 # STEP 1: Generate Markdowns using PSDocs - name: Generate ARM markdowns run: | Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force; # Scan for Azure template file recursively in the templates/ directory Get-AzDocTemplateFile -Path templates/ | ForEach-Object { # Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md $template = Get-Item -Path $_.TemplateFile; $templateName = $template.Directory.Parent.Name; $version = $template.Directory.Name; $docName = \"$($templateName)_$version\"; # Generate markdown Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName; } shell: pwsh # STEP 2: Copy files to a storage account - name: Copy files to a storage account uses: bacongobbler/azure-blob-storage-upload@v1.1.1 with: connection_string: $ container_name: ps-docs source_dir: 'out/docs/*' . Using with Azure Pipelines . The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format. This example copies the generated markdown files to a designated blob storage. | Create a new YAML pipeline with the Starter pipeline template. | Add a PowerShell task to: . | Install PSDocs.Azure module. | Scan for Azure template file recursively in the templates/ directory. | Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md | Generate the markdown to a specific directory. | . | Add an AzureFileCopy task to copy the generated markdown to an Azure Storage Blob container. | . For example: . # Example: .azure-pipelines/psdocs-blobstorage.yaml jobs: - job: 'generate_arm_template_documentation' displayName: 'Generate ARM template docs' pool: vmImage: 'windows-2019' steps: # STEP 1: Generate Markdowns using PSDocs - powershell: | Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force; # Scan for Azure template file recursively in the templates/ directory Get-AzDocTemplateFile -Path templates/ | ForEach-Object { # Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md $template = Get-Item -Path $_.TemplateFile; $templateName = $template.Directory.Parent.Name; $version = $template.Directory.Name; $docName = \"$($templateName)_$version\"; # Generate markdown Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName; } displayName: 'Export template data' # STEP 2: Copy files to a storage account - task: AzureFileCopy@4 displayName: 'Copy files to a storage account blob container' inputs: SourcePath: 'out/docs/*' azureSubscription: 'psdocstest' Destination: 'AzureBlob' storage: '&lt;storageaccountname&gt;' ContainerName: 'ps-docs' . ",
-    "url": "https://azure.github.io/PSDocs.Azure/PSDocs.Azure/#getting-started",
-    "relUrl": "/PSDocs.Azure/#getting-started"
-  },"23": {
+    "content": "Annotate templates file . In its simplest structure, an Azure template has the following elements: . { \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\", \"contentVersion\": \"1.0.0.0\", \"parameters\": { }, \"variables\": { }, \"functions\": [ ], \"resources\": [ ], \"outputs\": { } } . Additionally a metadata property can be added in most places throughout the template. For example: . { \"$schema\": \"https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#\", \"contentVersion\": \"1.0.0.0\", \"metadata\": { \"name\": \"Storage Account\", \"description\": \"Create or update a Storage Account.\" }, \"parameters\": { \"storageAccountName\": { \"type\": \"string\", \"metadata\": { \"description\": \"Required. The name of the Storage Account.\" } }, \"tags\": { \"type\": \"object\", \"defaultValue\": { }, \"metadata\": { \"description\": \"Optional. Tags to apply to the resource.\", \"example\": { \"service\": \"&lt;service_name&gt;\", \"env\": \"prod\" } } } }, \"resources\": [ ], \"outputs\": { \"resourceId\": { \"type\": \"string\", \"value\": \"[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]\", \"metadata\": { \"description\": \"A unique resource identifier for the storage account.\" } } } } . PSDocs interprets the template structure and metadata to generate documentation as markdown. Generating documentation as markdown allows you to publish web-based content on a variety of platforms. PSDocs supports the following metadata: . | Field | Scope | Type | Description | . | name | Template | string | Used for markdown page title. | . | summary | Template | string | Used as a short description for the markdown page. | . | description | Template | string | Used as a detailed description for the markdown page. | . | description | Parameter | string | Used as the description for the parameter. | . | example | Parameter | string, boolean, object, or array | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead. | . | ignore | Parameter | boolean | When true the parameter is not included in the JSON snippet. | . | description | Output | string | Used as the description for the output. | . Using with GitHub Actions . The following example shows how to setup GitHub Actions to copy generated markdown files to an Azure blob storage account. | See Creating a workflow file to create an empty workflow file. | Add a PowerShell step to: . | Install PSDocs.Azure module. | Scan for Azure template file recursively in the templates/ directory. | Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md | Generate the markdown to a specific directory. | . | Set the STORAGEACCOUNTSECRET action secret. | Use an Azure Blob Storage Upload action to copy the generated markdown to an Azure Storage Blob container. | . For example: . # Example: .github/workflows/arm-docs.yaml name: Generate ARM templates docs on: push: branches: [ main ] jobs: arm_docs: name: Generate ARM template docs runs-on: ubuntu-latest steps: - name: Checkout uses: actions/checkout@v2 # STEP 1: Generate Markdowns using PSDocs - name: Generate ARM markdowns run: | Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force; # Scan for Azure template file recursively in the templates/ directory Get-AzDocTemplateFile -Path templates/ | ForEach-Object { # Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md $template = Get-Item -Path $_.TemplateFile; $templateName = $template.Directory.Parent.Name; $version = $template.Directory.Name; $docName = \"$($templateName)_$version\"; # Generate markdown Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName; } shell: pwsh # STEP 2: Copy files to a storage account - name: Copy files to a storage account uses: bacongobbler/azure-blob-storage-upload@v1.1.1 with: connection_string: $ container_name: ps-docs source_dir: 'out/docs/*' . Using with Azure Pipelines . The following example shows how to setup Azure Pipelines to generate ARM template documentation in the markdown format. This example copies the generated markdown files to a designated blob storage. | Create a new YAML pipeline with the Starter pipeline template. | Add a PowerShell task to: . | Install PSDocs.Azure module. | Scan for Azure template file recursively in the templates/ directory. | Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md | Generate the markdown to a specific directory. | . | Add an AzureFileCopy task to copy the generated markdown to an Azure Storage Blob container. | . For example: . # Example: .azure-pipelines/psdocs-blobstorage.yaml jobs: - job: 'generate_arm_template_documentation' displayName: 'Generate ARM template docs' pool: vmImage: 'windows-2019' steps: # STEP 1: Generate Markdowns using PSDocs - powershell: | Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -force; # Scan for Azure template file recursively in the templates/ directory Get-AzDocTemplateFile -Path templates/ | ForEach-Object { # Generate a standard name of the markdown file. i.e. &lt;name&gt;_&lt;version&gt;.md $template = Get-Item -Path $_.TemplateFile; $templateName = $template.Directory.Parent.Name; $version = $template.Directory.Name; $docName = \"$($templateName)_$version\"; # Generate markdown Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $template.FullName -InstanceName $docName; } displayName: 'Export template data' # STEP 2: Copy files to a storage account - task: AzureFileCopy@4 displayName: 'Copy files to a storage account blob container' inputs: SourcePath: 'out/docs/*' azureSubscription: 'psdocstest' Destination: 'AzureBlob' storage: '&lt;storageaccountname&gt;' ContainerName: 'ps-docs' . ",
+    "url": "https://azure.github.io/PSDocs.Azure/#getting-started",
+    "relUrl": "/#getting-started"
+  },"10": {
     "doc": "Home",
     "title": "Home",
     "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/PSDocs.Azure/",
-    "relUrl": "/PSDocs.Azure/"
-  },"24": {
+    "url": "https://azure.github.io/PSDocs.Azure/",
+    "relUrl": "/"
+  },"11": {
     "doc": "v1",
     "title": "Key Vault",
     "content": ". Create or update a Key Vault. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/keyvault_v1/#key-vault",
     "relUrl": "/docs/templates/keyvault/keyvault_v1/#key-vault"
-  },"25": {
+  },"12": {
     "doc": "v1",
     "title": "Parameters",
     "content": "| Parameter name | Description | . | vaultName | Required. The name of the Key Vault. | . | location | Optional. The Azure region to deploy to. | . | accessPolicies | Optional. The access policies defined for this vault. | . | useDeployment | Optional. Determines if Azure can deploy certificates from this Key Vault. | . | useTemplate | Optional. Determines if templates can reference secrets from this Key Vault. | . | useDiskEncryption | Optional. Determines if this Key Vault can be used for Azure Disk Encryption. | . | useSoftDelete | Optional. Determine if soft delete is enabled on this Key Vault. | . | usePurgeProtection | Optional. Determine if purge protection is enabled on this Key Vault. | . | networkAcls | Optional. The network firewall defined for this vault. | . | workspaceId | Optional. The workspace to store audit logs. | . | tags | Optional. Tags to apply to the resource. | . vaultName . Required. The name of the Key Vault. location . Optional. The Azure region to deploy to. | Default value: [resourceGroup().location] | . accessPolicies . Optional. The access policies defined for this vault. useDeployment . Optional. Determines if Azure can deploy certificates from this Key Vault. | Default value: False | . useTemplate . Optional. Determines if templates can reference secrets from this Key Vault. | Default value: False | . useDiskEncryption . Optional. Determines if this Key Vault can be used for Azure Disk Encryption. | Default value: False | . useSoftDelete . Optional. Determine if soft delete is enabled on this Key Vault. | Default value: True | . usePurgeProtection . Optional. Determine if purge protection is enabled on this Key Vault. | Default value: True | . networkAcls . Optional. The network firewall defined for this vault. | Default value: @{defaultAction=Allow; bypass=AzureServices; ipRules=System.Object[]; virtualNetworkRules=System.Object[]} | . workspaceId . Optional. The workspace to store audit logs. tags . Optional. Tags to apply to the resource. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/keyvault_v1/#parameters",
     "relUrl": "/docs/templates/keyvault/keyvault_v1/#parameters"
-  },"26": {
+  },"13": {
     "doc": "v1",
     "title": "Outputs",
     "content": "| Name | Type | Description | . | resourceId | string |   | . ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/keyvault_v1/#outputs",
     "relUrl": "/docs/templates/keyvault/keyvault_v1/#outputs"
-  },"27": {
+  },"14": {
     "doc": "v1",
     "title": "Snippets",
     "content": "Parameter file . { \"$schema\": \"https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#\", \"contentVersion\": \"1.0.0.0\", \"metadata\": { \"template\": \"templates/keyvault/v1/template.json\" }, \"parameters\": { \"vaultName\": { \"value\": \"&lt;name&gt;\" }, \"accessPolicies\": { \"value\": [ { \"objectId\": \"&lt;object_id&gt;\", \"tenantId\": \"&lt;tenant_id&gt;\", \"permissions\": { \"secrets\": [ \"Get\", \"List\", \"Set\" ] } } ] }, \"useDeployment\": { \"value\": false }, \"useTemplate\": { \"value\": false }, \"useDiskEncryption\": { \"value\": false }, \"networkAcls\": { \"value\": { \"defaultAction\": \"Allow\", \"bypass\": \"AzureServices\", \"ipRules\": [], \"virtualNetworkRules\": [] } }, \"workspaceId\": { \"value\": \"&lt;resource_id&gt;\" }, \"tags\": { \"value\": { \"service\": \"&lt;service_name&gt;\", \"env\": \"prod\" } } } } . ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/keyvault_v1/#snippets",
     "relUrl": "/docs/templates/keyvault/keyvault_v1/#snippets"
-  },"28": {
+  },"15": {
     "doc": "v1",
     "title": "v1",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/keyvault_v1/",
     "relUrl": "/docs/templates/keyvault/keyvault_v1/"
-  },"29": {
+  },"16": {
     "doc": "v1",
     "title": "Storage Account",
     "content": "Create or update a Storage Account. This template deploys a Storage Account including blob containers and files shares. Encryption in transit it enabled using a minimum of TLS 1.2. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/storage_v1/#storage-account",
     "relUrl": "/docs/templates/storage/storage_v1/#storage-account"
-  },"30": {
+  },"17": {
     "doc": "v1",
     "title": "Parameters",
     "content": "| Parameter name | Description | . | storageAccountName | Required. The name of the Storage Account. | . | location | Optional. The Azure region to deploy to. | . | sku | Optional. Create the Storage Account as LRS or GRS. | . | suffixLength | Optional. Determine how many additional characters are added to the storage account name as a suffix. | . | containers | Optional. An array of storage containers to create on the storage account. | . | lifecycleRules | Optional. An array of lifecycle management policies for the storage account. | . | blobSoftDeleteDays | Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled. | . | containerSoftDeleteDays | Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled. | . | shares | Optional. An array of file shares to create on the storage account. | . | useLargeFileShares | Optional. Determines if large file shares are enabled. This can not be disabled once enabled. | . | shareSoftDeleteDays | Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled. | . | allowBlobPublicAccess | Optional. Determines if any containers can be configured with the anonymous access types of blob or container. | . | keyVaultPrincipalId | Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts. | . | tags | Optional. Tags to apply to the resource. | . storageAccountName . Required. The name of the Storage Account. location . Optional. The Azure region to deploy to. | Default value: [resourceGroup().location] | . sku . Optional. Create the Storage Account as LRS or GRS. | Default value: Standard_LRS . | Allowed values: Standard_LRS, Standard_GRS . | . suffixLength . Optional. Determine how many additional characters are added to the storage account name as a suffix. | Default value: 0 | . containers . Optional. An array of storage containers to create on the storage account. lifecycleRules . Optional. An array of lifecycle management policies for the storage account. blobSoftDeleteDays . Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled. | Default value: 0 | . containerSoftDeleteDays . Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled. | Default value: 0 | . shares . Optional. An array of file shares to create on the storage account. useLargeFileShares . Optional. Determines if large file shares are enabled. This can not be disabled once enabled. | Default value: False | . shareSoftDeleteDays . Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled. | Default value: 0 | . allowBlobPublicAccess . Optional. Determines if any containers can be configured with the anonymous access types of blob or container. | Default value: False | . keyVaultPrincipalId . Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts. tags . Optional. Tags to apply to the resource. ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/storage_v1/#parameters",
     "relUrl": "/docs/templates/storage/storage_v1/#parameters"
-  },"31": {
+  },"18": {
     "doc": "v1",
     "title": "Outputs",
     "content": "| Name | Type | Description | . | blobEndpoint | string | A URI to the blob storage endpoint. | . | resourceId | string | A unique resource identifier for the storage account. | . ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/storage_v1/#outputs",
     "relUrl": "/docs/templates/storage/storage_v1/#outputs"
-  },"32": {
+  },"19": {
     "doc": "v1",
     "title": "Snippets",
     "content": "Parameter file . { \"$schema\": \"https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#\", \"contentVersion\": \"1.0.0.0\", \"metadata\": { \"template\": \"templates/storage/v1/template.json\" }, \"parameters\": { \"storageAccountName\": { \"value\": \"\" }, \"sku\": { \"value\": \"Standard_LRS\" }, \"containers\": { \"value\": [ { \"name\": \"logs\", \"publicAccess\": \"None\", \"metadata\": {} } ] }, \"lifecycleRules\": { \"value\": { \"enabled\": true, \"name\": \"&lt;rule_name&gt;\", \"type\": \"Lifecycle\", \"definition\": { \"actions\": { \"baseBlob\": { \"delete\": { \"daysAfterModificationGreaterThan\": 7 } } }, \"filters\": { \"blobTypes\": [ \"blockBlob\" ], \"prefixMatch\": [ \"logs/\" ] } } } }, \"blobSoftDeleteDays\": { \"value\": 7 }, \"containerSoftDeleteDays\": { \"value\": 7 }, \"shares\": { \"value\": [ { \"name\": \"&lt;share_name&gt;\", \"shareQuota\": 5, \"metadata\": {} } ] }, \"shareSoftDeleteDays\": { \"value\": 7 }, \"allowBlobPublicAccess\": { \"value\": false }, \"tags\": { \"value\": { \"service\": \"&lt;service_name&gt;\", \"env\": \"prod\" } } } } . ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/storage_v1/#snippets",
     "relUrl": "/docs/templates/storage/storage_v1/#snippets"
-  },"33": {
+  },"20": {
     "doc": "v1",
     "title": "v1",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/storage_v1/",
     "relUrl": "/docs/templates/storage/storage_v1/"
-  },"34": {
+  },"21": {
     "doc": "Change log",
     "title": "Change log",
     "content": "# Change log ## Unreleased ## v0.3.0-B2103011 (pre-release) What's changed since v0.2.0: - New Features: - Added support for naming document by parent path using conventions. [#43](https://github.com/Azure/PSDocs.Azure/issues/43) - Add the `-Convention` parameter with `Azure.NameByParentPath` to use. - See [about_PSDocs_Azure_Conventions] for details. - General improvements: - Added support for reading template metadata from `metadata.json`. [#32](https://github.com/Azure/PSDocs.Azure/issues/32) - This adds additional compatibility for the Azure Quickstart templates repository. - Additional metadata from `metadata.json` will be read when it exists. - Template metadata take priority over `metadata.json`. - Added support for the `summary` template metadata property. [#60](https://github.com/Azure/PSDocs.Azure/issues/60) - The `summary` template metadata property is intended to provide a short description of the template. - Use the `description` template metadata property to provide a detailed description of the template. ## v0.2.0 What's changed since v0.1.0: - New Features: - Added the ability to enable manual command line snippet. [#40](https://github.com/Azure/PSDocs.Azure/issues/40) - To enable parameter file snippet set configuration `AZURE_USE_COMMAND_LINE_SNIPPET`. - See [about_PSDocs_Azure_Configuration] for details. - Added the ability to disable parameter file snippet. [#31](https://github.com/Azure/PSDocs.Azure/issues/31) - To disable parameter file snippet set configuration `AZURE_USE_PARAMETER_FILE_SNIPPET`. - See [about_PSDocs_Azure_Configuration] for details. - Added the ability to include badges in template document. [#30](https://github.com/Azure/PSDocs.Azure/issues/30) - Set the `.ps-docs/azure-template-badges.md` file to include badge content. - See [about_PSDocs_Azure_Badges] for details. - Template outputs are added to generated document. [#28](https://github.com/Azure/PSDocs.Azure/issues/28) - General Improvements - Minor update to the documentation to include OutputPath to generate README.md [#50](https://github.com/Azure/PSDocs.Azure/issues/50) - Engineering: - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42) - Bug fixes: - Fixed snippet with short relative template causes exception. [#26](https://github.com/Azure/PSDocs.Azure/issues/26) - Fixed cannot bind argument when metadata name is not set. [#35](https://github.com/Azure/PSDocs.Azure/issues/35) What's changed since pre-release v0.2.0-B2102012: - No additional changes. ## v0.2.0-B2102012 (pre-release) What's changed since pre-release v0.2.0-B2102005: - New features: - Added the ability to enable manual command line snippet. [#40](https://github.com/Azure/PSDocs.Azure/issues/40) - To enable parameter file snippet set configuration `AZURE_USE_COMMAND_LINE_SNIPPET`. - See [about_PSDocs_Azure_Configuration] for details. ## v0.2.0-B2102005 (pre-release) What's changed since pre-release v0.2.0-B2101002: - New features: - Added the ability to disable parameter file snippet. [#31](https://github.com/Azure/PSDocs.Azure/issues/31) - To disable parameter file snippet set configuration `AZURE_USE_PARAMETER_FILE_SNIPPET`. - See [about_PSDocs_Azure_Configuration] for details. - Added the ability to include badges in template document. [#30](https://github.com/Azure/PSDocs.Azure/issues/30) - Set the `.ps-docs/azure-template-badges.md` file to include badge content. - See [about_PSDocs_Azure_Badges] for details. - Engineering: - Bump PSDocs dependency to v0.8.0. [#42](https://github.com/Azure/PSDocs.Azure/issues/42) ## v0.2.0-B2101002 (pre-release) What's changed since v0.1.0: - New features: - Template outputs are added to generated document. [#28](https://github.com/Azure/PSDocs.Azure/issues/28) - Bug fixes: - Fixed snippet with short relative template causes exception. [#26](https://github.com/Azure/PSDocs.Azure/issues/26) - Fixed cannot bind argument when metadata name is not set. [#35](https://github.com/Azure/PSDocs.Azure/issues/35) ## v0.1.0 - Initial release. What's changed since pre-release v0.1.0-B2012006: - New features: - Added `Get-AzDocTemplateFile` cmdlet to scan for template files within a path. [#16](https://github.com/Azure/PSDocs.Azure/issues/16) - General improvements: - Added support for document localization and JSON snippet formatting. [#18](https://github.com/Azure/PSDocs.Azure/issues/18) - Engineering: - Bump PSDocs dependency to v0.7.0. ## v0.1.0-B2012006 (pre-release) - Initial pre-release. [about_PSDocs_Azure_Configuration]: docs/concepts/en-US/about_PSDocs_Azure_Configuration.md [about_PSDocs_Azure_Badges]: docs/concepts/en-US/about_PSDocs_Azure_Badges.md [about_PSDocs_Azure_Conventions]: docs/concepts/en-US/about_PSDocs_Azure_Conventions.md ",
     "url": "https://azure.github.io/PSDocs.Azure/CHANGELOG/",
     "relUrl": "/CHANGELOG/"
-  },"35": {
+  },"22": {
     "doc": "PSDocs for Azure features",
     "title": "PSDocs for Azure features",
     "content": "# PSDocs for Azure features The following sections describe key features of PSDocs for Azure. - [Ready to go](#ready-to-go) - [DevOps](#devops) - [Cross-platform](#cross-platform) ## Ready to go PSDocs for Azure automatically generates documentation for Azure infrastructure as code (IaC) artifacts. It does this by, reading then processing each artifacts with one or more included documentation templates. Documentation is outputted as _markdown_ a standard easy to read, easy to render format for modern documentation. Currently the following infrastructure code artifacts are supported: - Azure Resource Manager (ARM) template files. As new features are added and improved, download the latest PowerShell module to start using them. ## DevOps Azure infrastructure code such as ARM template supports a number of ways to self document in code. PSDocs uses these existing features and makes them easier to consume. Document generation can be integrated into a continuous integration (CI) pipeline to: - **Shift-left:** Identify documentation issues and provide fast feedback in pull requests. ## Cross-platform PSDocs uses modern PowerShell libraries at its core, allowing it to go anywhere PowerShell can go. PSDocs runs on MacOS, Linux and Windows. PowerShell makes it easy to integrate PSDocs into popular CI systems. To install, use the `Install-Module` cmdlet within PowerShell. For installation options see [install instructions](/PSDocs.Azure/docs/install-instructions/). ## Frequently Asked Questions (FAQ) ### Can PSDocs read from metadata.json? The Azure Quickstart Templates repository uses an additional `metadata.json` to store template metadata. PSDocs doesn't require a `metadata.json` file to exist but will fallback to this file if it exists. For details on `metadata.json` see [Azure Resource Manager QuickStart Templates contributing guide]. PSDocs reads `metadata.json` using the following logic: 1. Metadata is loaded from the template `metadata` property. 2. When `metadata.json` exists, properties are merged with the template metadata. - Properties included in template metadata override properties included from `metadata.json`. - The `$schema` property from `metadata.json` is ignored. - For PSDocs to discover `metadata.json` it must exist in the same directory as the template file. When creating `metadata.json` use only lowercase in the file name. The schema of `metadata.json` differs from template metadata. To maintain compatibility, PSDocs automatically maps the metadata as described in the following table. metadata.json | Template metadata | Description ------------- | ------- | ----------------- | ------ `itemDisplayName` | Maps to | `name` | Used for markdown page title. `summary` | Maps to | `summary` | Used as a short description for the markdown page. `description` | Maps to | `description` | Used as a detailed description for the markdown page. For example: - If `name` exists in template metadata, this will take priority over `itemDisplayName` from `metadata.json`. - If `name` does not exist in template metadata, `itemDisplayName` from `metadata.json` will be used. ### How do I include a badge image? To include a badge image, create the `.ps-docs/azure-template-badges.md` file. Within this file add markdown links to your badge image. Use the following placeholders to reference unique images per template. - `{{ template_path }}` - The relative path of the template directory. - `{{ template_path_encoded }}` - The relative path of the template directory URL encoded. See [about_PSDocs_Azure_Badges] for additional details. ### Can PSDocs generate badges for documentation? No. PSDocs can not generate badge images for you. Once you have generated a badge, PSDocs can include a link to the badge for displaying directly in markdown. [about_PSDocs_Azure_Badges]: concepts/en-US/about_PSDocs_Azure_Badges.md [Azure Resource Manager QuickStart Templates contributing guide]: https://github.com/Azure/azure-quickstart-templates/tree/master/1-CONTRIBUTION-GUIDE#metadatajson ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/features/",
     "relUrl": "/docs/features/"
-  },"36": {
+  },"23": {
     "doc": "Install instructions",
     "title": "Install instructions",
     "content": "# Install instructions ## Prerequisites - Windows PowerShell 5.1 with .NET Framework 4.7.2+ or - PowerShell Core 6.2 or greater on Windows, MacOS and Linux or - PowerShell 7.0 or greater on Windows, MacOS and Linux For a list of platforms that PowerShell 7.0 is supported on [see][get-powershell]. The following modules are required for `PSDocs.Azure` to work: - PSDocs The required version of each module will automatically be installed along-side `PSDocs.Azure` when using `Install-Module` or `Update-Module` cmdlets. ## Getting the modules ### PowerShell Gallery Install from [PowerShell Gallery][module] for all users (requires permissions): ```powershell # Install module Install-Module -Name 'PSDocs.Azure' -Repository PSGallery; ``` Install from [PowerShell Gallery][module] for current user only: ```powershell # Install module Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -Scope CurrentUser; ``` Save for offline use from PowerShell Gallery: ```powershell # Save module, in the .\\modules directory Save-Module -Name 'PSDocs', 'PSDocs.Azure' -Path '.\\modules'; ``` > For pre-release versions the `-AllowPrerelease` switch must be added when calling `Install-Module` or `Save-Module`. > > To install pre-release module versions, upgrading to the latest version of _PowerShellGet_ may be required. To do this use: > > `Install-Module -Name PowerShellGet -Repository PSGallery -Scope CurrentUser -Force` ## Building from source To build this module from source run `./build.ps1`. This build script will compile the module and documentation then output the result into `out/modules/PSDocs.Azure`. The following PowerShell modules will be automatically downloaded if the required versions are not present: - PlatyPS - Pester - PSScriptAnalyzer - PowerShellGet - PackageManagement - InvokeBuild These additional modules are only required for building PSRule and are not required for running PSRule. If you are on a network that does not permit Internet access to the PowerShell Gallery, download these modules on an alternative device that has access. The following script can be used to download the required modules to an alternative device. After downloading the modules copy the module directories to devices with restricted Internet access. ```powershell # Save modules, in the .\\modules directory Save-Module -Name PlatyPS, Pester, PSScriptAnalyzer, PowerShellGet, PackageManagement, InvokeBuild -Repository PSGallery -Path '.\\modules'; ``` Additionally .NET Core SDK v3.1 is required.NET Core will not be automatically downloaded and installed. To download and install the latest SDK see [Download .NET Core 3.1][dotnet]. [module]: https://www.powershellgallery.com/packages/PSDocs.Azure [get-powershell]: https://github.com/PowerShell/PowerShell#get-powershell [dotnet]: https://dotnet.microsoft.com/download/dotnet-core/3.1 ",
