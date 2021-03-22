@@ -32,6 +32,7 @@ Export-PSDocumentConvention 'AddMeta' {
         @(
             '---'
             "title: $($output.Group[0].metadata.parent)"
+            'parent: Templates'
             'has_children: true'
             '---'
         ) | Set-Content -Path $indexPath;
