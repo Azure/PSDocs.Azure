@@ -2,6 +2,8 @@
 
 Create or update a Storage Account.
 
+![Template checks](https://img.shields.io/badge/Template-Pass-green?style=flat-square)
+
 This template deploys a Storage Account including blob containers and files shares. Encryption in transit it enabled using a minimum of TLS 1.2.
 
 ## Parameters

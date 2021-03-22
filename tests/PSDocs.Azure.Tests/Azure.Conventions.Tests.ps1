@@ -36,7 +36,12 @@ Describe 'Conventions' -Tag 'Conventions' {
                 Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -Convention 'Azure.NameByParentPath'
             }
             $result | Should -Not -BeNullOrEmpty;
-            $result[0].Name | Should -BeLike 'storage_v1.md';
+            $filteredResult = $result | Where-Object { $_.Name -like 'acr_*' };
+            $filteredResult.Name | Should -BeLike 'acr_v1.md';
+            $filteredResult = $result | Where-Object { $_.Name -like 'keyvault_*' };
+            $filteredResult.Name | Should -BeLike 'keyvault_v1.md';
+            $filteredResult = $result | Where-Object { $_.Name -like 'storage_*' };
+            $filteredResult.Name | Should -BeLike 'storage_v1.md';
             $result;
 
             # Generates templates without version path

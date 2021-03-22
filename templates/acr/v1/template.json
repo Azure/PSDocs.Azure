@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "metadata": {
+        "name": "Container Registry",
+        "description": "Create or update a Container Registry."
+    },
+    "parameters": {
+        "registryName": {
+            "type": "string",
+            "metadata": {
+                "description": "Required. The name of the container registry.",
+                "example": "<name>"
+            }
+        },
+        "location": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Optional. The location to deploy the container registry.",
+                "example": "EastUS",
+                "ignore": true
+            }
+        },
+        "registrySku": {
+            "type": "string",
+            "defaultValue": "Basic",
+            "allowedValues": [
+                "Basic",
+                "Standard",
+                "Premium"
+            ],
+            "metadata": {
+                "description": "Optional. The container registry SKU."
+            }
+        },
+        "tags": {
+             "type": "object",
+            "defaultValue": {
+            },
+            "metadata": {
+                "description": "Optional. Tags to apply to the resource.",
+                "example": {
+                    "service": "<service_name>",
+                    "env": "prod"
+                }
+            }
+        }
+    },
+    "resources": [
+        {
+            "comments": "Create or update a Container Registry.",
+            "type": "Microsoft.ContainerRegistry/registries",
+            "apiVersion": "2019-05-01",
+            "name": "[parameters('registryName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('registrySku')]"
+            },
+            "properties": {
+                "adminUserEnabled": false,
+                "policies": {
+                    "quarantinePolicy": {
+                        "status": "disabled"
+                    },
+                    "trustPolicy": {
+                        "type": "Notary",
+                        "status": "disabled"
+                    },
+                    "retentionPolicy": {
+                        "days": 7,
+                        "status": "disabled"
+                    }
+                }
+            },
+            "tags": "[parameters('tags')]"
+        }
+    ]
+}
