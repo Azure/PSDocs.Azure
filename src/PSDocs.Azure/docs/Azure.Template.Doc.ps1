@@ -20,15 +20,18 @@ function global:GetTemplateParameter {
                 Description = ''
                 DefaultValue = $Null
                 AllowedValues = $Null
+                Required = "Required"
             }
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
                 $result.Description = $property.Value.metadata.description;
             }
             if ([bool]$property.Value.PSObject.Properties['defaultValue']) {
                 $result.DefaultValue = $property.Value.defaultValue;
+                $result.Required = "Optional"
             }
             if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
                 $result.AllowedValues = $property.Value.allowedValues;
+                $result.Required = "Optional"
             }
             $result;
         }
@@ -232,11 +235,13 @@ Document 'README' {
 
     # Add table and detail for each parameter
     Section $LocalizedData.Parameters {
-        $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }},
-            @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
+        $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, 
+        @{ Required = $LocalizedData.Required; Expression = { $_.Required }}, 
+        @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
 
         foreach ($parameter in $parameters) {
             Section $parameter.Name {
+                $parameter.Required;                
                 $parameter.Description;
 
                 if (![String]::IsNullOrEmpty($parameter.DefaultValue)) {
