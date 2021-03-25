@@ -236,7 +236,7 @@ Document 'README' {
     # Add table and detail for each parameter
     Section $LocalizedData.Parameters {
         $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, 
-        @{ Required = $LocalizedData.Required; Expression = { $_.Required }}, 
+        @{ Name = $LocalizedData.Required; Expression = { $_.Required }}, 
         @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
 
         foreach ($parameter in $parameters) {
