@@ -8,34 +8,40 @@ This template deploys a Storage Account including blob containers and files shar
 
 ## Parameters
 
-Parameter name | Description
--------------- | -----------
-storageAccountName | Required. The name of the Storage Account.
-location       | Optional. The Azure region to deploy to.
-sku            | Optional. Create the Storage Account as LRS or GRS.
-suffixLength   | Optional. Determine how many additional characters are added to the storage account name as a suffix.
-containers     | Optional. An array of storage containers to create on the storage account.
-lifecycleRules | Optional. An array of lifecycle management policies for the storage account.
-blobSoftDeleteDays | Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
-containerSoftDeleteDays | Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.
-shares         | Optional. An array of file shares to create on the storage account.
-useLargeFileShares | Optional. Determines if large file shares are enabled. This can not be disabled once enabled.
-shareSoftDeleteDays | Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.
-allowBlobPublicAccess | Optional. Determines if any containers can be configured with the anonymous access types of blob or container.
-keyVaultPrincipalId | Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
-tags           | Optional. Tags to apply to the resource.
+Parameter name | Required | Description
+-------------- | -------- | -----------
+storageAccountName | Required | Required. The name of the Storage Account.
+location       | Optional | Optional. The Azure region to deploy to.
+sku            | Optional | Optional. Create the Storage Account as LRS or GRS.
+suffixLength   | Optional | Optional. Determine how many additional characters are added to the storage account name as a suffix.
+containers     | Optional | Optional. An array of storage containers to create on the storage account.
+lifecycleRules | Optional | Optional. An array of lifecycle management policies for the storage account.
+blobSoftDeleteDays | Optional | Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
+containerSoftDeleteDays | Optional | Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.
+shares         | Optional | Optional. An array of file shares to create on the storage account.
+useLargeFileShares | Optional | Optional. Determines if large file shares are enabled. This can not be disabled once enabled.
+shareSoftDeleteDays | Optional | Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.
+allowBlobPublicAccess | Optional | Optional. Determines if any containers can be configured with the anonymous access types of blob or container.
+keyVaultPrincipalId | Optional | Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
+tags           | Optional | Optional. Tags to apply to the resource.
 
 ### storageAccountName
+
+Required
 
 Required. The name of the Storage Account.
 
 ### location
+
+Optional
 
 Optional. The Azure region to deploy to.
 
 - Default value: `[resourceGroup().location]`
 
 ### sku
+
+Optional
 
 Optional. Create the Storage Account as LRS or GRS.
 
@@ -45,19 +51,27 @@ Optional. Create the Storage Account as LRS or GRS.
 
 ### suffixLength
 
+Optional
+
 Optional. Determine how many additional characters are added to the storage account name as a suffix.
 
 - Default value: `0`
 
 ### containers
 
+Optional
+
 Optional. An array of storage containers to create on the storage account.
 
 ### lifecycleRules
 
+Optional
+
 Optional. An array of lifecycle management policies for the storage account.
 
 ### blobSoftDeleteDays
+
+Optional
 
 Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
 
@@ -65,15 +79,21 @@ Optional. The number of days to retain deleted blobs. When set to 0, soft delete
 
 ### containerSoftDeleteDays
 
+Optional
+
 Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.
 
 - Default value: `0`
 
 ### shares
 
+Optional
+
 Optional. An array of file shares to create on the storage account.
 
 ### useLargeFileShares
+
+Optional
 
 Optional. Determines if large file shares are enabled. This can not be disabled once enabled.
 
@@ -81,11 +101,15 @@ Optional. Determines if large file shares are enabled. This can not be disabled 
 
 ### shareSoftDeleteDays
 
+Optional
+
 Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.
 
 - Default value: `0`
 
 ### allowBlobPublicAccess
+
+Optional
 
 Optional. Determines if any containers can be configured with the anonymous access types of blob or container.
 
@@ -93,9 +117,13 @@ Optional. Determines if any containers can be configured with the anonymous acce
 
 ### keyVaultPrincipalId
 
+Optional
+
 Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
 
 ### tags
+
+Optional
 
 Optional. Tags to apply to the resource.
 
