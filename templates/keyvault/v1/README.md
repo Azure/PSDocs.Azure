@@ -6,25 +6,29 @@ Create or update a Key Vault.
 
 ## Parameters
 
-Parameter name | Description
--------------- | -----------
-vaultName      | Required. The name of the Key Vault.
-location       | Optional. The Azure region to deploy to.
-accessPolicies | Optional. The access policies defined for this vault.
-useDeployment  | Optional. Determines if Azure can deploy certificates from this Key Vault.
-useTemplate    | Optional. Determines if templates can reference secrets from this Key Vault.
-useDiskEncryption | Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
-useSoftDelete  | Optional. Determine if soft delete is enabled on this Key Vault.
-usePurgeProtection | Optional. Determine if purge protection is enabled on this Key Vault.
-networkAcls    | Optional. The network firewall defined for this vault.
-workspaceId    | Optional. The workspace to store audit logs.
-tags           | Optional. Tags to apply to the resource.
+Parameter name | Required | Description
+-------------- | -------- | -----------
+vaultName      | Required | Required. The name of the Key Vault.
+location       | Optional | Optional. The Azure region to deploy to.
+accessPolicies | Optional | Optional. The access policies defined for this vault.
+useDeployment  | Optional | Optional. Determines if Azure can deploy certificates from this Key Vault.
+useTemplate    | Optional | Optional. Determines if templates can reference secrets from this Key Vault.
+useDiskEncryption | Optional | Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
+useSoftDelete  | Optional | Optional. Determine if soft delete is enabled on this Key Vault.
+usePurgeProtection | Optional | Optional. Determine if purge protection is enabled on this Key Vault.
+networkAcls    | Optional | Optional. The network firewall defined for this vault.
+workspaceId    | Optional | Optional. The workspace to store audit logs.
+tags           | Optional | Optional. Tags to apply to the resource.
 
 ### vaultName
+
+Required
 
 Required. The name of the Key Vault.
 
 ### location
+
+Optional
 
 Optional. The Azure region to deploy to.
 
@@ -32,9 +36,13 @@ Optional. The Azure region to deploy to.
 
 ### accessPolicies
 
+Optional
+
 Optional. The access policies defined for this vault.
 
 ### useDeployment
+
+Optional
 
 Optional. Determines if Azure can deploy certificates from this Key Vault.
 
@@ -42,11 +50,15 @@ Optional. Determines if Azure can deploy certificates from this Key Vault.
 
 ### useTemplate
 
+Optional
+
 Optional. Determines if templates can reference secrets from this Key Vault.
 
 - Default value: `False`
 
 ### useDiskEncryption
+
+Optional
 
 Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
 
@@ -54,11 +66,15 @@ Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
 
 ### useSoftDelete
 
+Optional
+
 Optional. Determine if soft delete is enabled on this Key Vault.
 
 - Default value: `True`
 
 ### usePurgeProtection
+
+Optional
 
 Optional. Determine if purge protection is enabled on this Key Vault.
 
@@ -66,15 +82,21 @@ Optional. Determine if purge protection is enabled on this Key Vault.
 
 ### networkAcls
 
+Optional
+
 Optional. The network firewall defined for this vault.
 
 - Default value: `@{defaultAction=Allow; bypass=AzureServices; ipRules=System.Object[]; virtualNetworkRules=System.Object[]}`
 
 ### workspaceId
 
+Optional
+
 Optional. The workspace to store audit logs.
 
 ### tags
+
+Optional
 
 Optional. Tags to apply to the resource.
 

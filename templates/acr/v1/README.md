@@ -6,24 +6,30 @@ Create or update a Container Registry.
 
 ## Parameters
 
-Parameter name | Description
--------------- | -----------
-registryName   | Required. The name of the container registry.
-location       | Optional. The location to deploy the container registry.
-registrySku    | Optional. The container registry SKU.
-tags           | Optional. Tags to apply to the resource.
+Parameter name | Required | Description
+-------------- | -------- | -----------
+registryName   | Required | Required. The name of the container registry.
+location       | Optional | Optional. The location to deploy the container registry.
+registrySku    | Optional | Optional. The container registry SKU.
+tags           | Optional | Optional. Tags to apply to the resource.
 
 ### registryName
+
+Required
 
 Required. The name of the container registry.
 
 ### location
+
+Optional
 
 Optional. The location to deploy the container registry.
 
 - Default value: `[resourceGroup().location]`
 
 ### registrySku
+
+Optional
 
 Optional. The container registry SKU.
 
@@ -32,6 +38,8 @@ Optional. The container registry SKU.
 - Allowed values: `Basic`, `Standard`, `Premium`
 
 ### tags
+
+Optional
 
 Optional. Tags to apply to the resource.
 
