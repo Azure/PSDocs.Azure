@@ -23,23 +23,23 @@
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/acr_v1/",
     "relUrl": "/docs/templates/acr/acr_v1/"
   },"4": {
-    "doc": "Storage Account",
-    "title": "Storage Account",
-    "content": " ",
-    "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/",
-    "relUrl": "/docs/templates/storage/"
-  },"5": {
     "doc": "Container Registry",
     "title": "Container Registry",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/acr/",
     "relUrl": "/docs/templates/acr/"
-  },"6": {
+  },"5": {
     "doc": "Key Vault",
     "title": "Key Vault",
     "content": " ",
     "url": "https://azure.github.io/PSDocs.Azure/docs/templates/keyvault/",
     "relUrl": "/docs/templates/keyvault/"
+  },"6": {
+    "doc": "Storage Account",
+    "title": "Storage Account",
+    "content": " ",
+    "url": "https://azure.github.io/PSDocs.Azure/docs/templates/storage/",
+    "relUrl": "/docs/templates/storage/"
   },"7": {
     "doc": "Templates",
     "title": "Templates",
