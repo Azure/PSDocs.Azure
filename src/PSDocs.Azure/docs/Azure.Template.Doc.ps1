@@ -20,7 +20,7 @@ function global:GetTemplateParameter {
                 Description = ''
                 DefaultValue = $Null
                 AllowedValues = $Null
-                Required = "Required"
+                Required = $Null
             }
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
                 $result.Description = $property.Value.metadata.description;
@@ -31,7 +31,6 @@ function global:GetTemplateParameter {
             }
             if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
                 $result.AllowedValues = $property.Value.allowedValues;
-                $result.Required = "Optional"
             }
             $result;
         }
@@ -236,12 +235,23 @@ Document 'README' {
     # Add table and detail for each parameter
     Section $LocalizedData.Parameters {
         $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, 
-        @{ Name = $LocalizedData.Required; Expression = { $_.Required }}, 
+        @{ Name = $LocalizedData.Required; Expression = { 
+                if($_.Required) {
+                    "No"
+                } 
+                else {
+                    "Yes"
+                } 
+            }
+        }, 
         @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
 
         foreach ($parameter in $parameters) {
             Section $parameter.Name {
-                $parameter.Required;                
+                if($parameter.Required){
+                    "![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)"
+                }
+                else{ "![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)" }                
                 $parameter.Description;
 
                 if (![String]::IsNullOrEmpty($parameter.DefaultValue)) {

@@ -8,27 +8,27 @@ Create or update a Key Vault.
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-vaultName      | Required | Required. The name of the Key Vault.
-location       | Optional | Optional. The Azure region to deploy to.
-accessPolicies | Optional | Optional. The access policies defined for this vault.
-useDeployment  | Optional | Optional. Determines if Azure can deploy certificates from this Key Vault.
-useTemplate    | Optional | Optional. Determines if templates can reference secrets from this Key Vault.
-useDiskEncryption | Optional | Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
-useSoftDelete  | Optional | Optional. Determine if soft delete is enabled on this Key Vault.
-usePurgeProtection | Optional | Optional. Determine if purge protection is enabled on this Key Vault.
-networkAcls    | Optional | Optional. The network firewall defined for this vault.
-workspaceId    | Optional | Optional. The workspace to store audit logs.
-tags           | Optional | Optional. Tags to apply to the resource.
+vaultName      | Yes      | Required. The name of the Key Vault.
+location       | No       | Optional. The Azure region to deploy to.
+accessPolicies | No       | Optional. The access policies defined for this vault.
+useDeployment  | No       | Optional. Determines if Azure can deploy certificates from this Key Vault.
+useTemplate    | No       | Optional. Determines if templates can reference secrets from this Key Vault.
+useDiskEncryption | No       | Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
+useSoftDelete  | No       | Optional. Determine if soft delete is enabled on this Key Vault.
+usePurgeProtection | No       | Optional. Determine if purge protection is enabled on this Key Vault.
+networkAcls    | No       | Optional. The network firewall defined for this vault.
+workspaceId    | No       | Optional. The workspace to store audit logs.
+tags           | No       | Optional. Tags to apply to the resource.
 
 ### vaultName
 
-Required
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
 Required. The name of the Key Vault.
 
 ### location
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. The Azure region to deploy to.
 
@@ -36,13 +36,13 @@ Optional. The Azure region to deploy to.
 
 ### accessPolicies
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. The access policies defined for this vault.
 
 ### useDeployment
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Determines if Azure can deploy certificates from this Key Vault.
 
@@ -50,7 +50,7 @@ Optional. Determines if Azure can deploy certificates from this Key Vault.
 
 ### useTemplate
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Determines if templates can reference secrets from this Key Vault.
 
@@ -58,7 +58,7 @@ Optional. Determines if templates can reference secrets from this Key Vault.
 
 ### useDiskEncryption
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
 
@@ -66,7 +66,7 @@ Optional. Determines if this Key Vault can be used for Azure Disk Encryption.
 
 ### useSoftDelete
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Determine if soft delete is enabled on this Key Vault.
 
@@ -74,7 +74,7 @@ Optional. Determine if soft delete is enabled on this Key Vault.
 
 ### usePurgeProtection
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Determine if purge protection is enabled on this Key Vault.
 
@@ -82,7 +82,7 @@ Optional. Determine if purge protection is enabled on this Key Vault.
 
 ### networkAcls
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. The network firewall defined for this vault.
 
@@ -90,13 +90,13 @@ Optional. The network firewall defined for this vault.
 
 ### workspaceId
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. The workspace to store audit logs.
 
 ### tags
 
-Optional
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
 Optional. Tags to apply to the resource.
 
