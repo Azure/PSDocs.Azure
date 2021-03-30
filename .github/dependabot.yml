@@ -27,3 +27,13 @@ updates:
   - 'dependencies'
   reviewers:
   - 'azure/psdocs-azure'
+
+# Maintain dependencies for Ruby
+- package-ecosystem: 'bundler'
+  directory: '/'
+  schedule:
+    interval: 'daily'
+  labels:
+  - 'ci-quality'
+  reviewers:
+  - 'azure/psdocs-azure'
