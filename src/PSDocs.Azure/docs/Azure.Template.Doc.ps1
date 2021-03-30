@@ -237,10 +237,10 @@ Document 'README' {
         $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, 
         @{ Name = $LocalizedData.Required; Expression = { 
                 if($_.Required) {
-                    "No"
+                    $LocalizedData.RequiredNo
                 } 
                 else {
-                    "Yes"
+                    $LocalizedData.RequiredYes
                 } 
             }
         }, 

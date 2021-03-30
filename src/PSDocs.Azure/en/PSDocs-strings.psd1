@@ -15,4 +15,6 @@
     ParameterFile = 'Parameter file'
     CommandLine = 'Command line'
     Required = 'Required'
+    RequiredYes = 'Yes'
+    RequiredNo = 'No'
 }
