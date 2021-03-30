@@ -52,15 +52,13 @@ For example:
         "storageAccountName": {
             "type": "string",
             "metadata": {
-                "description": "Required. The name of the Storage Account."
+                "description": "The name of the Storage Account."
             }
         },
         "tags": {
             "type": "object",
-            "defaultValue": {
-            },
             "metadata": {
-                "description": "Optional. Tags to apply to the resource.",
+                "description": "Tags to apply to the resource.",
                 "example": {
                     "service": "<service_name>",
                     "env": "prod"
@@ -87,11 +85,11 @@ Generating documentation as markdown allows you to publish web-based content on 
 
 PSDocs supports the following metadata:
 
-Field | Scope | Type | Description
------ | ----- | ---- | -----------
-`name`  | Template | `string` | Used for markdown page title.
-`summary` | Template | `string` | Used as a short description for the markdown page.
-`description` | Template | `string` | Used as a detailed description for the markdown page.
+Field         | Scope     | Type | Description
+-----         | -----     | ---- | -----------
+`name`        | Template  | `string` | Used for markdown page title.
+`summary`     | Template  | `string` | Used as a short description for the markdown page.
+`description` | Template  | `string` | Used as a detailed description for the markdown page.
 `description` | Parameter | `string` | Used as the description for the parameter.
 `example`     | Parameter | `string`, `boolean`, `object`, or `array` | An example use of the parameter. The example is included in the JSON snippet. If an example is not included the default value is used instead.
 `ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.

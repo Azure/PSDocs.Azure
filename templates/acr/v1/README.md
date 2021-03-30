@@ -8,22 +8,22 @@ Create or update a Container Registry.
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-registryName   | Yes      | Required. The name of the container registry.
-location       | No       | Optional. The location to deploy the container registry.
-registrySku    | No       | Optional. The container registry SKU.
-tags           | No       | Optional. Tags to apply to the resource.
+registryName   | Yes      | The name of the container registry.
+location       | No       | The location to deploy the container registry.
+registrySku    | No       | The container registry SKU.
+tags           | Yes      | Tags to apply to the resource.
 
 ### registryName
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-Required. The name of the container registry.
+The name of the container registry.
 
 ### location
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The location to deploy the container registry.
+The location to deploy the container registry.
 
 - Default value: `[resourceGroup().location]`
 
@@ -31,7 +31,7 @@ Optional. The location to deploy the container registry.
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The container registry SKU.
+The container registry SKU.
 
 - Default value: `Basic`
 
@@ -39,9 +39,9 @@ Optional. The container registry SKU.
 
 ### tags
 
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-Optional. Tags to apply to the resource.
+Tags to apply to the resource.
 
 ## Snippets
 
