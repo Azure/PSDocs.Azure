@@ -9,7 +9,7 @@
         "registryName": {
             "type": "string",
             "metadata": {
-                "description": "Required. The name of the container registry.",
+                "description": "The name of the container registry.",
                 "example": "<name>"
             }
         },
@@ -17,8 +17,8 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "metadata": {
-                "description": "Optional. The location to deploy the container registry.",
-                "example": "EastUS",
+                "description": "The location to deploy the container registry.",
+                "example": "eastus",
                 "ignore": true
             }
         },
@@ -31,15 +31,13 @@
                 "Premium"
             ],
             "metadata": {
-                "description": "Optional. The container registry SKU."
+                "description": "The container registry SKU."
             }
         },
         "tags": {
-             "type": "object",
-            "defaultValue": {
-            },
+            "type": "object",
             "metadata": {
-                "description": "Optional. Tags to apply to the resource.",
+                "description": "Tags to apply to the resource.",
                 "example": {
                     "service": "<service_name>",
                     "env": "prod"

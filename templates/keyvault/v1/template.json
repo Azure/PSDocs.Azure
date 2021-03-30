@@ -9,7 +9,7 @@
         "vaultName": {
             "type": "string",
             "metadata": {
-                "description": "Required. The name of the Key Vault.",
+                "description": "The name of the Key Vault.",
                 "example": "<name>"
             }
         },
@@ -17,8 +17,8 @@
             "type": "string",
             "defaultValue": "[resourceGroup().location]",
             "metadata": {
-                "description": "Optional. The Azure region to deploy to.",
-                "example": "EastUS",
+                "description": "The Azure region to deploy to.",
+                "example": "eastus",
                 "ignore": true
             }
         },
@@ -26,7 +26,7 @@
             "type": "array",
             "defaultValue": [],
             "metadata": {
-                "description": "Optional. The access policies defined for this vault.",
+                "description": "The access policies defined for this vault.",
                 "example": [
                     {
                         "objectId": "<object_id>",
@@ -46,28 +46,28 @@
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Optional. Determines if Azure can deploy certificates from this Key Vault."
+                "description": "Determines if Azure can deploy certificates from this Key Vault."
             }
         },
         "useTemplate": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Optional. Determines if templates can reference secrets from this Key Vault."
+                "description": "Determines if templates can reference secrets from this Key Vault."
             }
         },
         "useDiskEncryption": {
             "type": "bool",
             "defaultValue": false,
             "metadata": {
-                "description": "Optional. Determines if this Key Vault can be used for Azure Disk Encryption."
+                "description": "Determines if this Key Vault can be used for Azure Disk Encryption."
             }
         },
         "useSoftDelete": {
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Optional. Determine if soft delete is enabled on this Key Vault.",
+                "description": "Determine if soft delete is enabled on this Key Vault.",
                 "ignore": true
             }
         },
@@ -75,7 +75,7 @@
             "type": "bool",
             "defaultValue": true,
             "metadata": {
-                "description": "Optional. Determine if purge protection is enabled on this Key Vault.",
+                "description": "Determine if purge protection is enabled on this Key Vault.",
                 "ignore": true
             }
         },
@@ -88,22 +88,21 @@
                 "virtualNetworkRules": []
             },
             "metadata": {
-                "description": "Optional. The network firewall defined for this vault."
+                "description": "The network firewall defined for this vault."
             }
         },
         "workspaceId": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
-                "description": "Optional. The workspace to store audit logs.",
+                "description": "The workspace to store audit logs.",
                 "example": "<resource_id>"
             }
         },
         "tags": {
             "type": "object",
-            "defaultValue": {},
             "metadata": {
-                "description": "Optional. Tags to apply to the resource.",
+                "description": "Tags to apply to the resource.",
                 "example": {
                     "service": "<service_name>",
                     "env": "prod"
@@ -161,7 +160,10 @@
     "outputs": {
         "resourceId": {
             "type": "string",
-            "value": "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultName'))]"
+            "value": "[resourceId('Microsoft.KeyVault/vaults', parameters('vaultName'))]",
+            "metadata": {
+                "description": "A unique resource identifier for the Key Vault."
+            }
         }
     }
 }

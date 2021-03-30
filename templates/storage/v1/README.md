@@ -10,32 +10,32 @@ This template deploys a Storage Account including blob containers and files shar
 
 Parameter name | Required | Description
 -------------- | -------- | -----------
-storageAccountName | Yes      | Required. The name of the Storage Account.
-location       | No       | Optional. The Azure region to deploy to.
-sku            | No       | Optional. Create the Storage Account as LRS or GRS.
-suffixLength   | No       | Optional. Determine how many additional characters are added to the storage account name as a suffix.
-containers     | No       | Optional. An array of storage containers to create on the storage account.
-lifecycleRules | No       | Optional. An array of lifecycle management policies for the storage account.
-blobSoftDeleteDays | No       | Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
-containerSoftDeleteDays | No       | Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.
-shares         | No       | Optional. An array of file shares to create on the storage account.
-useLargeFileShares | No       | Optional. Determines if large file shares are enabled. This can not be disabled once enabled.
-shareSoftDeleteDays | No       | Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.
-allowBlobPublicAccess | No       | Optional. Determines if any containers can be configured with the anonymous access types of blob or container.
-keyVaultPrincipalId | No       | Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
-tags           | No       | Optional. Tags to apply to the resource.
+storageAccountName | Yes      | The name of the Storage Account.
+location       | No       | The Azure region to deploy to.
+sku            | No       | Create the Storage Account as LRS or GRS.
+suffixLength   | No       | Determine how many additional characters are added to the storage account name as a suffix.
+containers     | No       | An array of storage containers to create on the storage account.
+lifecycleRules | No       | An array of lifecycle management policies for the storage account.
+blobSoftDeleteDays | No       | The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
+containerSoftDeleteDays | No       | The number of days to retain deleted containers. When set to 0, soft delete is disabled.
+shares         | No       | An array of file shares to create on the storage account.
+useLargeFileShares | No       | Determines if large file shares are enabled. This can not be disabled once enabled.
+shareSoftDeleteDays | No       | The number of days to retain deleted shares. When set to 0, soft delete is disabled.
+allowBlobPublicAccess | No       | Determines if any containers can be configured with the anonymous access types of blob or container.
+keyVaultPrincipalId | No       | Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
+tags           | Yes      | Tags to apply to the resource.
 
 ### storageAccountName
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-Required. The name of the Storage Account.
+The name of the Storage Account.
 
 ### location
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The Azure region to deploy to.
+The Azure region to deploy to.
 
 - Default value: `[resourceGroup().location]`
 
@@ -43,7 +43,7 @@ Optional. The Azure region to deploy to.
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. Create the Storage Account as LRS or GRS.
+Create the Storage Account as LRS or GRS.
 
 - Default value: `Standard_LRS`
 
@@ -53,7 +53,7 @@ Optional. Create the Storage Account as LRS or GRS.
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. Determine how many additional characters are added to the storage account name as a suffix.
+Determine how many additional characters are added to the storage account name as a suffix.
 
 - Default value: `0`
 
@@ -61,19 +61,19 @@ Optional. Determine how many additional characters are added to the storage acco
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. An array of storage containers to create on the storage account.
+An array of storage containers to create on the storage account.
 
 ### lifecycleRules
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. An array of lifecycle management policies for the storage account.
+An array of lifecycle management policies for the storage account.
 
 ### blobSoftDeleteDays
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
+The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
 
 - Default value: `0`
 
@@ -81,7 +81,7 @@ Optional. The number of days to retain deleted blobs. When set to 0, soft delete
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The number of days to retain deleted containers. When set to 0, soft delete is disabled.
+The number of days to retain deleted containers. When set to 0, soft delete is disabled.
 
 - Default value: `0`
 
@@ -89,13 +89,13 @@ Optional. The number of days to retain deleted containers. When set to 0, soft d
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. An array of file shares to create on the storage account.
+An array of file shares to create on the storage account.
 
 ### useLargeFileShares
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. Determines if large file shares are enabled. This can not be disabled once enabled.
+Determines if large file shares are enabled. This can not be disabled once enabled.
 
 - Default value: `False`
 
@@ -103,7 +103,7 @@ Optional. Determines if large file shares are enabled. This can not be disabled 
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. The number of days to retain deleted shares. When set to 0, soft delete is disabled.
+The number of days to retain deleted shares. When set to 0, soft delete is disabled.
 
 - Default value: `0`
 
@@ -111,7 +111,7 @@ Optional. The number of days to retain deleted shares. When set to 0, soft delet
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. Determines if any containers can be configured with the anonymous access types of blob or container.
+Determines if any containers can be configured with the anonymous access types of blob or container.
 
 - Default value: `False`
 
@@ -119,20 +119,20 @@ Optional. Determines if any containers can be configured with the anonymous acce
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
 
-Optional. Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
+Set to the objectId of Azure Key Vault to delegated permission for use with Key Managed Storage Accounts.
 
 ### tags
 
-![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)
 
-Optional. Tags to apply to the resource.
+Tags to apply to the resource.
 
 ## Outputs
 
 Name | Type | Description
 ---- | ---- | -----------
 blobEndpoint | string | A URI to the blob storage endpoint.
-resourceId | string | A unique resource identifier for the storage account.
+resourceId | string | A unique resource identifier for the Storage Account.
 
 ## Snippets
 
