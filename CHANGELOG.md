@@ -1,6 +1,9 @@
 # Change log
 
 ## Unreleased
+- General improvements:
+  - Added ability to detect "Required" or "Optional for each parameter. [#55](https://github.com/Azure/PSDocs.Azure/issues/55)
+    - Detects if parameter is either "Optional" or "Required" based on the availability of `DefaultValue` or `AllowedValues`
 
 ## v0.3.0-B2103011 (pre-release)
 
