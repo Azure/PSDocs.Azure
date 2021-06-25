@@ -6,9 +6,9 @@ Generate markdown from Azure infrastructure as code (IaC) artifacts.
 
 Features of PSDocs for Azure include:
 
-- [Ready to go](docs/features.md#ready-to-go) - Use pre-built templates.
-- [DevOps](docs/features.md#devops) - Generate within a continuous integration (CI) pipeline.
-- [Cross-platform](docs/features.md#cross-platform) - Run on MacOS, Linux, and Windows.
+- [Ready to go](docs/overview.md#ready-to-go) - Use pre-built templates.
+- [DevOps](docs/overview.md#devops) - Generate within a continuous integration (CI) pipeline.
+- [Cross-platform](docs/overview.md#cross-platform) - Run on MacOS, Linux, and Windows.
 
 ## Support
 
@@ -43,7 +43,7 @@ The source template and generated output are provided below.
 
 For frequently asked questions, see the [FAQ].
 
-### Annotate templates file
+### Annotate templates files
 
 In its simplest structure, an Azure template has the following elements:
 
@@ -334,4 +334,4 @@ This project is [licensed under the MIT License](LICENSE).
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
 [source-template]: templates/storage/v1/template.json
 [output-template]: templates/storage/v1/README.md
-[FAQ]: docs/features.md#frequently-asked-questions-faq
+[FAQ]: docs/overview.md#frequently-asked-questions-faq

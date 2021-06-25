@@ -1,22 +1,38 @@
-# PSDocs for Azure features
+---
+author: BernieWhite
+---
 
-The following sections describe key features of PSDocs for Azure.
+# What is PSDocs for Azure?
 
-- [Ready to go](#ready-to-go)
-- [DevOps](#devops)
-- [Cross-platform](#cross-platform)
+PSDocs for Azure is a module for [PSDocs][1], an engine to generate documentation from Infrastructure as Code (IaC).
+PSDocs for Azure includes pre-built functions and templates that make it easy to generate documentation.
+
+**What customers :octicons-heart-fill-24:{ .heart } about PSDocs for Azure:**
+
+- **:octicons-infinity-24: Continuous** &mdash; Generate documentation as an output of infrastructure code,
+  not an extra process that someone needs to do.
+- **:octicons-sync-24: Consistency** &mdash; Focus on building great solutions on Azure with infrastructure code.
+  As infrastructure code is updated so is the documentation.
+- **:octicons-people-24: Consumable** &mdash; Transform infrastructure code into presentable documentation.
+  Use standard documentation that make it easier to deploy Azure resources.
+
+  [1]: https://github.com/BernieWhite/PSDocs
 
 ## Ready to go
 
 PSDocs for Azure automatically generates documentation for Azure infrastructure as code (IaC) artifacts.
 It does this by, reading then processing each artifacts with one or more included documentation templates.
-Documentation is outputted as _markdown_ a standard easy to read, easy to render format for modern documentation.
+Documentation is outputted as _markdown_ a standard, easy to read, easy to render format for modern documentation.
+We use the same standard for [docs.microsoft.com][2].
 
 Currently the following infrastructure code artifacts are supported:
 
-- Azure Resource Manager (ARM) template files.
+- Azure Resource Manager (ARM) template files. [Example output][3].
 
 As new features are added and improved, download the latest PowerShell module to start using them.
+
+  [2]: https://docs.microsoft.com/azure/
+  [3]: templates/storage.md
 
 ## DevOps
 
