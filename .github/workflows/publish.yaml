@@ -28,24 +28,23 @@ jobs:
               Invoke-PSDocument -Path .ps-docs/ -Module PSDocs.Azure -OutputPath docs/templates/ -InputObject $template.FullName -Convention 'AddMeta';
           }
 
-      - name: 💎 setup ruby
-        uses: ruby/setup-ruby@v1
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
         with:
-          ruby-version: '2.6'
+          python-version: '3.9'
+          architecture: 'x64'
 
       - name: Install dependencies
         run: |
-          gem install jekyll bundler
-          bundle install
-      - name: Build site
-        run: |
-          bundle exec jekyll build
+          python3 -m pip install --upgrade pip
+          python3 -m pip install wheel
+          python3 -m pip install -r requirements-docs.txt
 
-      - name: 🚀 deploy
-        uses: peaceiris/actions-gh-pages@v3.8.0
+      - name: Build site
+        run: mkdocs build
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
-          # if the repo you are deploying to is <username>.github.io, uncomment the line below.
-          # if you are including the line below, make sure your source files are NOT in the master branch:
-          # publish_branch: master
+          publish_dir: ./site
