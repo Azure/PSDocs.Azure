@@ -2,12 +2,41 @@
 
 ## Unreleased
 
-## 0.3.0-B2103037 (pre-release)
+## v0.3.0
+
+What's changed since v0.2.0:
+
+- New Features:
+  - Added support for naming document by parent path using conventions. [#43](https://github.com/Azure/PSDocs.Azure/issues/43)
+    - Add the `-Convention` parameter with `Azure.NameByParentPath` to use.
+    - See [about_PSDocs_Azure_Conventions] for details.
 - General improvements:
-  - Added ability to detect "Required" or "Optional for each parameter. [#55](https://github.com/Azure/PSDocs.Azure/issues/55)
-    - Detects if parameter is either "Optional" or "Required" based on the availability of `DefaultValue` or `AllowedValues`.
-    - Added a "Required" column in the parameters table.
-    - Added "Required" and "Optional" badge for each parameter in the detailed parameter section.
+  - Added support for reading template metadata from `metadata.json`. [#32](https://github.com/Azure/PSDocs.Azure/issues/32)
+    - This adds additional compatibility for the Azure Quickstart templates repository.
+    - Additional metadata from `metadata.json` will be read when it exists.
+    - Template metadata take priority over `metadata.json`.
+  - Added support for the `summary` template metadata property. [#60](https://github.com/Azure/PSDocs.Azure/issues/60)
+    - The `summary` template metadata property is intended to provide a short description of the template.
+    - Use the `description` template metadata property to provide a detailed description of the template.
+  - Added ability to detect required or optional for each parameter. [#55](https://github.com/Azure/PSDocs.Azure/issues/55)
+    - Detects if parameter is either _Optional_ or _Required_ based on the availability of `DefaultValue` or `AllowedValues`.
+    - Added a _Required_ column in the parameters table.
+    - Added _Required_ and _Optional_ badge for each parameter in the detailed parameter section.
+
+What's changed since pre-release v0.3.0-B2103037:
+
+- No additional changes.
+
+## 0.3.0-B2103037 (pre-release)
+
+What's changed since pre-release v0.3.0-B2103011:
+
+- General improvements:
+  - Added ability to detect required or optional for each parameter. [#55](https://github.com/Azure/PSDocs.Azure/issues/55)
+    - Detects if parameter is either _Optional_ or _Required_ based on the availability of `DefaultValue` or `AllowedValues`.
+    - Added a _Required_ column in the parameters table.
+    - Added _Required_ and _Optional_ badge for each parameter in the detailed parameter section.
+
 ## v0.3.0-B2103011 (pre-release)
 
 What's changed since v0.2.0:
