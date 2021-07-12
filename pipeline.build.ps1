@@ -155,19 +155,19 @@ task PSScriptAnalyzer NuGet, {
 
 # Synopsis: Install PSRule
 task PSRule NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.0.3 -ErrorAction Ignore)) {
-        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.0.3 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule -MinimumVersion 1.4.0 -ErrorAction Ignore)) {
+        Install-Module -Name PSRule -Repository PSGallery -MinimumVersion 1.4.0 -Scope CurrentUser -Force;
     }
-    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion '0.1.0-B2012007' -AllowPrerelease -ErrorAction Ignore)) {
-        Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion '0.1.0-B2012007' -AllowPrerelease -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSRule.Rules.MSFT.OSS -MinimumVersion 0.1.0 -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSRule.Rules.MSFT.OSS -Repository PSGallery -MinimumVersion 0.1.0 -AllowPrerelease -Scope CurrentUser -Force;
     }
     Import-Module -Name PSRule.Rules.MSFT.OSS -Verbose:$False;
 }
 
 # Synopsis: Install PSDocs
 task PSDocs NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSDocs -MinimumVersion 0.8.0 -ErrorAction Ignore)) {
-        Install-Module -Name PSDocs -Repository PSGallery -MinimumVersion 0.8.0 -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSDocs -MinimumVersion '0.9.0-B2107020' -AllowPrerelease -ErrorAction Ignore)) {
+        Install-Module -Name PSDocs -Repository PSGallery -MinimumVersion '0.9.0-B2107020' -AllowPrerelease -Scope CurrentUser -Force;
     }
     Import-Module -Name PSDocs -Verbose:$False;
 }
@@ -278,7 +278,7 @@ task UpdateTemplateDocs Build, {
     # Scan for Azure template file recursively in the templates/ directory
     Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
         $template = Get-Item -Path $_.TemplateFile;
-        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputObject $template.FullName;
+        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputPath $template.FullName;
     }
 }
 

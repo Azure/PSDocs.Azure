@@ -52,13 +52,23 @@ Describe 'PSDocs' -Tag 'PSDocs', 'Common' {
             $result | Should -Not -BeNullOrEmpty;
         }
 
+        It 'With -InputPath' {
+            $invokeParams = @{
+                Module = 'PSDocs.Azure'
+                OutputPath = $outputPath
+                InputPath = 'tests/PSDocs.Azure.Tests/basic.template.json'
+            }
+            $result = Invoke-PSDocument @invokeParams;
+            $result | Should -Not -BeNullOrEmpty;
+        }
+
         It 'With relative path' {
             Push-Location -Path (Join-Path -Path $rootPath -ChildPath 'templates/storage/v1/');
             try {
                 $invokeParams = @{
                     Module = 'PSDocs.Azure'
                     OutputPath = $outputPath
-                    InputObject = './template.json'
+                    InputPath = './template.json'
                     Option = @{ 'Output.Culture' = 'en-US' }
                 }
                 $result = Invoke-PSDocument @invokeParams;

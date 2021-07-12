@@ -3,7 +3,12 @@
 
 # Synopsis: Name documents by parent path.
 Export-PSDocumentConvention 'Azure.NameByParentPath' {
-    $template = Get-Item -Path $PSDocs.TargetObject;
+    if ($PSDocs.TargetObject -is [String]) {
+        $template = Get-Item -Path $PSDocs.TargetObject;
+    }
+    else {
+        $template = Get-Item -Path $PSDocs.Source.FullName;
+    }
 
     # Get parent directory paths where <name>/v<version>/template.json
     $version = $template.Directory.Name;
