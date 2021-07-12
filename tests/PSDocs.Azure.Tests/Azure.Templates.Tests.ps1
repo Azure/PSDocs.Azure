@@ -35,7 +35,7 @@ Describe 'Templates' -Tag 'Template' {
                 $template = Get-Item -Path $_.TemplateFile;
                 $parentPath = $template.Directory.FullName;
                 $expectedContent = Get-Content -Path (Join-Path -Path $parentPath -ChildPath 'README.md') -Raw;
-                $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -PassThru;
+                $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputPath $template.FullName -PassThru;
                 $actualContent | Should -BeExactly $expectedContent;
                 $actualContent;
             }

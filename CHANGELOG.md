@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+What's changed since v0.3.0:
+
+- New Features:
+  - Automatically detect templates in a scan path. [#85](https://github.com/Azure/PSDocs.Azure/issues/85)
+    - To scan templates use `Invoke-PSDocument` with `-InputPath`.
+
 ## v0.3.0
 
 What's changed since v0.2.0:

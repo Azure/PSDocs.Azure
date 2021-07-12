@@ -86,7 +86,7 @@ Determine if purge protection is enabled on this Key Vault.
 
 The network firewall defined for this vault.
 
-- Default value: `@{defaultAction=Allow; bypass=AzureServices; ipRules=System.Object[]; virtualNetworkRules=System.Object[]}`
+- Default value: `@{defaultAction=Allow; bypass=AzureServices; ipRules=System.Management.Automation.PSObject[]; virtualNetworkRules=System.Management.Automation.PSObject[]}`
 
 ### workspaceId
 

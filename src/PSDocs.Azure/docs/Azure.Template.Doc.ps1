@@ -9,12 +9,11 @@
 function global:GetTemplateParameter {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $True)]
-        [String]$Path
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
+        [PSObject]$InputObject
     )
     process {
-        $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        foreach ($property in $template.parameters.PSObject.Properties) {
+        foreach ($property in $InputObject.parameters.PSObject.Properties) {
             $result = [PSCustomObject]@{
                 Name = $property.Name
                 Description = ''
@@ -27,7 +26,7 @@ function global:GetTemplateParameter {
             }
             if ([bool]$property.Value.PSObject.Properties['defaultValue']) {
                 $result.DefaultValue = $property.Value.defaultValue;
-                $result.Required = "Optional"
+                $result.Required = 'Optional'
             }
             if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
                 $result.AllowedValues = $property.Value.allowedValues;
@@ -49,7 +48,8 @@ function global:GetTemplateExample {
             $Path = Join-Path -Path $PWD -ChildPath $Path;
         }
         $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        $normalPath = GetTemplateRelativePath -Path $Path;
+        # $normalPath = GetTemplateRelativePath -Path $Path;
+        $normalPath = $PSDocs.Source.Path;
         $baseContent = [PSCustomObject]@{
             '$schema'= "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json`#"
             contentVersion = '1.0.0.0'
@@ -133,6 +133,9 @@ function global:GetTemplateMetadata {
     [CmdletBinding()]
     [OutputType([Hashtable])]
     param (
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
+        [PSObject]$InputObject,
+
         [Parameter(Mandatory = $True)]
         [String]$Path
     )
@@ -140,9 +143,8 @@ function global:GetTemplateMetadata {
         $metadata = @{};
 
         # Get metadata from template file
-        $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        if ([bool]$template.PSObject.Properties['metadata']) {
-            foreach ($property in $template.metadata.PSObject.Properties.GetEnumerator()) {
+        if ([bool]$InputObject.PSObject.Properties['metadata']) {
+            foreach ($property in $InputObject.metadata.PSObject.Properties.GetEnumerator()) {
                 $metadata[$property.Name] = $property.Value;
             }
         }
@@ -175,12 +177,11 @@ function global:GetTemplateMetadata {
 function global:GetTemplateOutput {
     [CmdletBinding()]
     param (
-        [Parameter(Mandatory = $True)]
-        [String]$Path
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
+        [PSObject]$InputObject
     )
     process {
-        $template = Get-Content -Path $Path -Raw | ConvertFrom-Json;
-        foreach ($property in $template.outputs.PSObject.Properties) {
+        foreach ($property in $InputObject.outputs.PSObject.Properties) {
             $output = [PSCustomObject]@{
                 Name = $property.Name
                 Type = $property.Value.type
@@ -195,13 +196,26 @@ function global:GetTemplateOutput {
 }
 
 # Synopsis: A definition to generate markdown for an ARM template
-Document 'README' {
+Document 'README' -With 'Azure.TemplateSchema' {
+
+    $templatePath = $PSDocs.Source.FullName;
+    $template = $PSDocs.TargetObject;
+    if ($PSDocs.TargetObject -is [String]) {
+        $templatePath = (Get-Item -Path $PSDocs.TargetObject).FullName;
+        $template = Get-Content -Path $templatePath -Raw | ConvertFrom-Json;
+        $relativePath = (Split-Path (GetTemplateRelativePath -Path $templatePath) -Parent).Replace('\', '/').TrimStart('/');
+    }
+    else {
+        $relativePath = Split-Path -Path $PSDocs.Source.Path -Parent;
+    }
+
+    Write-Verbose -Message "Reading from template: $templatePath"
+    Write-Verbose -Message "Reading from template: $relativePath"
 
     # Read JSON files
-    $templatePath = $InputObject;
-    $parameters = GetTemplateParameter -Path $templatePath;
-    $metadata = GetTemplateMetadata -Path $templatePath;
-    $outputs = GetTemplateOutput -Path $templatePath;
+    $parameters = $template | GetTemplateParameter;
+    $metadata = $template | GetTemplateMetadata -Path $templatePath;
+    $outputs = $template | GetTemplateOutput;
 
     # Set document title
     if ($Null -ne $metadata -and $metadata.ContainsKey('name')) {
@@ -217,15 +231,14 @@ Document 'README' {
     }
 
     # Add badges
-    $relativePath = (Split-Path (GetTemplateRelativePath -Path $templatePath) -Parent).Replace('\', '/').TrimStart('/');
     $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
     Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
         '{{ template_path }}' = $relativePath
         '{{ template_path_encoded }}' = $relativePathEncoded
     }
 
-    Write-Verbose $relativePath
-    Write-Verbose $relativePathEncoded
+    # Write-Verbose $relativePath
+    # Write-Verbose $relativePathEncoded
 
     # Add detailed description
     if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
@@ -234,16 +247,16 @@ Document 'README' {
 
     # Add table and detail for each parameter
     Section $LocalizedData.Parameters {
-        $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }}, 
-        @{ Name = $LocalizedData.Required; Expression = { 
+        $parameters | Table -Property @{ Name = $LocalizedData.ParameterName; Expression = { $_.Name }},
+        @{ Name = $LocalizedData.Required; Expression = {
                 if($_.Required) {
                     $LocalizedData.RequiredNo
-                } 
+                }
                 else {
                     $LocalizedData.RequiredYes
-                } 
+                }
             }
-        }, 
+        },
         @{ Name = $LocalizedData.Description; Expression = { $_.Description }}
 
         foreach ($parameter in $parameters) {
@@ -251,7 +264,7 @@ Document 'README' {
                 if($parameter.Required){
                     "![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)"
                 }
-                else{ "![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)" }                
+                else { "![Parameter Setting](https://img.shields.io/badge/parameter-required-orange?style=flat-square)" }
                 $parameter.Description;
 
                 if (![String]::IsNullOrEmpty($parameter.DefaultValue)) {

@@ -1,0 +1,16 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+---
+# Synopsis: Selector Azure templates based on $schema.
+apiVersion: github.com/microsoft/PSDocs/v1
+kind: Selector
+metadata:
+  name: Azure.TemplateSchema
+spec:
+  if:
+    anyOf:
+    - field: $schema
+      match: 'http(s)?\:\/\/schema\.management\.azure\.com\/schemas\/.*deploymentTemplate\.json(#)?'
+    - field: '.'
+      isString: true

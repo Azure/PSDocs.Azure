@@ -36,7 +36,7 @@ Describe 'Templates' -Tag 'QuickStart' {
                 # Generates templates
                 $result = Get-AzDocTemplateFile -Path $templatePath | ForEach-Object {
                     $template = Get-Item -Path $_.TemplateFile;
-                    $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputObject $template.FullName -PassThru;
+                    $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputPath $template.FullName -PassThru;
                     $actualContent | Should -BeLike '*!`[Azure Public Test Date`](https://azurequickstartsservice.blob.core.windows.net/badges/template-test/PublicLastTestDate.svg)*';
                     $actualContent | Should -BeLike "`# Storage Account*";
                     $actualContent | Should -BeLike "*Create an empty Storage Account.*";
