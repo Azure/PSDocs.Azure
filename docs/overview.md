@@ -32,7 +32,7 @@ Currently the following infrastructure code artifacts are supported:
 As new features are added and improved, download the latest PowerShell module to start using them.
 
   [2]: https://docs.microsoft.com/azure/
-  [3]: templates/storage.md
+  [3]: https://github.com/Azure/PSDocs.Azure/blob/main/templates/storage/v1/README.md
 
 ## DevOps
 
