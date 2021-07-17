@@ -3,7 +3,6 @@
 
 # Synopsis: Add metadata for Jekyll
 Export-PSDocumentConvention 'AddMeta' {
-    # $template = Get-Item -Path $PSDocs.TargetObject;
     $template = Get-Item -Path $PSDocs.Source.FullName;
 
     # Get parent directory paths where <templateName>/v<version>/template.json
@@ -19,7 +18,7 @@ Export-PSDocumentConvention 'AddMeta' {
     }
     $PSDocs.Document.InstanceName = $docName;
 
-    $metadata = Get-Content -Path $template.FullName -Raw | ConvertFrom-Json | GetTemplateMetadata -Path $template.FullName;
+    $metadata = $PSDocs.TargetObject | GetTemplateMetadata -Path $template.FullName;
     $Document.Metadata['title'] = $version;
     $Document.Metadata['parent'] = $metadata.name;
     $Document.Metadata['grand_parent'] = 'Templates'
