@@ -37,7 +37,11 @@ The name of the Storage Account.
 
 The Azure region to deploy to.
 
-- Default value: `[resourceGroup().location]`
+**Default value**
+
+```text
+[resourceGroup().location]
+```
 
 ### sku
 
@@ -45,9 +49,18 @@ The Azure region to deploy to.
 
 Create the Storage Account as LRS or GRS.
 
-- Default value: `Standard_LRS`
+**Default value**
 
-- Allowed values: `Standard_LRS`, `Standard_GRS`
+```text
+Standard_LRS
+```
+
+**Allowed values**
+
+```text
+Standard_LRS
+Standard_GRS
+```
 
 ### suffixLength
 
@@ -55,7 +68,11 @@ Create the Storage Account as LRS or GRS.
 
 Determine how many additional characters are added to the storage account name as a suffix.
 
-- Default value: `0`
+**Default value**
+
+```text
+0
+```
 
 ### containers
 
@@ -75,7 +92,11 @@ An array of lifecycle management policies for the storage account.
 
 The number of days to retain deleted blobs. When set to 0, soft delete is disabled.
 
-- Default value: `0`
+**Default value**
+
+```text
+0
+```
 
 ### containerSoftDeleteDays
 
@@ -83,7 +104,11 @@ The number of days to retain deleted blobs. When set to 0, soft delete is disabl
 
 The number of days to retain deleted containers. When set to 0, soft delete is disabled.
 
-- Default value: `0`
+**Default value**
+
+```text
+0
+```
 
 ### shares
 
@@ -97,7 +122,11 @@ An array of file shares to create on the storage account.
 
 Determines if large file shares are enabled. This can not be disabled once enabled.
 
-- Default value: `False`
+**Default value**
+
+```text
+False
+```
 
 ### shareSoftDeleteDays
 
@@ -105,7 +134,11 @@ Determines if large file shares are enabled. This can not be disabled once enabl
 
 The number of days to retain deleted shares. When set to 0, soft delete is disabled.
 
-- Default value: `0`
+**Default value**
+
+```text
+0
+```
 
 ### allowBlobPublicAccess
 
@@ -113,7 +146,11 @@ The number of days to retain deleted shares. When set to 0, soft delete is disab
 
 Determines if any containers can be configured with the anonymous access types of blob or container.
 
-- Default value: `False`
+**Default value**
+
+```text
+False
+```
 
 ### keyVaultPrincipalId
 

@@ -32,7 +32,11 @@ The name of the Key Vault.
 
 The Azure region to deploy to.
 
-- Default value: `[resourceGroup().location]`
+**Default value**
+
+```text
+[resourceGroup().location]
+```
 
 ### accessPolicies
 
@@ -46,7 +50,11 @@ The access policies defined for this vault.
 
 Determines if Azure can deploy certificates from this Key Vault.
 
-- Default value: `False`
+**Default value**
+
+```text
+False
+```
 
 ### useTemplate
 
@@ -54,7 +62,11 @@ Determines if Azure can deploy certificates from this Key Vault.
 
 Determines if templates can reference secrets from this Key Vault.
 
-- Default value: `False`
+**Default value**
+
+```text
+False
+```
 
 ### useDiskEncryption
 
@@ -62,7 +74,11 @@ Determines if templates can reference secrets from this Key Vault.
 
 Determines if this Key Vault can be used for Azure Disk Encryption.
 
-- Default value: `False`
+**Default value**
+
+```text
+False
+```
 
 ### useSoftDelete
 
@@ -70,7 +86,11 @@ Determines if this Key Vault can be used for Azure Disk Encryption.
 
 Determine if soft delete is enabled on this Key Vault.
 
-- Default value: `True`
+**Default value**
+
+```text
+True
+```
 
 ### usePurgeProtection
 
@@ -78,7 +98,11 @@ Determine if soft delete is enabled on this Key Vault.
 
 Determine if purge protection is enabled on this Key Vault.
 
-- Default value: `True`
+**Default value**
+
+```text
+True
+```
 
 ### networkAcls
 
@@ -86,7 +110,16 @@ Determine if purge protection is enabled on this Key Vault.
 
 The network firewall defined for this vault.
 
-- Default value: `@{defaultAction=Allow; bypass=AzureServices; ipRules=System.Management.Automation.PSObject[]; virtualNetworkRules=System.Management.Automation.PSObject[]}`
+**Default value**
+
+```json
+{
+    "defaultAction": "Allow",
+    "bypass": "AzureServices",
+    "ipRules": [],
+    "virtualNetworkRules": []
+}
+```
 
 ### workspaceId
 

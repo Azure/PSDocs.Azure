@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.4.0-B2107004:
+
+- General improvements:
+  - Secret string parameters now include an example Key Vault reference. [#94](https://github.com/Azure/PSDocs.Azure/issues/94)
+  - Improved output of parameter object default values. [#84](https://github.com/Azure/PSDocs.Azure/issues/84)
+    - Default values and allowed values now appear in a code block.
+  - Allow optional parameters to be skipped in snippet. [#96](https://github.com/Azure/PSDocs.Azure/issues/96)
+    - To exclude optional parameters from snippets configure `AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER`.
+    - See [about_PSDocs_Azure_Configuration] for details.
+- Bug fixes:
+  - Ignore function default values in snippets. [#95](https://github.com/Azure/PSDocs.Azure/issues/95)
+    - To include parameters using a function default value configure `AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN`.
+    - See [about_PSDocs_Azure_Configuration] for details.
+
 ## v0.4.0-B2107004 (pre-release)
 
 What's changed since v0.3.0:

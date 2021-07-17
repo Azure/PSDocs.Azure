@@ -18,8 +18,7 @@
             "defaultValue": "[resourceGroup().location]",
             "metadata": {
                 "description": "The Azure region to deploy to.",
-                "example": "eastus",
-                "ignore": true
+                "strongType": "location"
             }
         },
         "sku": {

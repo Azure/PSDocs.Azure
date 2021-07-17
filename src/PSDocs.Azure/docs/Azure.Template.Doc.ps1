@@ -14,24 +14,21 @@ function global:GetTemplateParameter {
     )
     process {
         foreach ($property in $InputObject.parameters.PSObject.Properties) {
-            $result = [PSCustomObject]@{
+            $result = @{
                 Name = $property.Name
                 Description = ''
-                DefaultValue = $Null
-                AllowedValues = $Null
-                Required = $Null
             }
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
                 $result.Description = $property.Value.metadata.description;
             }
             if ([bool]$property.Value.PSObject.Properties['defaultValue']) {
-                $result.DefaultValue = $property.Value.defaultValue;
-                $result.Required = 'Optional'
+                $result['defaultValue'] = $property.Value.defaultValue;
+                $result['Required'] = 'Optional'
             }
             if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
-                $result.AllowedValues = $property.Value.allowedValues;
+                $result['allowedValues'] = $property.Value.allowedValues;
             }
-            $result;
+            [PSCustomObject]$result;
         }
     }
 }
@@ -66,13 +63,14 @@ function global:GetTemplateExample {
                 continue;
             }
 
+            # Populate secure string
             if ($property.Value.type -eq 'secureString') {
                 $param = [PSCustomObject]@{
                     reference = [PSCustomObject]@{
                         keyVault = [PSCustomObject]@{
-                            id = ''
+                            id = '/subscriptions/__SUBSCRIPTION_ID__/resourceGroups/__RESOURCE_GROUP__/providers/Microsoft.KeyVault/vaults/__VAULT__'
                         }
-                        secretName = ''
+                        secretName = '__SECRET_NAME__'
                     }
                 };
                 $baseContent.parameters[$property.Name] = $param;
@@ -84,18 +82,38 @@ function global:GetTemplateExample {
             }
             elseif ([bool]$property.Value.PSObject.Properties['defaultValue'] -and $Null -ne $property.Value.defaultValue) {
                 $propertyValue = $property.Value.defaultValue;
+
+                # Determine if optional parameters should be omitted from snippet
+                if ($Null -ne $propertyValue -and $PSDocs.Configuration.GetBoolOrDefault('AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER', $False)) {
+                    continue;
+                }
+
+                # Handle function default values
+                if ($propertyValue -match '^\[(?!\[)[\s\S]+\]$') {
+                    # Parameters with a function for the default value are omitted from snippet
+                    if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN', $True)) {
+                        continue;
+                    }
+                    else {
+                        $propertyValue = $Null;
+                    }
+                }
             }
-            elseif ($property.Value.type -eq 'array') {
-                $propertyValue = @();
-            }
-            elseif ($property.Value.type -eq 'object') {
-                $propertyValue = [PSCustomObject]@{};
-            }
-            elseif ($property.Value.type -eq 'int') {
-                $propertyValue = 0;
-            }
-            elseif ($property.Value.type -eq 'string') {
-                $propertyValue = '';
+
+            # Populate type defaults
+            if ($Null -eq $propertyValue) {
+                if ($property.Value.type -eq 'array') {
+                    $propertyValue = @();
+                }
+                elseif ($property.Value.type -eq 'object') {
+                    $propertyValue = [PSCustomObject]@{};
+                }
+                elseif ($property.Value.type -eq 'int') {
+                    $propertyValue = 0;
+                }
+                elseif ($property.Value.type -eq 'string') {
+                    $propertyValue = '';
+                }
             }
 
             $param = [PSCustomObject]@{
@@ -237,9 +255,6 @@ Document 'README' -With 'Azure.TemplateSchema' {
         '{{ template_path_encoded }}' = $relativePathEncoded
     }
 
-    # Write-Verbose $relativePath
-    # Write-Verbose $relativePathEncoded
-
     # Add detailed description
     if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
         $metadata.description
@@ -268,13 +283,19 @@ Document 'README' -With 'Azure.TemplateSchema' {
                 $parameter.Description;
 
                 if (![String]::IsNullOrEmpty($parameter.DefaultValue)) {
-                    $LocalizedData.DefaultValue -f [String]::Concat('`', $parameter.DefaultValue, '`');
+
+                    "**$($LocalizedData.DefaultValue)**"
+
+                    if ($parameter.DefaultValue -is [PSObject]) {
+                        $parameter.DefaultValue | Code 'json'
+                    }
+                    else {
+                        $parameter.DefaultValue | Code 'text'
+                    }
                 }
                 if ($Null -ne $parameter.AllowedValues -and $parameter.AllowedValues.Length -gt 0) {
-                    $allowedValuesString = $parameter.AllowedValues | ForEach-Object {
-                        [String]::Concat('`', $_, '`')
-                    }
-                    $LocalizedData.AllowedValues -f ([String]::Join(', ', $allowedValuesString));
+                    "**$($LocalizedData.AllowedValues)**"
+                    $parameter.AllowedValues | Code 'text'
                 }
             }
         }

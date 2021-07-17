@@ -48,9 +48,9 @@ nav:
     - Releases:
       - Change log: https://github.com/Azure/PSDocs.Azure/blob/main/CHANGELOG.md
     - Support: support.md
-  # - Setup:
-  #   - Configuring options: setup/configuring-options.md
-  #   - Configuring rule defaults: setup/configuring-rules.md
+  - Setup:
+    - Configuring options: setup/configuring-options.md
+    - Configuring snippets: setup/configuring-snippets.md
   #   - Configuring expansion: setup/configuring-expansion.md
 
   #   - Configuration options: concepts/about_PSRule_Azure_Configuration.md
