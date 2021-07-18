@@ -224,6 +224,22 @@
   
 
       
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../setup/configuring-options/" class="md-tabs__link">
+        Setup
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -474,6 +490,60 @@
   
 
     
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Setup
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Setup" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Setup
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup/configuring-options/" class="md-nav__link">
+        Configuring options
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../setup/configuring-snippets/" class="md-nav__link">
+        Configuring snippets
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -520,6 +590,20 @@
   
     <nav class="md-nav" aria-label="LONG DESCRIPTION">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#azure_snippet_skip_default_value_fn" class="md-nav__link">
+    AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#azure_snippet_skip_optional_parameter" class="md-nav__link">
+    AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#azure_use_parameter_file_snippet" class="md-nav__link">
@@ -583,9 +667,47 @@ Additionally, configuration options can be configured in a baseline or set at ru
 For details of setting configuration options see <a href="https://github.com/BernieWhite/PSDocs/blob/main/docs/concepts/PSDocs/en-US/about_PSDocs_Configuration.md">PSDocs options</a></p>
 <p>The following configurations options are available for use:</p>
 <ul>
+<li><a href="#azure_snippet_skip_default_value_fn">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</a></li>
+<li><a href="#azure_snippet_skip_optional_parameter">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</a></li>
 <li><a href="#azure_use_parameter_file_snippet">AZURE_USE_PARAMETER_FILE_SNIPPET</a></li>
 <li><a href="#azure_use_command_line_snippet">AZURE_USE_COMMAND_LINE_SNIPPET</a></li>
 </ul>
+<h3 id="azure_snippet_skip_default_value_fn">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN<a class="headerlink" href="#azure_snippet_skip_default_value_fn" title="Permanent link">#</a></h3>
+<p>This configuration option determines if parameters with a function defaultValue are included in snippets.
+By default, a parameters with a function default value are not included in snippets.
+i.e. If a parameter default value is set to <code>[resourceGroup.location]</code> it is not included in snippets.</p>
+<p>Syntax:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+</code></pre></div>
+<p>Default:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN configuration option</span>
+<span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Include parameters with a function default value in snippets.</span>
+<span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<h3 id="azure_snippet_skip_optional_parameter">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER<a class="headerlink" href="#azure_snippet_skip_optional_parameter" title="Permanent link">#</a></h3>
+<p>This configuration option determines optional parameters are included in snippets.
+By default, optional parameters are included in snippets.
+To ignore optional parameter, set this option to <code>false</code>.</p>
+<p>Syntax:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+</code></pre></div>
+<p>Default:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER configuration option</span>
+<span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Do not include optional parameters in snippets</span>
+<span class="nt">configuration</span><span class="p">:</span>
+  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
 <h3 id="azure_use_parameter_file_snippet">AZURE_USE_PARAMETER_FILE_SNIPPET<a class="headerlink" href="#azure_use_parameter_file_snippet" title="Permanent link">#</a></h3>
 <p>This configuration option determines if a parameter file snippet is added to documentation.
 By default, a snippet is generated.
@@ -638,7 +760,7 @@ To generate command line snippet, set this option to <code>true</code>.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-07-17
+      Last update: 2021-07-18
     
   </small>
 </div>
