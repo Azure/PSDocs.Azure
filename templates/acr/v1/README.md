@@ -25,7 +25,11 @@ The name of the container registry.
 
 The location to deploy the container registry.
 
-- Default value: `[resourceGroup().location]`
+**Default value**
+
+```text
+[resourceGroup().location]
+```
 
 ### registrySku
 
@@ -33,9 +37,19 @@ The location to deploy the container registry.
 
 The container registry SKU.
 
-- Default value: `Basic`
+**Default value**
 
-- Allowed values: `Basic`, `Standard`, `Premium`
+```text
+Basic
+```
+
+**Allowed values**
+
+```text
+Basic
+Standard
+Premium
+```
 
 ### tags
 

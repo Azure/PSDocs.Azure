@@ -36,7 +36,7 @@ Describe 'PSDocs' -Tag 'PSDocs', 'Common' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
                 OutputPath = $outputPath
-                InputObject = (Join-Path -Path $rootPath -ChildPath 'templates/storage/v1/template.json')
+                InputPath = 'templates/storage/v1/template.json'
             }
             $result = Invoke-PSDocument @invokeParams;
             $result | Should -Not -BeNullOrEmpty;
@@ -46,7 +46,7 @@ Describe 'PSDocs' -Tag 'PSDocs', 'Common' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
                 OutputPath = $outputPath
-                InputObject = (Join-Path -Path $rootPath -ChildPath 'tests/PSDocs.Azure.Tests/basic.template.json')
+                InputPath = 'tests/PSDocs.Azure.Tests/basic.template.json'
             }
             $result = Invoke-PSDocument @invokeParams;
             $result | Should -Not -BeNullOrEmpty;

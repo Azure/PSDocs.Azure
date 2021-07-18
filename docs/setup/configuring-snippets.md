@@ -1,28 +1,19 @@
-# PSDocs_Azure_Configuration
+# Configuring snippets
 
-## about_PSDocs_Azure_Configuration
+PSDocs for Azure supports a number of snippets that can be included in documentation.
+This feature can be enabled by using the following configuration options.
 
-## SHORT DESCRIPTION
+## Configuration
 
-Describes PSDocs configuration options specific to `PSDocs.Azure`.
+!!! Tip
+    Each of these configuration options are set within the `ps-docs.yaml` file.
+    To learn how to set configuration options see [Configuring options][1].
 
-## LONG DESCRIPTION
+  [1]: configuring-options.md
 
-PSDocs exposes configuration options that can be used to customize execution of document generation.
-This topic describes what configuration options are available.
+### Skip function default value parameters
 
-PSDocs configuration options can be specified by setting the configuration option in `ps-docs.yaml`.
-Additionally, configuration options can be configured in a baseline or set at runtime.
-For details of setting configuration options see [PSDocs options][options]
-
-The following configurations options are available for use:
-
-- [AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN](#azure_snippet_skip_default_value_fn)
-- [AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER](#azure_snippet_skip_optional_parameter)
-- [AZURE_USE_PARAMETER_FILE_SNIPPET](#azure_use_parameter_file_snippet)
-- [AZURE_USE_COMMAND_LINE_SNIPPET](#azure_use_command_line_snippet)
-
-### AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN
+:octicons-milestone-24: v0.4.0
 
 This configuration option determines if parameters with a function defaultValue are included in snippets.
 By default, a parameters with a function default value are not included in snippets.
@@ -51,7 +42,9 @@ configuration:
   AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN: false
 ```
 
-### AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER
+### Skip optional parameters
+
+:octicons-milestone-24: v0.4.0
 
 This configuration option determines optional parameters are included in snippets.
 By default, optional parameters are included in snippets.
@@ -80,7 +73,9 @@ configuration:
   AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER: true
 ```
 
-### AZURE_USE_PARAMETER_FILE_SNIPPET
+### Parameter file snippet
+
+:octicons-milestone-24: v0.2.0
 
 This configuration option determines if a parameter file snippet is added to documentation.
 By default, a snippet is generated.
@@ -90,7 +85,7 @@ Syntax:
 
 ```yaml
 configuration:
-  AZURE_USE_PARAMETER_FILE_SNIPPET: bool # Either true or false
+  AZURE_USE_PARAMETER_FILE_SNIPPET: bool
 ```
 
 Default:
@@ -98,18 +93,20 @@ Default:
 ```yaml
 # YAML: The default AZURE_USE_PARAMETER_FILE_SNIPPET configuration option
 configuration:
-  AZURE_USE_PARAMETER_FILE_SNIPPET: true
+  AZURE_USE_PARAMETER_FILE_SNIPPET: false
 ```
 
 Example:
 
 ```yaml
-# YAML: Prevent parameter file snippet from being generated
+# YAML: Set the AZURE_USE_PARAMETER_FILE_SNIPPET configuration option to enable expansion
 configuration:
-  AZURE_USE_PARAMETER_FILE_SNIPPET: false
+  AZURE_USE_PARAMETER_FILE_SNIPPET: true
 ```
 
-### AZURE_USE_COMMAND_LINE_SNIPPET
+### Command line snippet
+
+:octicons-milestone-24: v0.2.0
 
 This configuration option determines if a command line snippet is added to documentation.
 By default, this command line snippet is not generated.
@@ -137,15 +134,3 @@ Example:
 configuration:
   AZURE_USE_COMMAND_LINE_SNIPPET: true
 ```
-
-## NOTE
-
-An online version of this document is available at https://github.com/Azure/PSDocs.Azure/blob/main/docs/concepts/en-US/about_PSDocs_Azure_Configuration.md.
-
-## KEYWORDS
-
-- Configuration
-- Document
-- Snippet
-
-[options]: https://github.com/BernieWhite/PSDocs/blob/main/docs/concepts/PSDocs/en-US/about_PSDocs_Configuration.md

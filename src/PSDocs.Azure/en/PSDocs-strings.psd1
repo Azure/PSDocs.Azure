@@ -5,8 +5,8 @@
     Parameters = 'Parameters'
     Snippets = 'Snippets'
     Outputs = 'Outputs'
-    DefaultValue = "- Default value: {0}"
-    AllowedValues = "- Allowed values: {0}"
+    DefaultValue = 'Default value'
+    AllowedValues = 'Allowed values'
     ParameterName = 'Parameter name'
     Description = 'Description'
     Type = 'Type'
