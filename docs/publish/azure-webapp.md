@@ -16,14 +16,18 @@ Two open source examples are:
   MkDocs is fast and can be customized with corporate branding fairly easily.
   A wide-range of themes are also available.
 - **DocFX** &mdash; A .NET-based static site generator.
-  DocFX is slightly easier to get up and running.
+  DocFX is slightly easier to get up and running but require more work to customize and brand.
 
 ### With MkDocs
 
 Markdown content generated with PSDocs for Azure can be published as HTML with [MkDocs][1].
 MkDocs is a command-line tool that converts markdown into HTML.
 
+!!! Tip
+    We recommend you start from our [Quick Start template][2].
+
   [1]: https://www.mkdocs.org/
+  [2]: https://aka.ms/ps-docs-azure-quickstart
 
 === "GitHub Actions"
 
@@ -48,56 +52,34 @@ MkDocs is a command-line tool that converts markdown into HTML.
       run: mkdocs build
     ```
 
-- Create a `requirements-docs.txt` file in the root of the repository.
-  This file is used by Python to install the required package dependencies.
+- [Create a convention][3] to name and add metadata to output markdown files.
+  A conventions allows generated markdown to be modified before it is written.
+  We use one with MkDocs to add front matter to markdown files and organize them.
 
-```text
-mkdocs==1.2.1
-mkdocs-material==7.1.8
-pymdown-extensions==8.2
-mkdocs-git-revision-date-plugin==0.3.1
-mdx-truly-sane-lists==1.2
-mkdocs-awesome-pages-plugin==2.5.0
+- Update action parameters to set output path and reference convention.
+
+```yaml
+# Generate markdown files using PSDocs
+# Scan for Azure template file recursively in sub-directories
+- name: Generate docs
+  uses: microsoft/ps-docs@main
+  with:
+    conventions: AddMkDocsMeta
+    modules: PSDocs,PSDocs.Azure
+    outputPath: docs/azure/templates/
+    prerelease: true
 ```
 
-- Create a `mkdocs.yaml` file in the root of the repository.
+- Create a [mkdocs.yaml][4] file in the root of the repository.
   This file configures MkDocs.
   By configuring this file you can change common settings such as theme and layout.
 
-```yaml
-site_name: Contoso Docs for Azure
-site_url: https://docs.contoso.com/
-site_description: Azure documentation for Contoso's modern cloud environment.
+- Create a [requirements-docs.txt][5] file in the root of the repository.
+  This file is used by Python to install the required package dependencies.
 
-repo_url: https://github.com/Azure/PSDocs.Azure/
-edit_uri: ''
-
-theme:
-  name: material
-  font:
-    text: Roboto
-  palette:
-    primary: blue
-  icon:
-    repo: fontawesome/brands/github
-    logo: material/microsoft-azure
-  features:
-  - navigation.instant
-  - navigation.indexes
-  - navigation.sections:
-      level: 1
-  - navigation.tabs
-
-markdown_extensions:
-  - toc:
-      permalink: '#'
-      separator: '-'
-
-plugins:
-- search
-- git-revision-date
-- awesome-pages
-```
+  [3]: https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/.ps-docs/MkDocs.Doc.ps1
+  [4]: https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/mkdocs.yml
+  [5]: https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/requirements-docs.txt
 
 <!--
 
@@ -230,28 +212,30 @@ With documentation generated as HTML the content can be published to an Azure we
 
     ```yaml
     - name: Azure Login
-      uses: azure/login@v1.1
+      uses: azure/login@v1.3.0
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Publish to Azure
       run: |
         cd ./site
-        az webapp up -l eastus -n '<enter>' -g '<enter>' --subscription '<enter>' --html
+        az webapp up -l '<enter>' -n '<enter>' -g '<enter>' --subscription '<enter>' --html
     ```
 
-    - Create an [deployment credentials][4] `AZURE_CREDENTIALS` for the workflow to use to authenticate to Azure.
+    - Create an [deployment credentials][6] `AZURE_CREDENTIALS` for the workflow to use to authenticate to Azure.
+    - Set `-l` with the location of the Web App.
+      e.g. `eastus`.
     - Set `-n` with the name of the Web App.
     - Set `-g` with the name of the Resource Group containing the Web App.
     - Set `--subscription` with the name or GUID of the subscription to deploy to.
 
-  [4]: https://github.com/azure/login#configure-deployment-credentials
+  [6]: https://github.com/azure/login#configure-deployment-credentials
 
 ## Configuring authorization
 
 Azure Web Apps have built-in support for integrated with Azure AD.
 By using this feature Azure AD takes care of all the heavy lifting in regards to auth.
 
-Read [Configure your App Service or Azure Functions app to use Azure AD login][5] to find out how to configure it.
+Read [Configure your App Service or Azure Functions app to use Azure AD login][7] to find out how to configure it.
 
-  [5]: https://docs.microsoft.com/azure/app-service/configure-authentication-provider-aad
+  [7]: https://docs.microsoft.com/azure/app-service/configure-authentication-provider-aad

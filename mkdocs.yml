@@ -41,7 +41,7 @@ nav:
     - Publishing:
       - Publish to Azure Storage: publish/blob-storage.md
       # - Publish to Azure DevOps Wiki: publish/devops-wiki.md
-      # - Publish to Azure Web App: publish/azure-webapp.md
+      - Publish to Azure Web App: publish/azure-webapp.md
     - Using metadata: using-metadata.md
     - Troubleshooting: troubleshooting.md
     - License and contributing: license-contributing.md
