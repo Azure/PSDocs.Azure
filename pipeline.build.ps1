@@ -108,7 +108,7 @@ task VersionModule ModuleDependencies, {
     $manifest = Test-ModuleManifest -Path $manifestPath;
     $requiredModules = $manifest.RequiredModules | ForEach-Object -Process {
         if ($_.Name -eq 'PSDocs' -and $Configuration -eq 'Release') {
-            @{ ModuleName = 'PSDocs'; ModuleVersion = '0.8.0' }
+            @{ ModuleName = 'PSDocs'; ModuleVersion = '0.9.0' }
         }
         else {
             @{ ModuleName = $_.Name; ModuleVersion = $_.Version }
@@ -166,8 +166,8 @@ task PSRule NuGet, {
 
 # Synopsis: Install PSDocs
 task PSDocs NuGet, {
-    if ($Null -eq (Get-InstalledModule -Name PSDocs -MinimumVersion '0.9.0-B2107020' -AllowPrerelease -ErrorAction Ignore)) {
-        Install-Module -Name PSDocs -Repository PSGallery -MinimumVersion '0.9.0-B2107020' -AllowPrerelease -Scope CurrentUser -Force;
+    if ($Null -eq (Get-InstalledModule -Name PSDocs -MinimumVersion 0.9.0 -ErrorAction Ignore)) {
+        Install-Module -Name PSDocs -Repository PSGallery -MinimumVersion 0.9.0 -Scope CurrentUser -Force;
     }
     Import-Module -Name PSDocs -Verbose:$False;
 }

@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+What's changed since pre-release v0.4.0-B2107016:
+
+- Engineering:
+  - Bump PSDocs dependency to v0.9.0. [#102](https://github.com/Azure/PSDocs.Azure/issues/102)
+
 ## v0.4.0-B2107016 (pre-release)
 
 What's changed since pre-release v0.4.0-B2107004:
