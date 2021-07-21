@@ -30,15 +30,16 @@ Within the root directory of your Infrastructure as Code (IaC) repository:
         - uses: actions/checkout@v2
 
         # Generate markdown files using PSDocs
-        # Scan for Azure template file recursively in the templates/ directory
+        # Scan for Azure template file recursively in sub-directories
         # Then generate a docs using a standard naming convention. i.e. <name>_<version>.md
         - name: Generate docs
-          run: |
-            Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -Force;
-            Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
-              Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $_.TemplateFile -Convention 'Azure.NameByParentPath';
-            }
-          shell: pwsh
+          uses: microsoft/ps-docs@main
+          with:
+            conventions: Azure.NameByParentPath
+            modules: PSDocs,PSDocs.Azure
+            inputPath: templates/
+            outputPath: out/docs/
+            prerelease: true
     ```
 
     This will automatically install compatible versions of all dependencies.

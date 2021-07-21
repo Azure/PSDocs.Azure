@@ -87,10 +87,10 @@ Field         | Scope     | Type | Description
 `ignore`      | Parameter | `boolean` | When `true` the parameter is not included in the JSON snippet.
 `description` | Output    | `string`  | Used as the description for the output.
 
-An example of an Azure Storage Account template with metadata included is available [here][source-template].
+<!-- An example of an Azure Storage Account template with metadata included is available [here][source-template].
 
 ### Template metadata
 
 ### Parameter metadata
 
-### Output metadata
+### Output metadata -->
