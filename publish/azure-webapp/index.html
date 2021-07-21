@@ -211,13 +211,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../overview/" class="md-tabs__link">
+      <a href="../../overview/" class="md-tabs__link md-tabs__link--active">
         Getting started
       </a>
     </li>
@@ -304,12 +306,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       <label class="md-nav__link" for="__nav_2">
         Getting started
@@ -361,12 +365,14 @@
             
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
       
       <label class="md-nav__link" for="__nav_2_4">
         Publishing
@@ -387,6 +393,85 @@
       <a href="../blob-storage/" class="md-nav__link">
         Publish to Azure Storage
       </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Publish to Azure Web App
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Publish to Azure Web App
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#generating-docs-site" class="md-nav__link">
+    Generating docs site
+  </a>
+  
+    <nav class="md-nav" aria-label="Generating docs site">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-mkdocs" class="md-nav__link">
+    With MkDocs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publishing-docs" class="md-nav__link">
+    Publishing docs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-authorization" class="md-nav__link">
+    Configuring authorization
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -636,11 +721,15 @@ Two open source examples are:</p>
   MkDocs is fast and can be customized with corporate branding fairly easily.
   A wide-range of themes are also available.</li>
 <li><strong>DocFX</strong> &mdash; A .NET-based static site generator.
-  DocFX is slightly easier to get up and running.</li>
+  DocFX is slightly easier to get up and running but require more work to customize and brand.</li>
 </ul>
 <h3 id="with-mkdocs">With MkDocs<a class="headerlink" href="#with-mkdocs" title="Permanent link">#</a></h3>
 <p>Markdown content generated with PSDocs for Azure can be published as HTML with <a href="https://www.mkdocs.org/">MkDocs</a>.
 MkDocs is a command-line tool that converts markdown into HTML.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>We recommend you start from our <a href="https://aka.ms/ps-docs-azure-quickstart">Quick Start template</a>.</p>
+</div>
 <div class="tabbed-set" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">GitHub Actions</label><div class="tabbed-content">
 <p>Extend your GitHub Actions workflow <code>.github/workflows/publish-docs.yaml</code> created previously by completing the following steps:</p>
 <ul>
@@ -664,54 +753,34 @@ MkDocs is a command-line tool that converts markdown into HTML.</p>
 </div>
 </div>
 <ul>
-<li>Create a <code>requirements-docs.txt</code> file in the root of the repository.
-  This file is used by Python to install the required package dependencies.</li>
+<li><a href="https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/.ps-docs/MkDocs.Doc.ps1">Create a convention</a> to name and add metadata to output markdown files.
+  A conventions allows generated markdown to be modified before it is written.
+  We use one with MkDocs to add front matter to markdown files and organize them.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>mkdocs==1.2.1
-mkdocs-material==7.1.8
-pymdown-extensions==8.2
-mkdocs-git-revision-date-plugin==0.3.1
-mdx-truly-sane-lists==1.2
-mkdocs-awesome-pages-plugin==2.5.0
+<ul>
+<li>Update action parameters to set output path and reference convention.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate markdown files using PSDocs</span>
+<span class="c1"># Scan for Azure template file recursively in sub-directories</span>
+<span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Generate docs</span>
+  <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">microsoft/ps-docs@main</span>
+  <span class="nt">with</span><span class="p">:</span>
+    <span class="nt">conventions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AddMkDocsMeta</span>
+    <span class="nt">modules</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PSDocs,PSDocs.Azure</span>
+    <span class="nt">outputPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">docs/azure/templates/</span>
+    <span class="nt">prerelease</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <ul>
-<li>Create a <code>mkdocs.yaml</code> file in the root of the repository.
+<li>Create a <a href="https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/mkdocs.yml">mkdocs.yaml</a> file in the root of the repository.
   This file configures MkDocs.
   By configuring this file you can change common settings such as theme and layout.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="nt">site_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Contoso Docs for Azure</span>
-<span class="nt">site_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://docs.contoso.com/</span>
-<span class="nt">site_description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Azure documentation for Contoso&#39;s modern cloud environment.</span>
-
-<span class="nt">repo_url</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">https://github.com/Azure/PSDocs.Azure/</span>
-<span class="nt">edit_uri</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
-
-<span class="nt">theme</span><span class="p">:</span>
-  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">material</span>
-  <span class="nt">font</span><span class="p">:</span>
-    <span class="nt">text</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Roboto</span>
-  <span class="nt">palette</span><span class="p">:</span>
-    <span class="nt">primary</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">blue</span>
-  <span class="nt">icon</span><span class="p">:</span>
-    <span class="nt">repo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">fontawesome/brands/github</span>
-    <span class="nt">logo</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">material/microsoft-azure</span>
-  <span class="nt">features</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">navigation.instant</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">navigation.indexes</span>
-  <span class="p p-Indicator">-</span> <span class="nt">navigation.sections</span><span class="p">:</span>
-      <span class="nt">level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">navigation.tabs</span>
-
-<span class="nt">markdown_extensions</span><span class="p">:</span>
-  <span class="p p-Indicator">-</span> <span class="nt">toc</span><span class="p">:</span>
-      <span class="nt">permalink</span><span class="p">:</span> <span class="s">&#39;#&#39;</span>
-      <span class="nt">separator</span><span class="p">:</span> <span class="s">&#39;-&#39;</span>
-
-<span class="nt">plugins</span><span class="p">:</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">search</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">git-revision-date</span>
-<span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">awesome-pages</span>
-</code></pre></div>
+<ul>
+<li>
+<p>Create a <a href="https://github.com/Azure/PSDocs.Azure-quickstart/blob/main/requirements-docs.txt">requirements-docs.txt</a> file in the root of the repository.
+  This file is used by Python to install the required package dependencies.</p>
+</li>
+</ul>
 <!--
 
 ### With DocFX
@@ -836,17 +905,19 @@ DocFX is a command-line tool that converts markdown into HTML.
 <li>Add the following steps to publish documentation to Azure App Service.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Azure Login</span>
-  <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure/login@v1.1</span>
+  <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">azure/login@v1.3.0</span>
   <span class="nt">with</span><span class="p">:</span>
     <span class="nt">creds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">${{ secrets.AZURE_CREDENTIALS }}</span>
 
 <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Publish to Azure</span>
   <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
     <span class="no">cd ./site</span>
-    <span class="no">az webapp up -l eastus -n &#39;&lt;enter&gt;&#39; -g &#39;&lt;enter&gt;&#39; --subscription &#39;&lt;enter&gt;&#39; --html</span>
+    <span class="no">az webapp up -l &#39;&lt;enter&gt;&#39; -n &#39;&lt;enter&gt;&#39; -g &#39;&lt;enter&gt;&#39; --subscription &#39;&lt;enter&gt;&#39; --html</span>
 </code></pre></div>
 <ul>
 <li>Create an <a href="https://github.com/azure/login#configure-deployment-credentials">deployment credentials</a> <code>AZURE_CREDENTIALS</code> for the workflow to use to authenticate to Azure.</li>
+<li>Set <code>-l</code> with the location of the Web App.
+  e.g. <code>eastus</code>.</li>
 <li>Set <code>-n</code> with the name of the Web App.</li>
 <li>Set <code>-g</code> with the name of the Resource Group containing the Web App.</li>
 <li>Set <code>--subscription</code> with the name or GUID of the subscription to deploy to.</li>
@@ -865,7 +936,7 @@ By using this feature Azure AD takes care of all the heavy lifting in regards to
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-07-19
+      Last update: 2021-07-22
     
   </small>
 </div>
@@ -885,6 +956,41 @@ By using this feature Azure AD takes care of all the heavy lifting in regards to
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../blob-storage/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Publish to Azure Storage" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Publish to Azure Storage
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../using-metadata/" class="md-footer__link md-footer__link--next" aria-label="Next: Using metadata" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Using metadata
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

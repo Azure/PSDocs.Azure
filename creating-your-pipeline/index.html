@@ -405,6 +405,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../publish/azure-webapp/" class="md-nav__link">
+        Publish to Azure Web App
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -620,15 +632,16 @@ Add the following code to the workflow file.</p>
     <span class="p p-Indicator">-</span> <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">actions/checkout@v2</span>
 
     <span class="c1"># Generate markdown files using PSDocs</span>
-    <span class="c1"># Scan for Azure template file recursively in the templates/ directory</span>
+    <span class="c1"># Scan for Azure template file recursively in sub-directories</span>
     <span class="c1"># Then generate a docs using a standard naming convention. i.e. &lt;name&gt;_&lt;version&gt;.md</span>
     <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Generate docs</span>
-      <span class="nt">run</span><span class="p">:</span> <span class="p p-Indicator">|</span>
-        <span class="no">Install-Module -Name &#39;PSDocs.Azure&#39; -Repository PSGallery -Force;</span>
-        <span class="no">Get-AzDocTemplateFile -Path templates/ | ForEach-Object {</span>
-          <span class="no">Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $_.TemplateFile -Convention &#39;Azure.NameByParentPath&#39;;</span>
-        <span class="no">}</span>
-      <span class="nt">shell</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pwsh</span>
+      <span class="nt">uses</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">microsoft/ps-docs@main</span>
+      <span class="nt">with</span><span class="p">:</span>
+        <span class="nt">conventions</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Azure.NameByParentPath</span>
+        <span class="nt">modules</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PSDocs,PSDocs.Azure</span>
+        <span class="nt">inputPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">templates/</span>
+        <span class="nt">outputPath</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">out/docs/</span>
+        <span class="nt">prerelease</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <p>This will automatically install compatible versions of all dependencies.</p>
 </div>
@@ -663,7 +676,7 @@ Add the following code to the YAML pipeline file.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-07-19
+      Last update: 2021-07-22
     
   </small>
 </div>
