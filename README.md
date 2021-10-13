@@ -332,7 +332,7 @@ This project is [licensed under the MIT License](LICENSE).
 [install]: docs/install-instructions.md
 [ci-badge]: https://dev.azure.com/PSDocs/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
-[engine]: https://github.com/BernieWhite/PSDocs
+[engine]: https://github.com/microsoft/PSDocs
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
 [source-template]: templates/storage/v1/template.json
 [output-template]: templates/storage/v1/README.md
