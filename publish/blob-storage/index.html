@@ -719,7 +719,9 @@ A simple approach is to publish the files directly to Azure Blob Storage.</p>
   The secret value is a connection string with permissions to uploads files to the storage account.</li>
 </ul>
 <p>The <a href="https://github.com/marketplace/actions/azure-blob-storage-upload">bacongobbler/azure-blob-storage-upload</a> action is used to upload the markdown files to the <code>docs</code> blob storage container.</p>
-<details class="example"><summary>Example</summary><div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Publish docs</span>
+<details class="example">
+<summary>Example</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Publish docs</span>
 <span class="nt">on</span><span class="p">:</span>
   <span class="nt">push</span><span class="p">:</span>
     <span class="nt">branches</span><span class="p">:</span> <span class="p p-Indicator">[</span> <span class="nv">main</span> <span class="p p-Indicator">]</span>
@@ -769,7 +771,9 @@ A simple approach is to publish the files directly to Azure Blob Storage.</p>
 <li>Set <code>azureSubscription</code> and <code>storage</code> inputs with the name of your Azure service connection and storage account.</li>
 </ul>
 <p>The <a href="https://docs.microsoft.com/azure/devops/pipelines/tasks/deploy/azure-file-copy?view=azure-devops">AzureFileCopy</a> task is used to upload the markdown files to the <code>docs</code> blob storage container.</p>
-<details class="example"><summary>Example</summary><div class="highlight"><pre><span></span><code><span class="nt">jobs</span><span class="p">:</span>
+<details class="example">
+<summary>Example</summary>
+<div class="highlight"><pre><span></span><code><span class="nt">jobs</span><span class="p">:</span>
 <span class="p p-Indicator">-</span> <span class="nt">job</span><span class="p">:</span> <span class="s">&#39;Publish&#39;</span>
   <span class="nt">displayName</span><span class="p">:</span> <span class="s">&#39;Generate</span><span class="nv"> </span><span class="s">ARM</span><span class="nv"> </span><span class="s">template</span><span class="nv"> </span><span class="s">docs&#39;</span>
   <span class="nt">pool</span><span class="p">:</span>
@@ -806,7 +810,7 @@ A simple approach is to publish the files directly to Azure Blob Storage.</p>
 <div class="md-source-date">
   <small>
     
-      Last update: 2021-10-13
+      Last update: 2021-12-09
     
   </small>
 </div>
