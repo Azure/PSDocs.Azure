@@ -86,7 +86,8 @@ stages:
   jobs:
 
   - job: Secret_Scan
-    pool: 'Hosted VS2017'
+    pool:
+      vmImage: 'windows-2019'
     displayName: Secret scan
     steps:
     - task: securedevelopmentteam.vss-secure-development-tools.build-task-credscan.CredScan@2
