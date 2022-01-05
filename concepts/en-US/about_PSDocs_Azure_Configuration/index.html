@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://github.com/Azure/PSDocs.Azure/concepts/en-US/about_PSDocs_Azure_Configuration/">
       
       <link rel="icon" href="../../../assets/ms_icon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.3">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.4">
     
     
       
@@ -23,7 +23,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.edf004c2.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bb3983ee.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
@@ -780,72 +780,72 @@ For details of setting configuration options see <a href="https://github.com/Ber
 By default, a parameters with a function default value are not included in snippets.
 i.e. If a parameter default value is set to <code>[resourceGroup.location]</code> it is not included in snippets.</p>
 <p>Syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span><span class="w"> </span><span class="c1"># Either true or false</span><span class="w"></span>
 </code></pre></div>
 <p>Default:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN configuration option</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN configuration option</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Include parameters with a function default value in snippets.</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Include parameters with a function default value in snippets.</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <h3 id="azure_snippet_skip_optional_parameter">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER<a class="headerlink" href="#azure_snippet_skip_optional_parameter" title="Permanent link">#</a></h3>
 <p>This configuration option determines optional parameters are included in snippets.
 By default, optional parameters are included in snippets.
 To ignore optional parameter, set this option to <code>false</code>.</p>
 <p>Syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span><span class="w"> </span><span class="c1"># Either true or false</span><span class="w"></span>
 </code></pre></div>
 <p>Default:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER configuration option</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER configuration option</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Do not include optional parameters in snippets</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Do not include optional parameters in snippets</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h3 id="azure_use_parameter_file_snippet">AZURE_USE_PARAMETER_FILE_SNIPPET<a class="headerlink" href="#azure_use_parameter_file_snippet" title="Permanent link">#</a></h3>
 <p>This configuration option determines if a parameter file snippet is added to documentation.
 By default, a snippet is generated.
 To prevent a parameter file snippet being generated, set this option to <code>false</code>.</p>
 <p>Syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span><span class="w"> </span><span class="c1"># Either true or false</span><span class="w"></span>
 </code></pre></div>
 <p>Default:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_USE_PARAMETER_FILE_SNIPPET configuration option</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_USE_PARAMETER_FILE_SNIPPET configuration option</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Prevent parameter file snippet from being generated</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: Prevent parameter file snippet from being generated</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_PARAMETER_FILE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <h3 id="azure_use_command_line_snippet">AZURE_USE_COMMAND_LINE_SNIPPET<a class="headerlink" href="#azure_use_command_line_snippet" title="Permanent link">#</a></h3>
 <p>This configuration option determines if a command line snippet is added to documentation.
 By default, this command line snippet is not generated.
 To generate command line snippet, set this option to <code>true</code>.</p>
 <p>Syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bool</span> <span class="c1"># Either true or false</span>
+<div class="highlight"><pre><span></span><code><span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bool</span><span class="w"> </span><span class="c1"># Either true or false</span><span class="w"></span>
 </code></pre></div>
 <p>Default:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_USE_COMMAND_LINE_SNIPPET configuration option is to disable generation</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: The default AZURE_USE_COMMAND_LINE_SNIPPET configuration option is to disable generation</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
 </code></pre></div>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># YAML: To enable command line snippet</span>
-<span class="nt">configuration</span><span class="p">:</span>
-  <span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># YAML: To enable command line snippet</span><span class="w"></span>
+<span class="nt">configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">AZURE_USE_COMMAND_LINE_SNIPPET</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w"></span>
 </code></pre></div>
 <h2 id="note">NOTE<a class="headerlink" href="#note" title="Permanent link">#</a></h2>
 <p>An online version of this document is available at https://github.com/Azure/PSDocs.Azure/blob/main/docs/concepts/en-US/about_PSDocs_Azure_Configuration.md.</p>
@@ -861,7 +861,7 @@ To generate command line snippet, set this option to <code>true</code>.</p>
   <small>
     
       Last update:
-      2021-12-21
+      2022-01-05
     
   </small>
 </div>
@@ -908,10 +908,10 @@ To generate command line snippet, set this option to <code>true</code>.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.indexes", {"navigation.sections": {"level": 1}}, "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.0bbba5b5.min.js", "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.indexes", {"navigation.sections": {"level": 1}}, "navigation.tabs"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.361d90f1.min.js", "version": {"provider": "mike"}}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.e1a181d9.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.289a2a4b.min.js"></script>
       
     
   </body>
