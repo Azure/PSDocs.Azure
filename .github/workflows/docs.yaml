@@ -1,0 +1,54 @@
+#
+# Build documentation site
+#
+
+# NOTES:
+# This workflow generates and published the documentation site https://azure.github.io/PSDocs.Azure/.
+
+name: Docs
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  deploy:
+    name: Publish docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure
+        run: |
+          git config user.name github-actions
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+
+      - name: Generate docs
+        uses: microsoft/ps-docs@main
+        with:
+          modules: PSDocs,PSDocs.Azure
+          outputPath: docs/templates/
+          prerelease: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+          architecture: 'x64'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install wheel
+          python3 -m pip install -r requirements-docs.txt
+
+      - name: Deploy site
+        run: mike deploy --push --update-aliases v0 latest stable --title 'v0'
