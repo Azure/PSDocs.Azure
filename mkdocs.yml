@@ -10,7 +10,7 @@ repo_issue: https://github.com/Azure/PSDocs.Azure/issues
 repo_discussion: https://github.com/Azure/PSDocs.Azure/discussions
 
 extra_css:
-- assets/stylesheets/extra.css
+  - assets/stylesheets/extra.css
 
 theme:
   language: en
@@ -26,31 +26,31 @@ theme:
   icon:
     repo: fontawesome/brands/github
   features:
-  - navigation.instant
-  - navigation.indexes
-  - navigation.sections:
-      level: 1
-  - navigation.tabs
+    - navigation.instant
+    - navigation.indexes
+    - navigation.sections:
+        level: 1
+    - navigation.tabs
 
 nav:
   - Home: index.md
   - Getting started:
-    - Overview: overview.md
-    - Installation: install-instructions.md
-    - Creating your pipeline: creating-your-pipeline.md
-    - Publishing:
-      - Publish to Azure Storage: publish/blob-storage.md
-      # - Publish to Azure DevOps Wiki: publish/devops-wiki.md
-      - Publish to Azure Web App: publish/azure-webapp.md
-    - Using metadata: using-metadata.md
-    - Troubleshooting: troubleshooting.md
-    - License and contributing: license-contributing.md
-    - Releases:
-      - Change log: https://github.com/Azure/PSDocs.Azure/blob/main/CHANGELOG.md
-    - Support: support.md
+      - Overview: overview.md
+      - Installation: install-instructions.md
+      - Creating your pipeline: creating-your-pipeline.md
+      - Publishing:
+          - Publish to Azure Storage: publish/blob-storage.md
+          # - Publish to Azure DevOps Wiki: publish/devops-wiki.md
+          - Publish to Azure Web App: publish/azure-webapp.md
+      - Using metadata: using-metadata.md
+      - Troubleshooting: troubleshooting.md
+      - License and contributing: license-contributing.md
+      - Releases:
+          - Change log: https://github.com/Azure/PSDocs.Azure/blob/main/CHANGELOG.md
+      - Support: support.md
   - Setup:
-    - Configuring options: setup/configuring-options.md
-    - Configuring snippets: setup/configuring-snippets.md
+      - Configuring options: setup/configuring-options.md
+      - Configuring snippets: setup/configuring-snippets.md
   #   - Configuring expansion: setup/configuring-expansion.md
 
   #   - Configuration options: concepts/about_PSRule_Azure_Configuration.md
@@ -82,16 +82,17 @@ markdown_extensions:
       separator: '-'
 
 plugins:
-# - mkdocs-simple-hooks:
-#     hooks:
-#       on_page_markdown: "docs.hooks:replace_maml"
-#       on_nav: "docs.hooks:build_reference_nav"
-- search
-- git-revision-date
+  # - mkdocs-simple-hooks:
+  #     hooks:
+  #       on_page_markdown: "docs.hooks:replace_maml"
+  #       on_nav: "docs.hooks:build_reference_nav"
+  - search
+  - git-revision-date
 
 extra:
   version:
     provider: mike
+    default: stable
 
   social:
     - icon: fontawesome/brands/github
