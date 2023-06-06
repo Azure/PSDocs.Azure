@@ -113,7 +113,7 @@ stages:
 
   - template: jobs/test.yaml
     parameters:
-      name: ubuntu_20_04_coverage
+      name: ubuntu_22_04_coverage
       imageName: 'ubuntu-22.04'
       displayName: 'PowerShell coverage'
       coverage: 'true'
@@ -121,36 +121,29 @@ stages:
 
   - template: jobs/test.yaml
     parameters:
-      name: macOS_10_15
-      displayName: 'PowerShell 7.2 - macOS-10.15'
-      imageName: 'macOS-10.15'
+      name: macOS_11
+      displayName: 'PowerShell 7.3 - macOS-11'
+      imageName: 'macOS-11'
 
   - template: jobs/test.yaml
     parameters:
-      name: windows_2019_5_1
+      name: windows_2022_5_1
       displayName: 'PowerShell 5.1 - Windows 2022'
       imageName: 'windows-2022'
       pwsh: 'false'
 
   - template: jobs/test.yaml
     parameters:
-      name: windows_2019
+      name: windows_2022
       displayName: 'PowerShell 7.2 - Windows 2022'
       imageName: 'windows-2022'
 
   - template: jobs/testContainer.yaml
     parameters:
-      name: alpine_3_10
-      displayName: 'PowerShell 7.1 - alpine-3.10'
-      imageName: mcr.microsoft.com/powershell/test-deps
-      imageTag: alpine-3.10
-
-  - template: jobs/testContainer.yaml
-    parameters:
-      name: ps_7_2_ubuntu_22_04
-      displayName: 'PowerShell 7.2 - ubuntu-22.04'
+      name: ps_7_3_ubuntu_22_04
+      displayName: 'PowerShell 7.3 - ubuntu-22.04'
       imageName: mcr.microsoft.com/powershell
-      imageTag: 7.2.0-ubuntu-22.04
+      imageTag: 7.3-ubuntu-22.04
 
 # Release pipeline
 - stage: Release
