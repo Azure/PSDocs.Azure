@@ -182,6 +182,9 @@ function global:GetTemplateMetadata {
                 elseif ($property.Name -eq 'description' -and !$metadata.ContainsKey('description')) {
                     $metadata['description'] = $property.Value;
                 }
+                elseif ($property.Name -eq 'details' -and !$metadata.ContainsKey('details')) {
+                    $metadata['details'] = $property.Value;
+                }
                 elseif (!$metadata.ContainsKey($property.Name) -and $property.Name -ne '$schema') {
                     $metadata[$property.Name] = $property.Value;
                 }
@@ -254,10 +257,13 @@ Document 'README' -With 'Azure.TemplateSchema' {
         '{{ template_path }}' = $relativePath
         '{{ template_path_encoded }}' = $relativePathEncoded
     }
-
+    
     # Add detailed description
-    if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
+    if ($Null -ne $metadata -and $metadata.ContainsKey('description') -and $PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $True)) {
         $metadata.description
+    }
+    if ($Null -ne $metadata -and $metadata.ContainsKey('details') -and $PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
+        $metadata.details
     }
 
     # Add table and detail for each parameter

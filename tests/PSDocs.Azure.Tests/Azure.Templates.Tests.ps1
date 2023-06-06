@@ -28,6 +28,7 @@ Describe 'Templates' -Tag 'Template' {
         It 'Generates expected output' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
+                # Option = (New-PSDocumentOption -Option @{ 'CONFIGURATION.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED' = $False })
             }
 
             # Generates templates
@@ -35,7 +36,7 @@ Describe 'Templates' -Tag 'Template' {
                 $template = Get-Item -Path $_.TemplateFile;
                 $parentPath = $template.Directory.FullName;
                 $expectedContent = Get-Content -Path (Join-Path -Path $parentPath -ChildPath 'README.md') -Raw;
-                $actualContent = Invoke-PSDocument @invokeParams -OutputPath $outputPath -InputPath $template.FullName -PassThru;
+                $actualContent = Invoke-PSDocument @invokeParams -Option (New-PSDocumentOption -Option @{ 'CONFIGURATION.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED' = $False }) -OutputPath $outputPath -InputPath $template.FullName -PassThru;
                 $actualContent | Should -BeExactly $expectedContent;
                 $actualContent;
             }
