@@ -266,6 +266,26 @@ Document 'README' -With 'Azure.TemplateSchema' {
         }
     }
 
+    if ($Null -eq $PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED) {
+
+        # Add short description
+        if ($Null -ne $metadata -and $metadata.ContainsKey('summary')) {
+            $metadata.summary
+        }
+
+        # Add badges
+        $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
+        Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
+            '{{ template_path }}' = $relativePath
+            '{{ template_path_encoded }}' = $relativePathEncoded
+        }
+
+        # Add detailed description
+        if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
+            $metadata.description
+        }
+    }
+
     if ($Null -ne $PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -and ($PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -eq $True)) {
 
         # Add short description
