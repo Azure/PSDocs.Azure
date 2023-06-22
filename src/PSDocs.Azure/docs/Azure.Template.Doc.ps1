@@ -36,10 +36,10 @@ function global:GetTemplateParameter {
             }
 
             if ([bool]$property.Value.PSObject.Properties['minLength']) {
-                $result['minLength'] = $property.Value.minValue;
+                $result['minLength'] = $property.Value.minLength;
             }
             if ([bool]$property.Value.PSObject.Properties['maxLength']) {
-                $result['maxLength'] = $property.Value.maxValue;
+                $result['maxLength'] = $property.Value.maxLength;
             }
             [PSCustomObject]$result;
         }
@@ -326,7 +326,7 @@ Document 'README' -With 'Azure.TemplateSchema' {
                     $parameter.MinLength | Code 'text'
                 }
 
-                if ($Null -ne $parameter.MaxLength-and $parameter.MaxVLength.Length -gt 0) {
+                if ($Null -ne $parameter.MaxLength-and $parameter.MaxLength.Length -gt 0) {
                     "**$($LocalizedData.MaxLength)**"
                     $parameter.MaxLength | Code 'text'
                 }
