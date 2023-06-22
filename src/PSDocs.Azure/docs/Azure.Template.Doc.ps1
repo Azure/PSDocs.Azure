@@ -28,6 +28,19 @@ function global:GetTemplateParameter {
             if ([bool]$property.Value.PSObject.Properties['allowedValues']) {
                 $result['allowedValues'] = $property.Value.allowedValues;
             }
+            if ([bool]$property.Value.PSObject.Properties['minValue']) {
+                $result['minValue'] = $property.Value.minValue;
+            }
+            if ([bool]$property.Value.PSObject.Properties['maxValue']) {
+                $result['maxValue'] = $property.Value.maxValue;
+            }
+
+            if ([bool]$property.Value.PSObject.Properties['minLength']) {
+                $result['minLength'] = $property.Value.minValue;
+            }
+            if ([bool]$property.Value.PSObject.Properties['maxLength']) {
+                $result['maxLength'] = $property.Value.maxValue;
+            }
             [PSCustomObject]$result;
         }
     }
@@ -296,6 +309,26 @@ Document 'README' -With 'Azure.TemplateSchema' {
                 if ($Null -ne $parameter.AllowedValues -and $parameter.AllowedValues.Length -gt 0) {
                     "**$($LocalizedData.AllowedValues)**"
                     $parameter.AllowedValues | Code 'text'
+                }
+
+                if ($Null -ne $parameter.MinValue-and $parameter.MinValue.Length -gt 0) {
+                    "**$($LocalizedData.MinValue)**"
+                    $parameter.MinValue | Code 'text'
+                }
+
+                if ($Null -ne $parameter.MaxValue-and $parameter.MaxValue.Length -gt 0) {
+                    "**$($LocalizedData.MaxValue)**"
+                    $parameter.MaxValue | Code 'text'
+                }
+
+                if ($Null -ne $parameter.MinLength-and $parameter.MinLength.Length -gt 0) {
+                    "**$($LocalizedData.MinLength)**"
+                    $parameter.MinLength | Code 'text'
+                }
+
+                if ($Null -ne $parameter.MaxLength-and $parameter.MaxVLength.Length -gt 0) {
+                    "**$($LocalizedData.MaxLength)**"
+                    $parameter.MaxLength | Code 'text'
                 }
             }
         }
