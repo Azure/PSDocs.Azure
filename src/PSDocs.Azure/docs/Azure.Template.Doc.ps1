@@ -311,22 +311,22 @@ Document 'README' -With 'Azure.TemplateSchema' {
                     $parameter.AllowedValues | Code 'text'
                 }
 
-                if ($Null -ne $parameter.MinValue-and $parameter.MinValue.Length -gt 0) {
+                if ($Null -ne $parameter.MinValue -and $parameter.MinValue.Length -gt 0) {
                     "**$($LocalizedData.MinValue)**"
                     $parameter.MinValue | Code 'text'
                 }
 
-                if ($Null -ne $parameter.MaxValue-and $parameter.MaxValue.Length -gt 0) {
+                if ($Null -ne $parameter.MaxValue -and $parameter.MaxValue.Length -gt 0) {
                     "**$($LocalizedData.MaxValue)**"
                     $parameter.MaxValue | Code 'text'
                 }
 
-                if ($Null -ne $parameter.MinLength-and $parameter.MinLength.Length -gt 0) {
+                if ($Null -ne $parameter.MinLength -and $parameter.MinLength.Length -gt 0) {
                     "**$($LocalizedData.MinLength)**"
                     $parameter.MinLength | Code 'text'
                 }
 
-                if ($Null -ne $parameter.MaxLength-and $parameter.MaxLength.Length -gt 0) {
+                if ($Null -ne $parameter.MaxLength -and $parameter.MaxLength.Length -gt 0) {
                     "**$($LocalizedData.MaxLength)**"
                     $parameter.MaxLength | Code 'text'
                 }
