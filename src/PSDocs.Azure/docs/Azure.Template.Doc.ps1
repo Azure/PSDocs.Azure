@@ -246,7 +246,7 @@ Document 'README' -With 'Azure.TemplateSchema' {
         Title $LocalizedData.DefaultTitle
     }
 
-    if ($Null -ne $PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -and ($PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -eq $False)) {
+    if (!$PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
 
         # Add short description
         if ($Null -ne $metadata -and $metadata.ContainsKey('summary')) {
@@ -286,7 +286,7 @@ Document 'README' -With 'Azure.TemplateSchema' {
         }
     }
 
-    if ($Null -ne $PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -and ($PSDocs.Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED -eq $True)) {
+    if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
 
         # Add short description
         if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
