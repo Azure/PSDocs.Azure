@@ -266,8 +266,6 @@ Document 'README' -With 'Azure.TemplateSchema' {
         }
     }
 
-    }
-
     if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
 
         # Add short description
