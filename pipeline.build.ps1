@@ -278,7 +278,13 @@ task UpdateTemplateDocs Build, {
     # Scan for Azure template file recursively in the templates/ directory
     Get-AzDocTemplateFile -Path templates/ | ForEach-Object {
         $template = Get-Item -Path $_.TemplateFile;
-        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputPath $template.FullName;
+        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputPath $template.FullName -Option @{};
+    }
+
+    # Scan for Azure template file recursively in the samples/bicep/ directory
+    Get-AzDocTemplateFile -Path examples/bicep/ | ForEach-Object {
+        $template = Get-Item -Path $_.TemplateFile;
+        Invoke-PSDocument -Module PSDocs.Azure -OutputPath $template.Directory.FullName -InputPath $template.FullName -Option @{ 'Configuration.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED' = $True };
     }
 }
 
