@@ -27,7 +27,7 @@ Describe 'Templates' -Tag 'QuickStart' {
         It 'Generates expected output' {
             $invokeParams = @{
                 Module = 'PSDocs.Azure'
-                Option = (New-PSDocumentOption)
+                Option = (New-PSDocumentOption -Option @{ 'CONFIGURATION.AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED' = $False })
             }
 
             Push-Location -Path $here;
