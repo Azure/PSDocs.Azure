@@ -74,6 +74,18 @@ Determine how many additional characters are added to the storage account name a
 0
 ```
 
+**Minimum value**
+
+```text
+0
+```
+
+**Maximum value**
+
+```text
+13
+```
+
 ### containers
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
@@ -98,6 +110,18 @@ The number of days to retain deleted blobs. When set to 0, soft delete is disabl
 0
 ```
 
+**Minimum value**
+
+```text
+0
+```
+
+**Maximum value**
+
+```text
+365
+```
+
 ### containerSoftDeleteDays
 
 ![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
@@ -108,6 +132,18 @@ The number of days to retain deleted containers. When set to 0, soft delete is d
 
 ```text
 0
+```
+
+**Minimum value**
+
+```text
+0
+```
+
+**Maximum value**
+
+```text
+365
 ```
 
 ### shares
@@ -138,6 +174,18 @@ The number of days to retain deleted shares. When set to 0, soft delete is disab
 
 ```text
 0
+```
+
+**Minimum value**
+
+```text
+0
+```
+
+**Maximum value**
+
+```text
+365
 ```
 
 ### allowBlobPublicAccess

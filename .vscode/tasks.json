@@ -1,66 +1,66 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Test",
-            "type": "shell",
-            "detail": "Build and test module.",
-            "command": "Invoke-Build Test -AssertStyle Client",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "problemMatcher": [
-                "$pester"
-            ],
-            "presentation": {
-                "clear": true,
-                "panel": "dedicated"
-            }
-        },
-        {
-            "label": "Build",
-            "detail": "Build module.",
-            "type": "shell",
-            "command": "Invoke-Build Build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [],
-            "presentation": {
-                "clear": true,
-                "panel": "dedicated"
-            }
-        },
-        {
-            "label": "Clean",
-            "type": "shell",
-            "detail": "Clean output directories.",
-            "command": "Invoke-Build Clean",
-            "problemMatcher": []
-        },
-        {
-            "label": "Update template docs",
-            "detail": "Generate template markdown docs.",
-            "type": "shell",
-            "command": "Invoke-Build UpdateTemplateDocs",
-            "problemMatcher": [],
-            "presentation": {
-                "clear": true,
-                "panel": "dedicated"
-            }
-        },
-        {
-            "label": "Serve docs",
-            "detail": "Build and run documentation site locally.",
-            "type": "shell",
-            "command": "mkdocs serve",
-            "problemMatcher": [],
-            "presentation": {
-                "clear": true,
-                "panel": "dedicated"
-            }
-        }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Test",
+      "type": "shell",
+      "detail": "Build and test module.",
+      "command": "Invoke-Build Test -AssertStyle Client",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$pester"
+      ],
+      "presentation": {
+        "clear": true,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Build",
+      "detail": "Build module.",
+      "type": "shell",
+      "command": "Invoke-Build Build",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Clean",
+      "type": "shell",
+      "detail": "Clean output directories.",
+      "command": "Invoke-Build Clean",
+      "problemMatcher": []
+    },
+    {
+      "label": "Update template docs",
+      "detail": "Generate template markdown docs.",
+      "type": "shell",
+      "command": "Invoke-Build UpdateTemplateDocs",
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "panel": "dedicated"
+      }
+    },
+    {
+      "label": "Serve docs",
+      "detail": "Build and run documentation site locally.",
+      "type": "shell",
+      "command": "mkdocs serve",
+      "problemMatcher": [],
+      "presentation": {
+        "clear": true,
+        "panel": "dedicated"
+      }
+    }
+  ]
 }

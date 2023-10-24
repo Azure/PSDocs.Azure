@@ -1,17 +1,17 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using PSDocs.Azure.Configuration;
-using PSDocs.Azure.Data.Metadata;
-using PSDocs.Azure.Resources;
 using System;
 using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Management.Automation;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PSDocs.Azure.Configuration;
+using PSDocs.Azure.Data.Metadata;
+using PSDocs.Azure.Resources;
 
 namespace PSDocs.Azure.Pipeline
 {
@@ -65,7 +65,7 @@ namespace PSDocs.Azure.Pipeline
 
         public override void Process(PSObject sourceObject)
         {
-            if (sourceObject == null || !GetPath(sourceObject, out string path))
+            if (sourceObject == null || !GetPath(sourceObject, out var path))
                 return;
 
             _PathBuilder.Add(path);
@@ -81,19 +81,19 @@ namespace PSDocs.Azure.Pipeline
                 var rootedTemplateFile = PSDocumentOption.GetRootedPath(templateFile);
 
                 // Check if metadata property exists
-                if (!TryTemplateFile(rootedTemplateFile, out string version, out JObject metadata))
+                if (!TryTemplateFile(rootedTemplateFile, out var version, out var metadata))
                     return;
 
                 var templateLink = new TemplateLink(rootedTemplateFile, version);
 
                 // Populate remaining properties
-                if (TryStringProperty(metadata, PROPERTYNAME_NAME, out string name))
+                if (TryStringProperty(metadata, PROPERTYNAME_NAME, out var name))
                     templateLink.Name = name;
 
-                if (TryStringProperty(metadata, PROPERTYNAME_DESCRIPTION, out string description))
+                if (TryStringProperty(metadata, PROPERTYNAME_DESCRIPTION, out var description))
                     templateLink.Description = description;
 
-                if (TryMetadata(metadata, out Hashtable meta))
+                if (TryMetadata(metadata, out var meta))
                     templateLink.Metadata = meta;
 
                 // var pso = PSObject.AsPSObject(templateLink);
@@ -157,7 +157,7 @@ namespace PSDocs.Azure.Pipeline
         /// </summary>
         private static bool IsTemplateFile(JObject value)
         {
-            if (!value.TryGetValue(PROPERTYNAME_SCHEMA, out JToken token) || !Uri.TryCreate(token.Value<string>(), UriKind.Absolute, out Uri schemaUri))
+            if (!value.TryGetValue(PROPERTYNAME_SCHEMA, out var token) || !Uri.TryCreate(token.Value<string>(), UriKind.Absolute, out var schemaUri))
                 return false;
 
             return StringComparer.OrdinalIgnoreCase.Equals(schemaUri.Host, "schema.management.azure.com") &&
@@ -175,12 +175,12 @@ namespace PSDocs.Azure.Pipeline
             if (jsonData == null || !IsTemplateFile(jsonData))
                 return false;
 
-            if (!(jsonData.TryGetValue(PROPERTYNAME_CONTENTVERSION, out JToken versionToken) && versionToken is JValue versionValue))
+            if (!(jsonData.TryGetValue(PROPERTYNAME_CONTENTVERSION, out var versionToken) && versionToken is JValue versionValue))
                 return false;
 
             version = versionValue.ToString();
             Writer.VerboseFoundTemplate(templateFile);
-            if (jsonData.TryGetValue(PROPERTYNAME_METADATA, out JToken metadataToken) && metadataToken is JObject metadataProperty)
+            if (jsonData.TryGetValue(PROPERTYNAME_METADATA, out var metadataToken) && metadataToken is JObject metadataProperty)
                 metadata = metadataProperty;
 
             if (metadata == null)
@@ -192,7 +192,7 @@ namespace PSDocs.Azure.Pipeline
         private static bool TryStringProperty(JObject o, string propertyName, out string value)
         {
             value = null;
-            return o != null && o.TryGetValue(propertyName, out JToken token) && TryString(token, out value);
+            return o != null && o.TryGetValue(propertyName, out var token) && TryString(token, out value);
         }
 
         private static bool TryMetadata(JObject o, out Hashtable value)

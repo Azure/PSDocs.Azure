@@ -21,7 +21,7 @@ You can also use this option to install on CI workers that are not natively supp
 The following platforms are supported:
 
 - Windows PowerShell 5.1 with .NET Framework 4.7.2 or greater.
-- PowerShell 7.1 or greater on MacOS, Linux, and Windows.
+- PowerShell 7.3 or greater on MacOS, Linux, and Windows.
 
 PSDocs for Azure requires the PSDocs PowerShell module.
 The required version of PSDocs will automatically be installed along-side PSDocs for Azure.
@@ -29,7 +29,7 @@ The required version of PSDocs will automatically be installed along-side PSDocs
 ### Installing PowerShell
 
 PowerShell 7.x can be installed on MacOS, Linux, and Windows but is not installed by default.
-For a list of platforms that PowerShell 7.1 is supported on and install instructions see [Get PowerShell][3].
+For a list of platforms that PowerShell 7.3 is supported on and install instructions see [Get PowerShell][3].
 
   [3]: https://github.com/PowerShell/PowerShell#get-powershell
 
