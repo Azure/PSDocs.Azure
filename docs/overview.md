@@ -16,7 +16,7 @@ PSDocs for Azure includes pre-built functions and templates that make it easy to
 - **:octicons-people-24: Consumable** &mdash; Transform infrastructure code into presentable documentation.
   Use standard documentation that make it easier to deploy Azure resources.
 
-  [1]: https://github.com/BernieWhite/PSDocs
+  [1]: https://github.com/microsoft/PSDocs
 
 ## Ready to go
 

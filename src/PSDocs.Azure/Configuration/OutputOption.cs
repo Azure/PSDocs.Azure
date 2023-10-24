@@ -13,7 +13,7 @@ namespace PSDocs.Azure.Configuration
     {
         private const OutputEncoding DEFAULT_ENCODING = OutputEncoding.Default;
 
-        internal static readonly OutputOption Default = new OutputOption
+        internal static readonly OutputOption Default = new()
         {
             Encoding = DEFAULT_ENCODING
         };
@@ -49,7 +49,7 @@ namespace PSDocs.Azure.Configuration
         {
             unchecked // Overflow is fine
             {
-                int hash = 17;
+                var hash = 17;
                 hash = hash * 23 + (Encoding.HasValue ? Encoding.Value.GetHashCode() : 0);
                 hash = hash * 23 + (Path != null ? Path.GetHashCode() : 0);
                 return hash;

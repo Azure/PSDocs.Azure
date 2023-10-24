@@ -1,4 +1,4 @@
-﻿// Copyright (c) Microsoft Corporation.
+// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
 using System.Diagnostics;
@@ -12,9 +12,12 @@ namespace PSDocs.Azure.Configuration
     /// </summary>
     internal delegate string PathDelegate();
 
+    /// <summary>
+    /// The base class for configuring options within PSDocs.
+    /// </summary>
     public sealed class PSDocumentOption
     {
-        internal static readonly PSDocumentOption Default = new PSDocumentOption
+        internal static readonly PSDocumentOption Default = new()
         {
             Output = OutputOption.Default
         };
@@ -24,6 +27,9 @@ namespace PSDocs.Azure.Configuration
         /// </summary>
         private static PathDelegate _GetWorkingPath = () => Directory.GetCurrentDirectory();
 
+        /// <summary>
+        /// Create an instance of options.
+        /// </summary>
         public PSDocumentOption()
         {
             // Set defaults
@@ -52,6 +58,9 @@ namespace PSDocs.Azure.Configuration
             _GetWorkingPath = () => executionContext.SessionState.Path.CurrentFileSystemLocation.Path;
         }
 
+        /// <summary>
+        /// Get the current working path.
+        /// </summary>
         public static string GetWorkingPath()
         {
             return _GetWorkingPath();
