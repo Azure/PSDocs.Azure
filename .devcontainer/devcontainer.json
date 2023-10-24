@@ -1,8 +1,46 @@
 {
-    "extensions": [
-        "ms-azure-devops.azure-pipelines",
+  "name": "PSDocs for Azure Developer Codespace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "pwsh",
+        "terminal.integrated.profiles.linux": {
+          "pwsh": {
+            "path": "/opt/microsoft/powershell/7/pwsh"
+          }
+        }
+      },
+      "extensions": [
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-dotnettools.csdevkit",
         "ms-vscode.powershell",
+        "ms-azuretools.vscode-bicep",
+        "msazurermtools.azurerm-vscode-tools",
+        "GitHub.vscode-pull-request-github",
+        "github.vscode-github-actions",
         "davidanson.vscode-markdownlint",
-        "redhat.vscode-yaml"
-    ]
+        "eamodio.gitlens"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/powershell": {
+      "version": "latest"
+    }
+  },
+  "onCreateCommand": "/opt/microsoft/powershell/7/pwsh -f .devcontainer/container-build.ps1",
+  "postStartCommand": "/opt/microsoft/powershell/7/pwsh -f .devcontainer/container-start.ps1",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "VARIANT": "7.0-bullseye-slim"
+    }
+  },
+  "remoteUser": "vscode",
+  "forwardPorts": [
+    8000
+  ]
 }
