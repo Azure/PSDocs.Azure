@@ -18,7 +18,7 @@ Please search the existing issues before filing new issues to avoid duplicates.
 - For new issues, file your bug or feature request as a new [issue].
 - For help, discussion, and support questions about using this project, join or start a [discussion].
 
-If you have any problems with the [PSDocs][engine] engine, please check the project GitHub [issues](https://github.com/BernieWhite/PSDocs/issues) page instead.
+If you have any problems with the [PSDocs][engine] engine, please check the project GitHub [issues](https://github.com/microsoft/PSDocs/issues) page instead.
 
 Support for this project/ product is limited to the resources listed above.
 

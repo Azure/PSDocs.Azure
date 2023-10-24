@@ -4,30 +4,71 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <OutputType>Library</OutputType>
     <ProjectGuid>{1DF0509F-4D84-445F-BB98-CEA69EDD68FE}</ProjectGuid>
-    <!-- <DebugType>portable</DebugType> -->
+    <LangVersion>9.0</LangVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
-    <!-- <TreatWarningsAsErrors>true</TreatWarningsAsErrors> -->
-    <Authors>Bernie White</Authors>
-    <AssemblyTitle>PSDocs</AssemblyTitle>
-    <RepositoryUrl>https://github.com/Azure/PSDocs.Azure</RepositoryUrl>
-    <PackageLicenseExpression>https://github.com/Azure/PSDocs.Azure/blob/main/LICENSE</PackageLicenseExpression>
-    <Version>0.0.1</Version>
-    <Copyright>Copyright (c) Microsoft Corporation. Licensed under the MIT License.</Copyright>
-    <Description>Generate markdown from Azure infrastructure as code (IaC) artifacts.
-
-This project uses GitHub Issues to track bugs and feature requests. See GitHub project for more information.</Description>
+    <PackageId>Microsoft.PSDocs.Azure.Core</PackageId>
+    <EnableNuget>false</EnableNuget>
+    <IsPackable>false</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
+  <!-- Package metadata -->
   <PropertyGroup>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <Authors>Microsoft</Authors>
+    <AssemblyTitle>PSDocs for Azure</AssemblyTitle>
+    <RepositoryUrl>https://github.com/Azure/PSDocs.Azure</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://aka.ms/ps-docs-azure</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageTags>PSDocs;Azure;Bicep;IaC;markdown;documentation;</PackageTags>
+    <Version>0.0.1</Version>
+    <Company>Microsoft Corporation</Company>
+    <Copyright>&#169; Microsoft Corporation. All rights reserved.</Copyright>
+    <Description>Generate markdown from Azure infrastructure as code (IaC) artifacts.
+
+      This project uses GitHub Issues to track bugs and feature requests. See GitHub project for
+      more information.</Description>
+    <PackageReleaseNotes>For a list of changes see https://aka.ms/ps-rule-docs.</PackageReleaseNotes>
+    <PackageIcon>package_icon.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <DefineConstants>Windows</DefineConstants>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\assets\package_icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PackageReadmeFile)' != ''">
+    <None Include="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.4">

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Microsoft Corporation.
 // Licensed under the MIT License.
 
-using PSDocs.Azure.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
 using System.Threading;
+using PSDocs.Azure.Configuration;
 
 namespace PSDocs.Azure.Pipeline
 {
