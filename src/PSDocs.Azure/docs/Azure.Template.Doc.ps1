@@ -182,6 +182,9 @@ function global:GetTemplateMetadata {
                 elseif ($property.Name -eq 'description' -and !$metadata.ContainsKey('description')) {
                     $metadata['description'] = $property.Value;
                 }
+                elseif ($property.Name -eq 'details' -and !$metadata.ContainsKey('details')) {
+                    $metadata['details'] = $property.Value;
+                }
                 elseif (!$metadata.ContainsKey($property.Name) -and $property.Name -ne '$schema') {
                     $metadata[$property.Name] = $property.Value;
                 }
@@ -243,21 +246,44 @@ Document 'README' -With 'Azure.TemplateSchema' {
         Title $LocalizedData.DefaultTitle
     }
 
-    # Add short description
-    if ($Null -ne $metadata -and $metadata.ContainsKey('summary')) {
-        $metadata.summary
+    if (!$PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
+
+        # Add short description
+        if ($Null -ne $metadata -and $metadata.ContainsKey('summary')) {
+            $metadata.summary
+        }
+
+        # Add badges
+        $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
+        Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
+            '{{ template_path }}' = $relativePath
+            '{{ template_path_encoded }}' = $relativePathEncoded
+        }
+
+        # Add detailed description
+        if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
+            $metadata.description
+        }
     }
 
-    # Add badges
-    $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
-    Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
-        '{{ template_path }}' = $relativePath
-        '{{ template_path_encoded }}' = $relativePathEncoded
-    }
+    if ($PSDocs.Configuration.GetBoolOrDefault('AZURE_BICEP_REGISTRY_MODULES_METADATA_SCHEMA_ENABLED', $False)) {
 
-    # Add detailed description
-    if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
-        $metadata.description
+        # Add short description
+        if ($Null -ne $metadata -and $metadata.ContainsKey('description')) {
+            $metadata.description
+        }
+
+        # Add badges
+        $relativePathEncoded = [System.Web.HttpUtility]::UrlEncode($relativePath);
+        Include '.ps-docs/azure-template-badges.md' -ErrorAction SilentlyContinue -BaseDirectory $PWD -Replace @{
+            '{{ template_path }}' = $relativePath
+            '{{ template_path_encoded }}' = $relativePathEncoded
+        }
+
+        # Add details
+        if ($Null -ne $metadata -and $metadata.ContainsKey('details')) {
+            $metadata.details
+        }
     }
 
     # Add table and detail for each parameter
