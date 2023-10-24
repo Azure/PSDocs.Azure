@@ -17,4 +17,8 @@
     Required = 'Required'
     RequiredYes = 'Yes'
     RequiredNo = 'No'
+    MinValue = 'Minimum value'
+    MaxValue = 'Maximum value'
+    MinLength = 'Minimum length'
+    MaxLength = 'Maximum length'
 }
