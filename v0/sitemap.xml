@@ -2,97 +2,97 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/creating-your-pipeline/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/install-instructions/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/license-contributing/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/overview/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/release/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/support/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/troubleshooting/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/using-metadata/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/commands/en-US/Get-AzDocTemplateFile/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/commands/en-US/PSDocs.Azure/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/concepts/en-US/about_PSDocs_Azure_Badges/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/concepts/en-US/about_PSDocs_Azure_Configuration/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/concepts/en-US/about_PSDocs_Azure_Conventions/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/publish/azure-webapp/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/publish/blob-storage/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/publish/devops-wiki/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/setup/configuring-options/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://github.com/Azure/PSDocs.Azure/v0/setup/configuring-snippets/</loc>
-         <lastmod>2023-12-31</lastmod>
+         <lastmod>2024-01-17</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
