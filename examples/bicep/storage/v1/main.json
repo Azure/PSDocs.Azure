@@ -24,6 +24,13 @@
       "metadata": {
         "description": "The location of the storage account."
       }
+    },
+    "tags": {
+      "type": "object",
+      "nullable": true,
+      "metadata": {
+        "description": "Tags for the storage account."
+      }
     }
   },
   "resources": [
@@ -35,7 +42,8 @@
       "sku": {
         "name": "Standard_LRS"
       },
-      "kind": "StorageV2"
+      "kind": "StorageV2",
+      "tags": "[parameters('tags')]"
     }
   ]
 }
