@@ -218,7 +218,7 @@ function global:GetTemplateOutput {
         foreach ($property in $InputObject.outputs.PSObject.Properties) {
             $output = [PSCustomObject]@{
                 Name = $property.Name
-                Type = $property.Value.type
+                Type = If ($null -eq $property.Value.'$ref') {$property.Value.type} Else {$property.Value.'$ref'} 
                 Description = ''
             }
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
