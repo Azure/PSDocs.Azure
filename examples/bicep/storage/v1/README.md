@@ -12,6 +12,7 @@ Parameter name | Required | Description
 -------------- | -------- | -----------
 name           | Yes      | The name of the storage account.
 location       | No       | The location of the storage account.
+tags           | No       | Tags for the storage account.
 
 ### name
 
@@ -31,6 +32,12 @@ The location of the storage account.
 [resourceGroup().location]
 ```
 
+### tags
+
+![Parameter Setting](https://img.shields.io/badge/parameter-optional-green?style=flat-square)
+
+Tags for the storage account.
+
 ## Snippets
 
 ### Parameter file
@@ -45,6 +52,9 @@ The location of the storage account.
     "parameters": {
         "name": {
             "value": ""
+        },
+        "tags": {
+            "value": {}
         }
     }
 }
