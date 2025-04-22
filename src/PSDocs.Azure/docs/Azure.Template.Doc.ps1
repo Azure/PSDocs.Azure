@@ -216,23 +216,60 @@ function global:GetTemplateOutput {
     )
     process {
         foreach ($property in $InputObject.outputs.PSObject.Properties) {
-            $type = $null;
-            if($null -eq $property.Value.'$ref') {
-                $type = $property.Value.type;
-            }
-            else {
-                $type = $property.Value.'$ref';
-            }
             $output = [PSCustomObject]@{
                 Name = $property.Name
-                Type = $type
+                Type = If ($null -eq $property.Value.'$ref') {$property.Value.type} Else {GetDefinitionReferenceMarkdownLink $property.Value.'$ref'} 
                 Description = ''
             }
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
+                
                 $output.Description = $property.Value.metadata.description
+                
             }
             $output;
         }
+    }
+}
+
+# A function to import user-defined types
+function global:GetTemplateDefinition {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $True, ValueFromPipeline = $True)]
+        [PSObject]$InputObject
+    )
+    process {
+        foreach ($property in $InputObject.definitions.PSObject.Properties) {
+            $definition = [PSCustomObject]@{
+                Name = $property.Name
+                Properties = $property.PSObject.Properties
+                Description = ''
+                AdditionalProperties = $false
+                Discriminator = $null
+            }
+            if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
+                $definition.Description = $property.Value.metadata.description
+            }
+            if($null -ne $property.Value.PSObject.Properties['additionalProperties'] -and $property.Value.PSObject.Properties['additionalProperties'] -ne $false) {
+                $definition.AdditionalProperties = $property.Value.additionalProperties;
+            }
+            if($null -ne $property.Value.PSObject.Properties['discriminator']) {
+                Write-Warning "Discriminator found"
+                $definition.Discriminator = $property.Value.discriminator;
+            }
+            $definition;
+        }
+    }
+}
+
+function global:GetDefinitionReferenceMarkdownLink {
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $True)]
+        [String]$DefinitionPath
+    )
+    process {
+        return "[$($DefinitionPath)](#$($DefinitionPath.Split('/')[-1].ToLower().Replace(' ', '-')))"
     }
 }
 
@@ -257,6 +294,8 @@ Document 'README' -With 'Azure.TemplateSchema' {
     $parameters = $template | GetTemplateParameter;
     $metadata = $template | GetTemplateMetadata -Path $templatePath;
     $outputs = $template | GetTemplateOutput;
+    $definitions = $template | GetTemplateDefinition;
+
 
     # Set document title
     if ($Null -ne $metadata -and $metadata.ContainsKey('name')) {
@@ -303,6 +342,48 @@ Document 'README' -With 'Azure.TemplateSchema' {
         # Add details
         if ($Null -ne $metadata -and $metadata.ContainsKey('details')) {
             $metadata.details
+        }
+    }
+    Section $LocalizedData.Definitions {
+        foreach($definition in $definitions) {
+            Section $definition.Name {
+
+                $definition.Description;
+                
+                $definitionProperties = $definition.Properties.Value.Properties;
+                if($null -ne $definitionProperties -and $definitionProperties.Count -gt 0) {
+                    $definitionProperties.PSObject.Properties | Table -Property @{ Name = $LocalizedData.PropertyName; Expression = { $_.Name }},
+                    @{ Name = $LocalizedData.Type; Expression = {
+                        If($null -eq $_.Value.'$ref') { $_.Value.Type } Else { GetDefinitionReferenceMarkdownLink $_.Value.'$ref' }
+                    }},
+                    @{ Name = $LocalizedData.Nullable; Expression = { If($null -ne $_.Value.nullable) { $_.Value.nullable } Else { 'False' }}},
+                    @{ Name = $LocalizedData.Description; Expression = { If($null -ne $_.Value.Metadata.Description) { $_.Value.Metadata.Description } Else { '' }}},
+                    @{ Name= $LocalizedData.AllowedValues; Expression = { 
+                        If($null -eq $_.Value.allowedValues) { 'Any' } Else {
+                            $_.Value.allowedValues -join ' &#124; ' # &#124; = Pipe symbol = |
+                        }
+                    }}
+                }
+
+                if ($null -ne $definition.AdditionalProperties -and $definition.AdditionalProperties -ne $false) {
+                    "**$($LocalizedData.AdditionalProperties)**"
+                    $(global:GetDefinitionReferenceMarkdownLink $definition.AdditionalProperties.'$ref') 
+                }
+
+                if($null -ne $definition.Discriminator) {
+                    Section $LocalizedData.UnionTypes {
+                        "**$($LocalizedData.DiscriminatorDescription)**"
+                        $definition.Discriminator.propertyName | Code 'text'
+                        
+                        if($null -ne $definition.Discriminator.mapping) {
+                            "**$($LocalizedData.Mapping)**"
+                            $definition.Discriminator.mapping.PSObject.Properties | Table -Property @{ Name = $LocalizedData.Type; Expression = { $_.Name }},
+                            @{ Name = $LocalizedData.Definition; Expression = { GetDefinitionReferenceMarkdownLink $_.Value.'$ref' }}
+                        }
+                    
+                    }
+                }
+            }   
         }
     }
 
