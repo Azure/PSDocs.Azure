@@ -254,7 +254,6 @@ function global:GetTemplateDefinition {
                 $definition.AdditionalProperties = $property.Value.additionalProperties;
             }
             if($null -ne $property.Value.PSObject.Properties['discriminator']) {
-                Write-Warning "Discriminator found"
                 $definition.Discriminator = $property.Value.discriminator;
             }
             $definition;
