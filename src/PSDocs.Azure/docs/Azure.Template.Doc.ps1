@@ -366,7 +366,7 @@ Document 'README' -With 'Azure.TemplateSchema' {
 
                 if ($null -ne $definition.AdditionalProperties -and $definition.AdditionalProperties -ne $false) {
                     "**$($LocalizedData.AdditionalProperties)**"
-                    $(global:GetDefinitionReferenceMarkdownLink $definition.AdditionalProperties.'$ref') 
+                    If($null -eq $definition.AdditionalProperties.'$ref') {$definition.AdditionalProperties.type} Else {$(global:GetDefinitionReferenceMarkdownLink $definition.AdditionalProperties.'$ref')}
                 }
 
                 if($null -ne $definition.Discriminator) {
