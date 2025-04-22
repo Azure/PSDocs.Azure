@@ -12,7 +12,7 @@
     PropertyName = 'Property name'
     ParameterName = 'Parameter name'
     Description = 'Description'
-    Type = 'Type',
+    Type = 'Type'
     Definition = 'Definition'
     UnionTypes = 'Union types'
     DiscriminatorDescription = 'Property used to discriminate between types'
