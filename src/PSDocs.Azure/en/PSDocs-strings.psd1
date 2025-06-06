@@ -3,13 +3,20 @@
 
 @{
     Parameters = 'Parameters'
+    Definitions = 'User-defined types definitions'
     Snippets = 'Snippets'
     Outputs = 'Outputs'
     DefaultValue = 'Default value'
     AllowedValues = 'Allowed values'
+    AdditionalProperties = 'Additional properties'
+    PropertyName = 'Property name'
     ParameterName = 'Parameter name'
     Description = 'Description'
     Type = 'Type'
+    Definition = 'Definition'
+    UnionTypes = 'Union types'
+    DiscriminatorDescription = 'Property used to discriminate between types'
+    Mapping = 'Mapping'
     Name = 'Name'
     DefaultTitle = 'Azure template'
     ParameterFile = 'Parameter file'
@@ -21,4 +28,5 @@
     MaxValue = 'Maximum value'
     MinLength = 'Minimum length'
     MaxLength = 'Maximum length'
+    Nullable = 'Nullable'
 }
