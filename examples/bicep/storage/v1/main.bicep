@@ -13,6 +13,9 @@ param name string
 @sys.description('The location of the storage account.')
 param location string = resourceGroup().location
 
+@sys.description('Tags for the storage account.')
+param tags object?
+
 resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
   name: name
   location: location
@@ -20,4 +23,5 @@ resource storage 'Microsoft.Storage/storageAccounts@2022-09-01' = {
     name: 'Standard_LRS'
   }
   kind: 'StorageV2'
+  tags: tags
 }

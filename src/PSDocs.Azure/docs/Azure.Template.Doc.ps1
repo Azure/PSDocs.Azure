@@ -21,7 +21,7 @@ function global:GetTemplateParameter {
             if ([bool]$property.Value.PSObject.Properties['metadata'] -and [bool]$property.Value.metadata.PSObject.Properties['description']) {
                 $result.Description = $property.Value.metadata.description;
             }
-            if ([bool]$property.Value.PSObject.Properties['defaultValue']) {
+            if ([bool]$property.Value.PSObject.Properties['defaultValue'] -or [bool]$property.Value.PSObject.Properties['nullable']) {
                 $result['defaultValue'] = $property.Value.defaultValue;
                 $result['Required'] = 'Optional'
             }
