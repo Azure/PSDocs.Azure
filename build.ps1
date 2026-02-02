@@ -47,9 +47,14 @@ function Invoke-PackageBuild {
     try {
         $buildScript = './pipeline.build.ps1'
         if (Test-Path $buildScript) {
-            if ($Clean) { & $buildScript -Clean }
-            if ($Build) { & $buildScript -Build }
-            if ($Test) { & $buildScript -Test }
+            # pipeline.build.ps1 is an InvokeBuild script - use Invoke-Build
+            $tasks = @()
+            if ($Clean) { $tasks += 'Clean' }
+            if ($Build) { $tasks += 'Build' }
+            if ($Test) { $tasks += 'Test' }
+            if ($tasks.Count -gt 0) {
+                Invoke-Build -Task $tasks -File $buildScript
+            }
         } elseif (Test-Path 'package.json') {
             # Node.js package (VS Code extension)
             if ($Clean) { 

@@ -197,11 +197,11 @@ task ModuleDependencies NuGet, PSDocs
 task CopyModule {
     CopyModuleFiles -Path src/PSDocs.Azure -DestinationPath out/modules/PSDocs.Azure;
 
-    # Copy LICENSE
-    Copy-Item -Path LICENSE -Destination out/modules/PSDocs.Azure;
+    # Copy LICENSE from repo root
+    Copy-Item -Path ../../LICENSE -Destination out/modules/PSDocs.Azure;
 
-    # Copy third party notices
-    Copy-Item -Path ThirdPartyNotices.txt -Destination out/modules/PSDocs.Azure;
+    # Copy third party notices from repo root
+    Copy-Item -Path ../../ThirdPartyNotices.txt -Destination out/modules/PSDocs.Azure;
 }
 
 task BuildDotNet {
@@ -234,7 +234,7 @@ task BuildHelp BuildModule, PlatyPS, {
         &$pwshPath -Command {
             # Generate MAML and about topics
             Import-Module -Name PlatyPS -Verbose:$False;
-            $Null = New-ExternalHelp -OutputPath 'out/docs/PSDocs.Azure' -Path '.\docs\commands\en-US', '.\docs\concepts\en-US' -Force;
+            $Null = New-ExternalHelp -OutputPath 'out/docs/PSDocs.Azure' -Path '../../docs/psdocs-azure/commands/en-US', '../../docs/psdocs-azure/concepts/en-US' -Force;
         }
     }
 

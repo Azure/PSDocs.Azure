@@ -50,7 +50,7 @@ jobs:
         run: |
           if (Test-Path packages/psdocs/pipeline.build.ps1) {
             Set-Location packages/psdocs
-            ./pipeline.build.ps1 -Build
+            Invoke-Build Build -File ./pipeline.build.ps1
           } else {
             Write-Host "PSDocs package not yet added - skipping build"
           }
@@ -60,7 +60,7 @@ jobs:
         run: |
           if (Test-Path packages/psdocs/pipeline.build.ps1) {
             Set-Location packages/psdocs
-            ./pipeline.build.ps1 -Test
+            Invoke-Build Test -File ./pipeline.build.ps1
           }
       
       - name: Upload PSDocs Module
@@ -103,13 +103,13 @@ jobs:
         shell: pwsh
         working-directory: packages/psdocs-azure
         run: |
-          ./pipeline.build.ps1 -Build
+          Invoke-Build Build -File ./pipeline.build.ps1
       
       - name: Test PSDocs.Azure
         shell: pwsh
         working-directory: packages/psdocs-azure
         run: |
-          ./pipeline.build.ps1 -Test
+          Invoke-Build Test -File ./pipeline.build.ps1
       
       - name: Upload PSDocs.Azure Module
         uses: actions/upload-artifact@v4
