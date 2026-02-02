@@ -1,0 +1,165 @@
+# VS Code Extension CI
+# Migrated from Azure DevOps pipeline
+
+name: VS Code Extension CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/vscode-extension/**'
+      - '.github/workflows/vscode-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/vscode-extension/**'
+      - '.github/workflows/vscode-ci.yml'
+
+env:
+  NODE_VERSION: '20.x'
+
+jobs:
+  # Build extension for multiple channels
+  build:
+    name: Build (${{ matrix.channel }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        channel: [preview, stable]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: packages/vscode-extension/package-lock.json
+
+      - name: Setup PowerShell modules
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
+
+      - name: Install dependencies
+        working-directory: packages/vscode-extension
+        run: npm ci
+
+      - name: Build extension
+        shell: pwsh
+        working-directory: packages/vscode-extension
+        run: |
+          Invoke-Build Build -Channel '${{ matrix.channel }}'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-${{ matrix.channel }}
+          path: packages/vscode-extension/out/package/
+          retention-days: 7
+
+  # Cross-platform testing
+  test:
+    name: Test (${{ matrix.os }}, PowerShell ${{ matrix.pwsh && '7.x' || '5.1' }})
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        pwsh: [true]
+        include:
+          # Add PowerShell 5.1 test on Windows
+          - os: windows-latest
+            pwsh: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: packages/vscode-extension/package-lock.json
+
+      - name: Download extension artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: extension-preview
+          path: packages/vscode-extension/out/package
+
+      - name: Start Xvfb (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          echo "Started Xvfb"
+
+      - name: Install dependencies
+        working-directory: packages/vscode-extension
+        run: npm ci
+
+      - name: Run tests (PowerShell 7.x)
+        if: matrix.pwsh == true
+        shell: pwsh
+        working-directory: packages/vscode-extension
+        run: |
+          # Run extension tests
+          npm test
+        env:
+          DISPLAY: ':99.0'
+
+      - name: Run tests (PowerShell 5.1)
+        if: matrix.pwsh == false
+        shell: powershell
+        working-directory: packages/vscode-extension
+        run: |
+          # Run extension tests
+          npm test
+        env:
+          DISPLAY: ':99.0'
+
+  # Auto-publish preview on main merge
+  publish-preview:
+    name: Publish Preview
+    needs: [build, test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: release
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Download preview artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: extension-preview
+          path: packages/vscode-extension/out/package
+
+      - name: Install vsce
+        run: npm install -g @vscode/vsce
+
+      - name: Find VSIX file
+        id: vsix
+        working-directory: packages/vscode-extension/out/package
+        run: |
+          VSIX_FILE=$(ls *.vsix 2>/dev/null | head -1)
+          echo "file=$VSIX_FILE" >> $GITHUB_OUTPUT
+          echo "Found VSIX: $VSIX_FILE"
+
+      - name: Publish to VS Marketplace (Pre-release)
+        working-directory: packages/vscode-extension/out/package
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          vsce publish --pre-release --packagePath "${{ steps.vsix.outputs.file }}" --pat "$VSCE_PAT"

@@ -1,0 +1,60 @@
+# CodeQL Security Analysis
+# Scans VS Code extension for security vulnerabilities
+
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/vscode-extension/**/*.ts'
+      - 'packages/vscode-extension/**/*.js'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/vscode-extension/**/*.ts'
+      - 'packages/vscode-extension/**/*.js'
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          # Focus on VS Code extension source
+          paths:
+            - packages/vscode-extension/src
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: packages/vscode-extension/package-lock.json
+
+      - name: Install dependencies
+        working-directory: packages/vscode-extension
+        run: npm ci
+
+      - name: Build
+        working-directory: packages/vscode-extension
+        run: npm run compile
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"

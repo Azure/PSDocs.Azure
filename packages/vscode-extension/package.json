@@ -29,10 +29,11 @@
   "icon": "images/psdocs-icon.png",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/PSDocs-vscode.git"
+    "url": "https://github.com/Azure/PSDocs.Azure.git",
+    "directory": "packages/vscode-extension"
   },
   "bugs": {
-    "url": "https://github.com/Microsoft/PSDocs-vscode/issues"
+    "url": "https://github.com/Azure/PSDocs.Azure/issues"
   },
   "activationEvents": [
     "onCommand:vicperdana.psdocs-vscode-preview"

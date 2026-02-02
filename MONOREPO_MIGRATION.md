@@ -18,45 +18,18 @@ packages/
 docs/
 ├── psdocs/              # PSDocs engine docs (to be added via git subtree)
 ├── psdocs-azure/        # PSDocs.Azure docs (existing content)
-└── vscode/              # VS Code extension docs (to be added via git subtree)
+└── vscode/              # VS Code extension docs
 
 build/
 └── common.ps1           # Shared build utilities
 
 .github/workflows/
 ├── ci.yml                      # Main CI workflow with path-based filtering
+├── vscode-ci.yml               # VS Code extension CI (build, test, preview publish)
+├── codeql.yml                  # CodeQL security scanning
 ├── release-psdocs.yml          # Release workflow for PSDocs engine
 ├── release-psdocs-azure.yml    # Release workflow for PSDocs.Azure
-└── release-vscode.yml          # Release workflow for VS Code extension
-```
-
-## Post-Merge Steps
-
-After this PR is merged, the following git subtree commands need to be run locally to add the other repositories with their full history:
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/Azure/PSDocs.Azure.git
-cd PSDocs.Azure
-```
-
-### 2. Add PSDocs engine
-
-```bash
-git subtree add --prefix=packages/psdocs https://github.com/microsoft/PSDocs.git main --squash -m "feat: add PSDocs engine from microsoft/PSDocs"
-```
-
-### 3. Add VS Code extension
-
-```bash
-git subtree add --prefix=packages/vscode-extension https://github.com/microsoft/PSDocs-vscode.git main --squash -m "feat: add VS Code extension from microsoft/PSDocs-vscode"
-```
-
-### 4. Push changes
-
-```bash
-git push origin main
+└── release-vscode.yml          # Release workflow for VS Code extension (stable)
 ```
 
 ## Building the Monorepo
