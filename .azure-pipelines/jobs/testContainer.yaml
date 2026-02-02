@@ -1,0 +1,59 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# Notes:
+# Test Visual Studio Code extension.
+
+parameters:
+- name: name
+  type: string
+- name: displayName
+  type: string
+- name: channel
+  type: string
+- name: buildConfiguration
+  type: string
+  default: 'Release'
+- name: vmImage
+  type: string
+  default: 'ubuntu-20.04'
+- name: imageName
+  type: string
+- name: imageTag
+  type: string
+
+jobs:
+- job: ${{ parameters.name }}
+  displayName: ${{ parameters.displayName }}
+  pool:
+    vmImage: ${{ parameters.vmImage }}
+  container:
+    image: '${{ parameters.imageName }}:${{ parameters.imageTag }}'
+  variables:
+    skipComponentGovernanceDetection: true
+  steps:
+
+  - bash: |
+      /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+      echo ">>> Started xvfb"
+    displayName: Start xvfb
+    condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
+
+  # Install pipeline dependencies
+  - powershell: ./.azure-pipelines/pipeline-deps.ps1
+    displayName: 'Install dependencies'
+
+  # Download module
+  - task: DownloadPipelineArtifact@2
+    displayName: 'Download extension'
+    inputs:
+      artifact: 'extension-${{ parameters.channel }}'
+      path: $(Build.SourcesDirectory)/out/package
+
+  # Run tests
+  - powershell: |-
+      npm install
+      npm test
+    displayName: 'Test extension'
+    env:
+      DISPLAY: ':99.0'

@@ -1,0 +1,40 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "out": false // set this to true to hide the "out" folder with the compiled JS files
+    },
+    "search.exclude": {
+        "out": true // set this to false to include "out" folder in search results
+    },
+    //"powershell.integratedConsole.suppressStartupBanner": true,
+    //"terminal.integrated.automationShell.windows": "cmd.exe"
+    "files.associations": {
+        "**/.azure-pipelines/*.yaml": "azure-pipelines",
+        "**/.azure-pipelines/jobs/*.yaml": "azure-pipelines"
+    },
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "[yaml]": {
+        "editor.tabSize": 2
+    },
+    "[markdown]": {
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
+    "typescript.tsc.autoDetect": "off",
+    "cSpell.words": [
+        "pwsh"
+    ]
+}

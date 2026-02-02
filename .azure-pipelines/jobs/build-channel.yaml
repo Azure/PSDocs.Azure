@@ -1,0 +1,37 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# Notes:
+# Builds Visual Studio Code extension for a release channel.
+
+parameters:
+- name: channel
+  type: string
+- name: buildConfiguration
+  type: string
+  default: 'Release'
+- name: vmImage
+  type: string
+  default: 'ubuntu-20.04'
+
+jobs:
+- job: 'build_${{ parameters.channel }}'
+  displayName: 'Build ${{ parameters.channel }}'
+  pool:
+    vmImage: '${{ parameters.vmImage }}'
+  steps:
+
+  # Install pipeline dependencies
+  - powershell: ./.azure-pipelines/pipeline-deps.ps1
+    displayName: 'Install dependencies'
+
+  # Build extension
+  - powershell: Invoke-Build -Configuration '${{ parameters.buildConfiguration }}' -Build $(Build.BuildNumber) -Channel '${{ parameters.channel }}'
+    displayName: 'Build extension'
+
+  # Generate artifacts
+  - task: PublishPipelineArtifact@0
+    displayName: 'Publish extension'
+    inputs:
+      artifactName: 'extension-${{ parameters.channel }}'
+      targetPath: out/package
