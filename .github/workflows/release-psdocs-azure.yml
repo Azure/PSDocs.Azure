@@ -1,0 +1,46 @@
+name: Release PSDocs.Azure
+
+on:
+  push:
+    tags:
+      - 'psdocs-azure-v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/psdocs-azure-v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+      
+      - name: Build
+        shell: pwsh
+        working-directory: packages/psdocs-azure
+        run: |
+          ./pipeline.build.ps1 -Build
+      
+      - name: Publish to PSGallery
+        shell: pwsh
+        env:
+          PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
+        run: |
+          Publish-Module -Path packages/psdocs-azure/out/modules/PSDocs.Azure -NuGetApiKey $env:PSGALLERY_API_KEY
+      
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: PSDocs.Azure v${{ steps.version.outputs.version }}
+          body_path: packages/psdocs-azure/CHANGELOG.md
+          generate_release_notes: true

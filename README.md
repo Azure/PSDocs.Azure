@@ -4,11 +4,43 @@ Generate markdown from Azure infrastructure as code (IaC) artifacts.
 
 ![ci-badge]
 
+## Repository Structure
+
+This is a monorepo containing the complete PSDocs ecosystem:
+
+| Package | Description | Location |
+|---------|-------------|----------|
+| **PSDocs** | Core documentation engine | [`packages/psdocs/`](./packages/psdocs/) |
+| **PSDocs.Azure** | Azure IaC documentation generator | [`packages/psdocs-azure/`](./packages/psdocs-azure/) |
+| **VS Code Extension** | PSDocs extension for VS Code | [`packages/vscode-extension/`](./packages/vscode-extension/) |
+
+### Building
+
+```powershell
+# Build all packages
+./build.ps1 -Build
+
+# Build and test specific package
+./build.ps1 -Package psdocs-azure -Build -Test
+
+# Build VS Code extension
+./build.ps1 -Package vscode -Build
+```
+
+### Versioning
+
+Each component is versioned independently using prefixed tags:
+- PSDocs: `psdocs-v{version}` (e.g., `psdocs-v0.10.0`)
+- PSDocs.Azure: `psdocs-azure-v{version}` (e.g., `psdocs-azure-v0.4.0`)
+- VS Code Extension: `vscode-v{version}` (e.g., `vscode-v1.1.0`)
+
+## Features
+
 Features of PSDocs for Azure include:
 
-- [Ready to go](docs/overview.md#ready-to-go) - Use pre-built templates.
-- [DevOps](docs/overview.md#devops) - Generate within a continuous integration (CI) pipeline.
-- [Cross-platform](docs/overview.md#cross-platform) - Run on MacOS, Linux, and Windows.
+- [Ready to go](docs/psdocs-azure/overview.md#ready-to-go) - Use pre-built templates.
+- [DevOps](docs/psdocs-azure/overview.md#devops) - Generate within a continuous integration (CI) pipeline.
+- [Cross-platform](docs/psdocs-azure/overview.md#cross-platform) - Run on MacOS, Linux, and Windows.
 
 ## Support
 
@@ -282,20 +314,20 @@ PSDocs for Azure extends PowerShell with the following cmdlets and concepts.
 
 The following commands exist in the `PSDocs.Azure` module:
 
-- [Get-AzDocTemplateFile](docs/commands/en-US/Get-AzDocTemplateFile.md) - Get Azure template files within a directory structure.
+- [Get-AzDocTemplateFile](docs/psdocs-azure/commands/en-US/Get-AzDocTemplateFile.md) - Get Azure template files within a directory structure.
 
 ### Concepts
 
 The following conceptual topics exist in the `PSDocs.Azure` module:
 
-- [Badges](docs/concepts/en-US/about_PSDocs_Azure_Badges.md)
-- [Configuration](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md)
-  - [AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_snippet_skip_default_value_fn)
-  - [AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_snippet_skip_optional_parameter)
-  - [AZURE_USE_PARAMETER_FILE_SNIPPET](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_parameter_file_snippet)
-  - [AZURE_USE_COMMAND_LINE_SNIPPET](docs/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_command_line_snippet)
-- [Conventions](docs/concepts/en-US/about_PSDocs_Azure_Conventions.md)
-  - [Azure.NameByParentPath](docs/concepts/en-US/about_PSDocs_Azure_Conventions.md#azurenamebyparentpath)
+- [Badges](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Badges.md)
+- [Configuration](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Configuration.md)
+  - [AZURE_SNIPPET_SKIP_DEFAULT_VALUE_FN](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_snippet_skip_default_value_fn)
+  - [AZURE_SNIPPET_SKIP_OPTIONAL_PARAMETER](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_snippet_skip_optional_parameter)
+  - [AZURE_USE_PARAMETER_FILE_SNIPPET](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_parameter_file_snippet)
+  - [AZURE_USE_COMMAND_LINE_SNIPPET](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Configuration.md#azure_use_command_line_snippet)
+- [Conventions](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Conventions.md)
+  - [Azure.NameByParentPath](docs/psdocs-azure/concepts/en-US/about_PSDocs_Azure_Conventions.md#azurenamebyparentpath)
 
 ## Changes and versioning
 
@@ -329,11 +361,11 @@ This project is [licensed under the MIT License](LICENSE).
 
 [issue]: https://github.com/Azure/PSDocs.Azure/issues
 [discussion]: https://github.com/Azure/PSDocs.Azure/discussions
-[install]: docs/install-instructions.md
+[install]: docs/psdocs-azure/install-instructions.md
 [ci-badge]: https://dev.azure.com/PSDocs/PSDocs.Azure/_apis/build/status/PSDocs.Azure-CI?branchName=main
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
 [engine]: https://github.com/microsoft/PSDocs
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
-[source-template]: templates/storage/v1/template.json
-[output-template]: templates/storage/v1/README.md
-[FAQ]: docs/overview.md#frequently-asked-questions-faq
+[source-template]: packages/psdocs-azure/templates/storage/v1/template.json
+[output-template]: packages/psdocs-azure/templates/storage/v1/README.md
+[FAQ]: docs/psdocs-azure/overview.md#frequently-asked-questions-faq

@@ -1,0 +1,166 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  NODE_VERSION: '20.x'
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      psdocs: ${{ steps.filter.outputs.psdocs }}
+      psdocs-azure: ${{ steps.filter.outputs.psdocs-azure }}
+      vscode: ${{ steps.filter.outputs.vscode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            psdocs:
+              - 'packages/psdocs/**'
+              - 'build/**'
+            psdocs-azure:
+              - 'packages/psdocs-azure/**'
+              - 'packages/psdocs/**'
+              - 'build/**'
+            vscode:
+              - 'packages/vscode-extension/**'
+
+  build-psdocs:
+    needs: changes
+    if: needs.changes.outputs.psdocs == 'true' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Setup PowerShell
+        shell: pwsh
+        run: |
+          if (Test-Path packages/psdocs/pipeline.build.ps1) {
+            Set-Location packages/psdocs
+            ./pipeline.build.ps1 -Build
+          } else {
+            Write-Host "PSDocs package not yet added - skipping build"
+          }
+      
+      - name: Test PSDocs
+        shell: pwsh
+        run: |
+          if (Test-Path packages/psdocs/pipeline.build.ps1) {
+            Set-Location packages/psdocs
+            ./pipeline.build.ps1 -Test
+          }
+      
+      - name: Upload PSDocs Module
+        if: success() && hashFiles('packages/psdocs/out/modules/PSDocs/') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: psdocs-module
+          path: packages/psdocs/out/modules/PSDocs/
+
+  build-psdocs-azure:
+    needs: [changes, build-psdocs]
+    if: |
+      always() &&
+      (needs.changes.outputs.psdocs-azure == 'true' || github.event_name == 'push') &&
+      (needs.build-psdocs.result == 'success' || needs.build-psdocs.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+      
+      - name: Download PSDocs Module
+        uses: actions/download-artifact@v4
+        with:
+          name: psdocs-module
+          path: packages/psdocs/out/modules/PSDocs/
+        continue-on-error: true
+      
+      - name: Install PSDocs from Gallery (fallback)
+        shell: pwsh
+        run: |
+          if (-not (Test-Path packages/psdocs/out/modules/PSDocs)) {
+            Install-Module -Name PSDocs -Scope CurrentUser -Force
+          }
+      
+      - name: Build PSDocs.Azure
+        shell: pwsh
+        working-directory: packages/psdocs-azure
+        run: |
+          ./pipeline.build.ps1 -Build
+      
+      - name: Test PSDocs.Azure
+        shell: pwsh
+        working-directory: packages/psdocs-azure
+        run: |
+          ./pipeline.build.ps1 -Test
+      
+      - name: Upload PSDocs.Azure Module
+        uses: actions/upload-artifact@v4
+        with:
+          name: psdocs-azure-module
+          path: packages/psdocs-azure/out/modules/PSDocs.Azure/
+
+  build-vscode:
+    needs: changes
+    if: needs.changes.outputs.vscode == 'true' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      
+      - name: Check for VS Code extension
+        id: check
+        run: |
+          if [ -f "packages/vscode-extension/package.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Install dependencies
+        if: steps.check.outputs.exists == 'true'
+        working-directory: packages/vscode-extension
+        run: npm ci
+      
+      - name: Lint
+        if: steps.check.outputs.exists == 'true'
+        working-directory: packages/vscode-extension
+        run: npm run lint
+      
+      - name: Build
+        if: steps.check.outputs.exists == 'true'
+        working-directory: packages/vscode-extension
+        run: npm run compile
+      
+      - name: Package VSIX
+        if: steps.check.outputs.exists == 'true'
+        working-directory: packages/vscode-extension
+        run: npx @vscode/vsce package --out psdocs-vscode.vsix
+      
+      - name: Upload VSIX
+        if: steps.check.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: vscode-vsix
+          path: packages/vscode-extension/psdocs-vscode.vsix

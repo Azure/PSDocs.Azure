@@ -9,3 +9,11 @@ site/
 *.user
 .sass-cache
 .jekyll-metadata
+
+# Monorepo build artifacts
+packages/*/out/
+packages/*/node_modules/
+packages/*/*.vsix
+
+# Build artifacts
+*.nupkg
