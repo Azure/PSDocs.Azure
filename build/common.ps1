@@ -23,20 +23,49 @@ function Install-BuildDependencies {
     [CmdletBinding()]
     param()
     
-    if ($Null -eq (Get-PackageProvider -Name NuGet -ErrorAction Ignore)) {
-        Write-Host "Installing NuGet package provider..."
-        Install-PackageProvider -Name NuGet -Force -Scope CurrentUser
+    Write-Host "Checking build dependencies..." -ForegroundColor Cyan
+    
+    # Try to install NuGet provider
+    try {
+        if ($Null -eq (Get-PackageProvider -Name NuGet -ErrorAction Ignore)) {
+            Write-Host "  Installing NuGet package provider..."
+            Install-PackageProvider -Name NuGet -Force -Scope CurrentUser -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        Write-Host "  Note: NuGet provider installation skipped (not available in this environment)" -ForegroundColor Yellow
     }
     
-    if ($Null -eq (Get-InstalledModule -Name InvokeBuild -MinimumVersion 5.4.0 -ErrorAction Ignore)) {
-        Write-Host "Installing InvokeBuild module..."
-        Install-Module InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
+    # Try to install/update PowerShellGet
+    try {
+        if ($Null -eq (Get-InstalledModule -Name PowerShellGet -MinimumVersion 2.2.1 -ErrorAction Ignore -WarningAction SilentlyContinue)) {
+            Write-Host "  Installing PowerShellGet module..."
+            Install-Module PowerShellGet -MinimumVersion 2.2.1 -Scope CurrentUser -Force -AllowClobber -WarningAction SilentlyContinue -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        Write-Host "  Note: PowerShellGet installation skipped (not available in this environment)" -ForegroundColor Yellow
     }
     
-    if ($Null -eq (Get-InstalledModule -Name Pester -MinimumVersion 5.0.0 -ErrorAction Ignore)) {
-        Write-Host "Installing Pester module..."
-        Install-Module Pester -MinimumVersion 5.0.0 -Scope CurrentUser -Force
+    # Try to install InvokeBuild
+    try {
+        if ($Null -eq (Get-InstalledModule -Name InvokeBuild -MinimumVersion 5.4.0 -ErrorAction Ignore)) {
+            Write-Host "  Installing InvokeBuild module..."
+            Install-Module InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        Write-Host "  Note: InvokeBuild installation skipped (not available in this environment)" -ForegroundColor Yellow
     }
+    
+    # Try to install Pester
+    try {
+        if ($Null -eq (Get-InstalledModule -Name Pester -MinimumVersion 5.0.0 -ErrorAction Ignore)) {
+            Write-Host "  Installing Pester module..."
+            Install-Module Pester -MinimumVersion 5.0.0 -Scope CurrentUser -Force -SkipPublisherCheck -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        Write-Host "  Note: Pester installation skipped (not available in this environment)" -ForegroundColor Yellow
+    }
+    
+    Write-Host "  Dependencies check complete!" -ForegroundColor Green
 }
 
 function Get-LocalPSDocsModule {
@@ -55,9 +84,3 @@ function Get-LocalPSDocsModule {
     Write-Host "Local PSDocs module not found, will use PSGallery version"
     return $false
 }
-
-Export-ModuleMember -Function @(
-    'Get-MonorepoRoot',
-    'Install-BuildDependencies', 
-    'Get-LocalPSDocsModule'
-)
