@@ -1,0 +1,92 @@
+{
+  "name": "psdocs-vscode",
+  "displayName": "PSDocs.Azure (Preview)",
+  "publisher": "vicperdana",
+  "description": "Generate Markdown from ARM templates using PSDocs.Azure",
+  "author": {
+    "name": "Vic Perdana"
+  },
+  "version": "0.3.3",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "license": "SEE LICENSE IN LICENSE",
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "keywords": [
+    "Azure Template",
+    "Azure",
+    "ARM",
+    "Resource Manager",
+    "PSDocs.Azure"
+  ],
+  "galleryBanner": {
+    "color": "#0072c6",
+    "theme": "dark"
+  },
+  "icon": "images/psdocs-icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Microsoft/PSDocs-vscode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Microsoft/PSDocs-vscode/issues"
+  },
+  "activationEvents": [
+    "onCommand:vicperdana.psdocs-vscode-preview"
+  ],
+  "private": true,
+  "preview": true,
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vicperdana.psdocs-vscode-preview",
+        "title": "PSDocs.Azure: Generate Markdown"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "arm-template",
+        "path": "./snippets/arm.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run -S esbuild-base -- --minify",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "pack": "vsce package",
+    "publish": "vsce publish",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=out/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run -S esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run -S esbuild-base -- --sourcemap --watch"
+  },
+  "extensionDependencies": [
+    "vscode.powershell",
+    "ms-vscode.powershell",
+    "msazurermtools.azurerm-vscode-tools"
+  ],
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^24.6.1",
+    "@types/vscode": "^1.99.1",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.39.1",
+    "glob": "^11.1.0",
+    "mocha": "^11.1.0",
+    "typescript": "^5.4.5",
+    "vscode-test": "^1.6.1"
+  },
+  "dependencies": {
+    "@vscode/vsce": "^3.3.2"
+  }
+}
