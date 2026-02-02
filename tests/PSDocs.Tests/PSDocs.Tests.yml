@@ -1,0 +1,29 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# These are test options
+
+configuration:
+  Key1: Value2
+  UnitTests.String.1: Config string 1
+  UnitTests.Bool.1: true
+
+execution:
+  languageMode: ConstrainedLanguage
+
+input:
+  format: Yaml
+  objectPath: 'items'
+  pathIgnore:
+  - '*.Designer.cs'
+
+markdown:
+  encoding: UTF8
+  wrapSeparator: 'ZZZ'
+  skipEmptySections: false
+  columnPadding: Single
+  useEdgePipes: Always
+
+output:
+  culture: 'en-ZZ'
+  path: out/
