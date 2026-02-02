@@ -93,35 +93,30 @@ jobs:
           name: extension-preview
           path: packages/vscode-extension/out/package
 
-      - name: Start Xvfb (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-          echo "Started Xvfb"
-
       - name: Install dependencies
         working-directory: packages/vscode-extension
         run: npm ci
 
-      - name: Run tests (PowerShell 7.x)
-        if: matrix.pwsh == true
+      - name: Compile extension and tests
+        working-directory: packages/vscode-extension
+        run: npm run compile
+
+      - name: Run tests (Linux)
+        if: runner.os == 'Linux'
+        working-directory: packages/vscode-extension
+        run: xvfb-run -a npm test
+
+      - name: Run tests (macOS/Windows - PowerShell 7.x)
+        if: runner.os != 'Linux' && matrix.pwsh == true
         shell: pwsh
         working-directory: packages/vscode-extension
-        run: |
-          # Run extension tests
-          npm test
-        env:
-          DISPLAY: ':99.0'
+        run: npm test
 
-      - name: Run tests (PowerShell 5.1)
+      - name: Run tests (Windows - PowerShell 5.1)
         if: matrix.pwsh == false
         shell: powershell
         working-directory: packages/vscode-extension
-        run: |
-          # Run extension tests
-          npm test
-        env:
-          DISPLAY: ':99.0'
+        run: npm test
 
   # Auto-publish preview on main merge
   publish-preview:
@@ -154,6 +149,10 @@ jobs:
         working-directory: packages/vscode-extension/out/package
         run: |
           VSIX_FILE=$(ls *.vsix 2>/dev/null | head -1)
+          if [ -z "$VSIX_FILE" ]; then
+            echo "::error::No VSIX file found in out/package/"
+            exit 1
+          fi
           echo "file=$VSIX_FILE" >> $GITHUB_OUTPUT
           echo "Found VSIX: $VSIX_FILE"
 

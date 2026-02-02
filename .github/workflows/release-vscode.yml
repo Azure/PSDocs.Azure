@@ -56,6 +56,10 @@ jobs:
         working-directory: packages/vscode-extension/out/package
         run: |
           VSIX_FILE=$(ls *.vsix 2>/dev/null | head -1)
+          if [ -z "$VSIX_FILE" ]; then
+            echo "::error::No VSIX file found in out/package/"
+            exit 1
+          fi
           echo "file=$VSIX_FILE" >> $GITHUB_OUTPUT
           echo "path=packages/vscode-extension/out/package/$VSIX_FILE" >> $GITHUB_OUTPUT
           echo "Found VSIX: $VSIX_FILE"

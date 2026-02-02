@@ -46,7 +46,7 @@ if ($Env:BUILD_SOURCEBRANCH -like '*/tags/*' -and $Env:BUILD_SOURCEBRANCHNAME -l
 $version = $Build;
 
 # Handle channel
-if ([String]::IsNullOrEmpty('Channel')) {
+if ([String]::IsNullOrEmpty($Channel)) {
     $Channel = 'preview';
 }
 $channelSuffix = '-preview';
