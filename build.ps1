@@ -98,7 +98,10 @@ foreach ($pkg in $packages) {
     
     # After building psdocs, set up module path for psdocs-azure
     if ($pkg -eq 'psdocs' -and $Build) {
-        Get-LocalPSDocsModule | Out-Null
+        $moduleInitialized = Get-LocalPSDocsModule
+        if (-not $moduleInitialized) {
+            Write-Error "Failed to locate or initialize the local PSDocs module. Cannot continue building dependent packages."
+        }
     }
 }
 

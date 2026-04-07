@@ -145,6 +145,22 @@ git subtree pull --prefix=packages/psdocs https://github.com/microsoft/PSDocs.gi
 git subtree pull --prefix=packages/vscode-extension https://github.com/microsoft/PSDocs-vscode.git main --squash
 ```
 
+## Workflow Migration
+
+The following legacy workflows were removed as part of the monorepo migration, replaced by new workflows with path-based filtering:
+
+| Removed Workflow | Replacement | Reason |
+|-----------------|-------------|--------|
+| `build.yaml` | `ci.yml` | Old single-package build; incompatible with monorepo `build.ps1` orchestrator |
+| `analyze.yaml` | `codeql.yml` | Replaced with updated CodeQL security scanning workflow |
+
+The following workflows were **kept** as they are independent of the build structure:
+
+| Kept Workflow | Purpose |
+|--------------|---------|
+| `docs.yaml` | Documentation site generation (publishes to GitHub Pages) |
+| `stale.yaml` | Stale issue management (automated issue lifecycle) |
+
 ## Questions?
 
 For questions about:

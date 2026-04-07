@@ -197,11 +197,11 @@ task ModuleDependencies NuGet, PSDocs
 task CopyModule {
     CopyModuleFiles -Path src/PSDocs.Azure -DestinationPath out/modules/PSDocs.Azure;
 
-    # Copy LICENSE from repo root
-    Copy-Item -Path ../../LICENSE -Destination out/modules/PSDocs.Azure;
+    # Copy LICENSE from repo root (use $PSScriptRoot for reliable path resolution)
+    Copy-Item -Path (Join-Path $PSScriptRoot '../../LICENSE') -Destination out/modules/PSDocs.Azure;
 
-    # Copy third party notices from repo root
-    Copy-Item -Path ../../ThirdPartyNotices.txt -Destination out/modules/PSDocs.Azure;
+    # Copy third party notices from repo root (use $PSScriptRoot for reliable path resolution)
+    Copy-Item -Path (Join-Path $PSScriptRoot '../../ThirdPartyNotices.txt') -Destination out/modules/PSDocs.Azure;
 }
 
 task BuildDotNet {
