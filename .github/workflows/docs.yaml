@@ -35,7 +35,7 @@ jobs:
         uses: microsoft/ps-docs@main
         with:
           modules: PSDocs,PSDocs.Azure
-          outputPath: docs/templates/
+          outputPath: docs/psdocs-azure/templates/
           prerelease: true
 
       - name: Setup Python

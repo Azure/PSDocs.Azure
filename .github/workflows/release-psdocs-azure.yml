@@ -19,6 +19,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       
+      - name: Setup PowerShell modules
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
+
       - name: Extract version from tag
         id: version
         run: |
@@ -29,7 +35,7 @@ jobs:
         shell: pwsh
         working-directory: packages/psdocs-azure
         run: |
-          ./pipeline.build.ps1 -Build
+          Invoke-Build Build -File ./pipeline.build.ps1
       
       - name: Publish to PSGallery
         shell: pwsh
