@@ -19,19 +19,20 @@ jobs:
       vscode: ${{ steps.filter.outputs.vscode }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
-        id: filter
         with:
-          filters: |
-            psdocs:
-              - 'packages/psdocs/**'
-              - 'build/**'
-            psdocs-azure:
-              - 'packages/psdocs-azure/**'
-              - 'packages/psdocs/**'
-              - 'build/**'
-            vscode:
-              - 'packages/vscode-extension/**'
+          fetch-depth: 0
+      - name: Detect changed paths
+        id: filter
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+          else
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          fi
+          CHANGED=$(git diff --name-only "$BASE_SHA" "${{ github.sha }}" 2>/dev/null || echo "")
+          echo "psdocs=$(echo "$CHANGED" | grep -qE '^(packages/psdocs/|build/)' && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "psdocs-azure=$(echo "$CHANGED" | grep -qE '^(packages/psdocs-azure/|packages/psdocs/|build/)' && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "vscode=$(echo "$CHANGED" | grep -qE '^packages/vscode-extension/' && echo true || echo false)" >> $GITHUB_OUTPUT
 
   build-psdocs:
     needs: changes
