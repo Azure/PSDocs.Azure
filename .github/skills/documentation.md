@@ -65,8 +65,8 @@ theme:
 nav:
   - Home: index.md
   - PSDocs.Azure:
-    - Overview: psdocs-azure/overview.md
-    - Installation: psdocs-azure/install-instructions.md
+    - Overview: overview.md
+    - Installation: install-instructions.md
     # ...
 ```
 
@@ -170,7 +170,7 @@ markdownlint docs/**/*.md
 4. Test with `mkdocs serve`
 
 ### Updating Cmdlet Documentation
-1. Edit `docs/psdocs-azure/commands/<cmdlet>.md`
+1. Edit `docs/commands/<cmdlet>.md`
 2. Update examples if behavior changed
 3. Verify parameters match implementation
 4. Cross-reference with help XML if applicable

@@ -114,7 +114,7 @@ Each component is versioned independently:
 ### Path Updates
 
 All documentation and template paths have been updated in the main README:
-- `docs/` → `docs/psdocs-azure/`
+- `docs/` — Documentation (flat, consolidated)
 - `templates/` → `packages/psdocs-azure/templates/`
 - `examples/` → `packages/psdocs-azure/examples/`
 
