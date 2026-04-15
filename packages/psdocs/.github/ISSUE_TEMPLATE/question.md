@@ -8,4 +8,4 @@ We use Issues as an issue tracker; for help, discussion, and support questions, 
 
 Thanks! 😁.
 
-- https://github.com/Microsoft/PSDocs/discussions
+- https://github.com/Azure/PSDocs.Azure/discussions
