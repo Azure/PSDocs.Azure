@@ -1,0 +1,120 @@
+# Security and Code Analysis
+# Scans for security vulnerabilities and code quality issues
+
+name: Analyze
+
+on:
+  push:
+    branches: [main, 'release/*']
+  pull_request:
+    branches: [main, 'release/*']
+  schedule:
+    - cron: '26 21 * * 0' # At 09:26 PM, on Sunday each week
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  oss:
+    name: Analyze with PSRule
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Run PSRule analysis
+        uses: microsoft/ps-rule@46451b8f5258c41beb5ae69ed7190ccbba84112c # v2.9.0
+        with:
+          modules: PSRule.Rules.MSFT.OSS
+          prerelease: true
+
+  devskim:
+    name: Analyze with DevSkim
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Run DevSkim scanner
+        uses: microsoft/DevSkim-Action@4b5047945a44163b94642a1cecc0d93a3f428cc6 # v1.0.16
+        with:
+          directory-to-scan: packages/psdocs-azure/src/
+
+      - name: Upload results to security tab
+        uses: github/codeql-action/upload-sarif@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+        with:
+          sarif_file: devskim-results.sarif
+
+  codeql-csharp:
+    name: Analyze with CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+        with:
+          languages: 'csharp'
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+        with:
+          category: "/language:csharp"
+
+  codeql-typescript:
+    name: CodeQL
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+        with:
+          languages: javascript-typescript
+          paths:
+            - packages/vscode-extension/src
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: packages/vscode-extension/package-lock.json
+
+      - name: Install dependencies
+        working-directory: packages/vscode-extension
+        run: npm ci
+
+      - name: Build
+        working-directory: packages/vscode-extension
+        run: npm run compile
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@5f8171a638ada777af81d42b55959a643bb29017 # v3.28.12
+        with:
+          category: "/language:javascript-typescript"

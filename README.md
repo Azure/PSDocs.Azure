@@ -4,6 +4,38 @@ Generate markdown from Azure infrastructure as code (IaC) artifacts.
 
 ![ci-badge]
 
+## Repository Structure
+
+This is a monorepo containing the complete PSDocs ecosystem:
+
+| Package | Description | Location |
+|---------|-------------|----------|
+| **PSDocs** | Core documentation engine | [`packages/psdocs/`](./packages/psdocs/) |
+| **PSDocs.Azure** | Azure IaC documentation generator | [`packages/psdocs-azure/`](./packages/psdocs-azure/) |
+| **VS Code Extension** | PSDocs extension for VS Code | [`packages/vscode-extension/`](./packages/vscode-extension/) |
+
+### Building
+
+```powershell
+# Build all packages
+./build.ps1 -Build
+
+# Build and test specific package
+./build.ps1 -Package psdocs-azure -Build -Test
+
+# Build VS Code extension
+./build.ps1 -Package vscode -Build
+```
+
+### Versioning
+
+Each component is versioned independently using prefixed tags:
+- PSDocs: `psdocs-v{version}` (e.g., `psdocs-v0.10.0`)
+- PSDocs.Azure: `psdocs-azure-v{version}` (e.g., `psdocs-azure-v0.4.0`)
+- VS Code Extension: `vscode-v{version}` (e.g., `vscode-v1.1.0`)
+
+## Features
+
 Features of PSDocs for Azure include:
 
 - [Ready to go](docs/overview.md#ready-to-go) - Use pre-built templates.
@@ -334,6 +366,6 @@ This project is [licensed under the MIT License](LICENSE).
 [module]: https://www.powershellgallery.com/packages/PSDocs.Azure
 [engine]: https://github.com/microsoft/PSDocs
 [create-workflow]: https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file
-[source-template]: templates/storage/v1/template.json
-[output-template]: templates/storage/v1/README.md
+[source-template]: packages/psdocs-azure/templates/storage/v1/template.json
+[output-template]: packages/psdocs-azure/templates/storage/v1/README.md
 [FAQ]: docs/overview.md#frequently-asked-questions-faq

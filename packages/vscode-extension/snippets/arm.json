@@ -1,0 +1,21 @@
+{
+  "psdocs-arm": {
+    "prefix": "psdocs-arm",
+    "description": "Add metadata to an existing ARM template",
+    "body": [
+      "\"metadata\": {",
+      "\t\"name\": \"${1:Name of the template}\",",
+      "\t\"description\": \"${2:Description of the template}\"",
+      "}"
+    ]
+  },
+  "psdocs-arm-parameter": {
+    "prefix": "psdocs-arm-short",
+    "description": "Add metadata to an existing parameter or variable in an ARM template",
+    "body": [
+      "\"metadata\": {",
+      "\t\"description\": \"${1:Description of the parameter or variable}\"",
+      "}"
+    ]
+  }
+}

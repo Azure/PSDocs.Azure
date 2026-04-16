@@ -1,0 +1,81 @@
+# Release VS Code Extension (Stable)
+# Triggered by vscode-v* tags for stable releases
+
+name: Release VS Code Extension
+
+on:
+  push:
+    tags:
+      - 'vscode-v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release Stable
+    runs-on: ubuntu-latest
+    environment: release
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: packages/vscode-extension/package-lock.json
+
+      - name: Setup PowerShell modules
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/vscode-v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Releasing version: $VERSION"
+
+      - name: Install dependencies
+        working-directory: packages/vscode-extension
+        run: npm ci
+
+      - name: Build stable channel
+        shell: pwsh
+        working-directory: packages/vscode-extension
+        run: |
+          Invoke-Build Build -Channel 'stable' -Build '${{ steps.version.outputs.version }}'
+
+      - name: Find VSIX file
+        id: vsix
+        working-directory: packages/vscode-extension/out/package
+        run: |
+          VSIX_FILE=$(ls *.vsix 2>/dev/null | head -1)
+          if [ -z "$VSIX_FILE" ]; then
+            echo "::error::No VSIX file found in out/package/"
+            exit 1
+          fi
+          echo "file=$VSIX_FILE" >> $GITHUB_OUTPUT
+          echo "path=packages/vscode-extension/out/package/$VSIX_FILE" >> $GITHUB_OUTPUT
+          echo "Found VSIX: $VSIX_FILE"
+
+      - name: Publish to VS Marketplace
+        working-directory: packages/vscode-extension/out/package
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+        run: |
+          npx @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.file }}" --pat "$VSCE_PAT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@c95fe1489396fe8a9eb87c0abf8aa5b2ef267fda # v2.2.1
+        with:
+          name: VS Code Extension v${{ steps.version.outputs.version }}
+          body_path: packages/vscode-extension/CHANGELOG.md
+          generate_release_notes: true
+          files: |
+            ${{ steps.vsix.outputs.path }}
