@@ -35,6 +35,7 @@ jobs:
         uses: microsoft/ps-docs@main
         with:
           modules: PSDocs,PSDocs.Azure
+          inputPath: packages/psdocs-azure/templates
           outputPath: docs/templates/
           prerelease: true
 
