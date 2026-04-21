@@ -6,9 +6,6 @@ site_author: Microsoft
 repo_url: https://github.com/Azure/PSDocs.Azure/
 edit_uri: blob/main/docs/
 
-repo_issue: https://github.com/Azure/PSDocs.Azure/issues
-repo_discussion: https://github.com/Azure/PSDocs.Azure/discussions
-
 extra_css:
   - assets/stylesheets/extra.css
 
@@ -70,13 +67,14 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - pymdownx.pathconverter
-  - pymdownx.tabbed
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.details
   - mdx_truly_sane_lists
   - pymdownx.tasklist
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - toc:
       permalink: '#'
       separator: '-'
