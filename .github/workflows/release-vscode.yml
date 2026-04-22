@@ -13,6 +13,17 @@ on:
     tags:
       - 'vscode-v*'
       - 'vscode-preview-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to simulate (e.g. vscode-v0.4.0 or vscode-preview-v0.4.0)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Skip vsce publish and gh release create (validate + build only).'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -44,7 +55,7 @@ jobs:
         id: version
         shell: pwsh
         run: |
-          $tag = '${{ github.ref_name }}'
+          $tag = if ('${{ github.event_name }}' -eq 'workflow_dispatch') { '${{ inputs.tag }}' } else { '${{ github.ref_name }}' }
           if ($tag -match '^vscode-preview-v(.+)$') {
             $version = $Matches[1]
             $channel = 'preview'
@@ -61,6 +72,7 @@ jobs:
             Write-Error "Version '$version' must be plain SemVer (X.Y.Z) — VS Code Marketplace does not accept prerelease suffixes."
             exit 1
           }
+          "tag=$tag"             | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           "version=$version"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           "channel=$channel"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
           "is_prerelease=$($isPrerelease.ToString().ToLower())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
@@ -109,6 +121,7 @@ jobs:
           echo "Found VSIX: $VSIX_FILE"
 
       - name: Publish to VS Marketplace
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         working-directory: packages/vscode-extension/out/package
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
@@ -117,13 +130,24 @@ jobs:
           npx @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.file }}" --pat "$VSCE_PAT" $PRE_RELEASE_FLAG
 
       - name: Create GitHub Release
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ github.token }}
           PRERELEASE_FLAG: ${{ steps.version.outputs.is_prerelease == 'true' && '--prerelease' || '' }}
           TITLE_SUFFIX: ${{ steps.version.outputs.is_prerelease == 'true' && ' (Preview)' || '' }}
         run: |
-          gh release create "${{ github.ref_name }}" \
+          gh release create "${{ steps.version.outputs.tag }}" \
             --title "VS Code Extension v${{ steps.version.outputs.version }}$TITLE_SUFFIX" \
             --notes-file ./release-notes.md \
             $PRERELEASE_FLAG \
             "${{ steps.vsix.outputs.path }}"
+
+      - name: Dry-run summary
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        shell: pwsh
+        run: |
+          Write-Host '=== DRY RUN ==='
+          Write-Host "Would publish VS Code extension v${{ steps.version.outputs.version }} (channel=${{ steps.version.outputs.channel }}) to VS Marketplace."
+          Write-Host "Would create GitHub Release for tag ${{ steps.version.outputs.tag }} with VSIX ${{ steps.vsix.outputs.file }}."
+          Write-Host '--- release notes ---'
+          Get-Content ./release-notes.md

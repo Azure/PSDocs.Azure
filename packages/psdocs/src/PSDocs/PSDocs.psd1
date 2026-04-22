@@ -120,16 +120,16 @@ PrivateData = @{
         Tags = @('Markdown', 'PSDocs', 'DevOps', 'CI')
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/Microsoft/PSDocs/blob/main/LICENSE'
+        LicenseUri = 'https://github.com/Azure/PSDocs.Azure/blob/main/LICENSE'
 
         # A URL to the main website for this project.
-        ProjectUri = 'https://github.com/Microsoft/PSDocs'
+        ProjectUri = 'https://github.com/Azure/PSDocs.Azure/tree/main/packages/psdocs'
 
         # A URL to an icon representing this module.
         # IconUri = ''
 
         # ReleaseNotes of this module
-        ReleaseNotes = 'https://github.com/Microsoft/PSDocs/releases'
+        ReleaseNotes = 'https://github.com/Azure/PSDocs.Azure/blob/main/packages/psdocs/CHANGELOG.md'
 
     } # End of PSData hashtable
 

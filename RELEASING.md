@@ -58,6 +58,20 @@ attached.
 4. Confirm — both `PSGALLERY_API_KEY` and `VSCE_PAT` are accessible to jobs
    that target this environment.
 
+## Pre-flight: dry-run via workflow_dispatch
+
+Each release workflow accepts a manual trigger with two inputs:
+
+- **tag** — the tag you intend to push (e.g. `psdocs-azure-v0.5.0` or `vscode-preview-v0.4.0`).
+- **dry_run** — defaults to `true`. When `true`, the workflow does *everything* except `Publish-Module` / `vsce publish` / `gh release create`. Use this to:
+  - Confirm the manifest version matches the planned tag.
+  - Confirm `scripts/extract-release-notes.ps1` finds and renders the right CHANGELOG section.
+  - Confirm the build artifact is produced (and, for VS Code, that the VSIX is named correctly).
+
+To run a dry-run: **Actions → Release {Package} → Run workflow → fill in `tag`, leave `dry_run` checked → Run**.
+
+Always do a dry-run before pushing the real tag for first-of-its-kind cases (first release after a manifest restructure, first time after upgrading a build dep, etc.).
+
 ## Cutting a release
 
 The same shape applies to all three packages. The differences are: which
