@@ -60,7 +60,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint src",
     "test": "node ./out/test/runTest.js",
     "pack": "vsce package",
     "publish": "vsce publish",
@@ -85,7 +85,9 @@
     "glob": "^11.1.0",
     "mocha": "^11.1.0",
     "typescript": "^5.4.5",
-    "vscode-test": "^1.6.1"
+    "vscode-test": "^1.6.1",
+    "typescript-eslint": "^8.45.0",
+    "@eslint/js": "^9.28.0"
   },
   "dependencies": {
     "@vscode/vsce": "^3.3.2"
