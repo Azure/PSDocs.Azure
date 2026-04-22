@@ -145,6 +145,20 @@ git subtree pull --prefix=packages/psdocs https://github.com/microsoft/PSDocs.gi
 git subtree pull --prefix=packages/vscode-extension https://github.com/microsoft/PSDocs-vscode.git main --squash
 ```
 
+> **After any subtree pull**, audit the result and remove anything we don't
+> want to inherit from upstream:
+>
+> - `packages/*/.azure-pipelines/` and `packages/*/azure-pipelines*.yaml` —
+>   the monorepo uses GitHub Actions (`/.github/workflows/`); upstream ADO
+>   pipelines are not active here and should be deleted to avoid confusion.
+> - `packages/*/.github/workflows/` — workflows nested inside packages do
+>   not run on GitHub. Either delete them or, if a workflow is genuinely
+>   wanted, move and adapt it under root `.github/workflows/` with
+>   appropriate path filters.
+> - Any upstream `.github/dependabot.yml` / `.github/CODEOWNERS` etc. —
+>   monorepo policy lives at the repo root and should not be shadowed by
+>   per-package copies.
+
 ## Workflow Migration
 
 The following legacy workflows were removed as part of the monorepo migration, replaced by new workflows with path-based filtering:

@@ -339,6 +339,8 @@ For a list of module changes please see the [change log](CHANGELOG.md).
 > Pre-release versions should be considered experimental.
 > Modules and change log details for pre-releases will be removed as standard releases are made available.
 
+For maintainers cutting a release, see [RELEASING.md](RELEASING.md).
+
 ## Contributing
 
 This project welcomes contributions and suggestions.
