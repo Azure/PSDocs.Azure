@@ -161,7 +161,7 @@ jobs:
           echo "Found VSIX: $VSIX_FILE"
 
       - name: Publish to VS Marketplace (Pre-release)
-        if: env.VSCE_PAT != ''
+        if: ${{ secrets.VSCE_PAT != '' }}
         working-directory: packages/vscode-extension/out/package
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}

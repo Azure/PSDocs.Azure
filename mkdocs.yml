@@ -1,5 +1,5 @@
 site_name: PSDocs for Azure
-site_url: https://github.com/Azure/PSDocs.Azure
+site_url: https://azure.github.io/PSDocs.Azure/
 site_description: Generate documentation from Azure infrastructure as code (IaC) artifacts.
 site_author: Microsoft
 
