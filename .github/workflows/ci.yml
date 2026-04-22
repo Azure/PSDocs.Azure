@@ -35,9 +35,9 @@ jobs:
             BASE_SHA="${{ github.event.pull_request.base.sha }}"
           fi
           CHANGED=$(git diff --name-only "$BASE_SHA" "${{ github.sha }}" 2>/dev/null || echo "")
-          echo "psdocs=$(echo "$CHANGED" | grep -qE '^(packages/psdocs/|build/)' && echo true || echo false)" >> $GITHUB_OUTPUT
-          echo "psdocs-azure=$(echo "$CHANGED" | grep -qE '^(packages/psdocs-azure/|packages/psdocs/|build/)' && echo true || echo false)" >> $GITHUB_OUTPUT
-          echo "vscode=$(echo "$CHANGED" | grep -qE '^packages/vscode-extension/' && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "psdocs=$(echo "$CHANGED" | grep -qE '^(packages/psdocs/|build/|scripts/|build\.ps1)' && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "psdocs-azure=$(echo "$CHANGED" | grep -qE '^(packages/psdocs-azure/|packages/psdocs/|build/|scripts/|build\.ps1)' && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "vscode=$(echo "$CHANGED" | grep -qE '^(packages/vscode-extension/|\.github/workflows/vscode-ci\.yml)' && echo true || echo false)" >> $GITHUB_OUTPUT
 
   build-psdocs:
     needs: changes
@@ -51,11 +51,15 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: |
+            7.0.x
+            ${{ env.DOTNET_VERSION }}
       
       - name: Setup PowerShell
         shell: pwsh
         run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+          Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
           if (Test-Path packages/psdocs/pipeline.build.ps1) {
             Set-Location packages/psdocs
             Invoke-Build Build -File ./pipeline.build.ps1
@@ -72,7 +76,7 @@ jobs:
           }
       
       - name: Upload PSDocs Module
-        if: success() && hashFiles('packages/psdocs/out/modules/PSDocs/') != ''
+        if: success() && hashFiles('packages/psdocs/out/modules/PSDocs/**') != ''
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: psdocs-module

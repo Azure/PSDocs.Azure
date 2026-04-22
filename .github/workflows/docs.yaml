@@ -32,7 +32,7 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
 
       - name: Generate docs
-        uses: microsoft/ps-docs@main
+        uses: microsoft/ps-docs@333fc57dfef2479e0c6457600bb4c7a1316783ba # main
         with:
           modules: PSDocs,PSDocs.Azure
           inputPath: packages/psdocs-azure/templates
