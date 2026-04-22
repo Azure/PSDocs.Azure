@@ -77,7 +77,7 @@ function Get-LocalPSDocsModule {
     
     if (Test-Path $localModule) {
         Write-Host "Using local PSDocs module from: $localModule"
-        $env:PSModulePath = "$localModule;$env:PSModulePath"
+        $env:PSModulePath = "$localModule$([IO.Path]::PathSeparator)$env:PSModulePath"
         return $true
     }
     

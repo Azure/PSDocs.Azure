@@ -9,6 +9,9 @@ if ($Env:SYSTEM_DEBUG -eq 'true') {
     $VerbosePreference = 'Continue';
 }
 
+# Trust PSGallery to avoid interactive prompts on CI
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted;
+
 if ($Null -eq (Get-PackageProvider -Name NuGet -ErrorAction Ignore)) {
     Install-PackageProvider -Name NuGet -Force -Scope CurrentUser;
 }
