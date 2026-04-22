@@ -78,5 +78,4 @@ jobs:
           gh release create "${{ github.ref_name }}" \
             --title "VS Code Extension v${{ steps.version.outputs.version }}" \
             --notes-file packages/vscode-extension/CHANGELOG.md \
-            --generate-notes \
             "${{ steps.vsix.outputs.path }}"
