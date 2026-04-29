@@ -52,4 +52,9 @@ jobs:
           python3 -m pip install -r requirements-docs.txt
 
       - name: Deploy site
-        run: mike deploy --push --update-aliases v0 latest stable --title 'v0'
+        # --alias-type=copy: copy v0/ contents into latest/ and stable/ instead of
+        # creating symlinks. GitHub Pages legacy 'Deploy from a branch' rejects
+        # symlinks ('Failed to deploy site, please ensure the repository does not
+        # contain any hard links, symlinks ...'), and using copies keeps the URLs
+        # /latest/... and /stable/... working without that constraint.
+        run: mike deploy --push --update-aliases --alias-type=copy v0 latest stable --title 'v0'
