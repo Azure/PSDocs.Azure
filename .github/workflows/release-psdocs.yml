@@ -4,6 +4,17 @@ on:
   push:
     tags:
       - 'psdocs-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to simulate (e.g. psdocs-v0.10.0 or psdocs-v0.10.0-preview.1)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Skip Publish-Module and gh release create (validate + build only).'
+        required: false
+        type: boolean
+        default: true
 
 permissions: {}
 
@@ -29,19 +40,51 @@ jobs:
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
           Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
 
-      - name: Extract version from tag
+      - name: Parse tag and detect channel
         id: version
+        shell: pwsh
         run: |
-          VERSION=${GITHUB_REF#refs/tags/psdocs-v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-      
+          $tagRef = if ('${{ github.event_name }}' -eq 'workflow_dispatch') { '${{ inputs.tag }}' } else { '${{ github.ref_name }}' }
+          $full = $tagRef -replace '^psdocs-v', ''
+          $base = ($full -split '-', 2)[0]
+          $isPrerelease = $full.Contains('-')
+          $channel = if ($isPrerelease) { 'preview' } else { 'stable' }
+          "tag=$tagRef"          | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "full=$full"           | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "base=$base"           | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "channel=$channel"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "is_prerelease=$($isPrerelease.ToString().ToLower())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Tag: $tagRef -> full=$full base=$base channel=$channel"
+
+      - name: Validate version matches manifest
+        shell: pwsh
+        run: |
+          $manifestPath = './packages/psdocs/src/PSDocs/PSDocs.psd1'
+          $manifest = Import-PowerShellDataFile -Path $manifestPath
+          $expected = '${{ steps.version.outputs.base }}'
+          if ($manifest.ModuleVersion -ne $expected) {
+            Write-Error "Manifest ModuleVersion '$($manifest.ModuleVersion)' does not match tag base version '$expected'. Update $manifestPath before tagging."
+            exit 1
+          }
+          Write-Host "Manifest ModuleVersion '$($manifest.ModuleVersion)' matches tag base '$expected'."
+
+      - name: Extract release notes
+        id: notes
+        shell: pwsh
+        run: |
+          ./scripts/extract-release-notes.ps1 `
+            -ChangelogPath ./packages/psdocs/CHANGELOG.md `
+            -Version '${{ steps.version.outputs.full }}' `
+            -OutputPath ./release-notes.md
+
       - name: Build
         shell: pwsh
         working-directory: packages/psdocs
         run: |
-          Invoke-Build Build -File ./pipeline.build.ps1 -Build '${{ steps.version.outputs.version }}'
+          Invoke-Build Build -File ./pipeline.build.ps1 -Build '${{ steps.version.outputs.full }}'
       
       - name: Publish to PSGallery
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         shell: pwsh
         env:
           PSGALLERY_API_KEY: ${{ secrets.PSGALLERY_API_KEY }}
@@ -49,9 +92,22 @@ jobs:
           Publish-Module -Path packages/psdocs/out/modules/PSDocs -NuGetApiKey $env:PSGALLERY_API_KEY
       
       - name: Create GitHub Release
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ github.token }}
+          PRERELEASE_FLAG: ${{ steps.version.outputs.is_prerelease == 'true' && '--prerelease' || '' }}
         run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "PSDocs v${{ steps.version.outputs.version }}" \
-            --notes-file packages/psdocs/CHANGELOG.md
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "PSDocs v${{ steps.version.outputs.full }}" \
+            --notes-file ./release-notes.md \
+            $PRERELEASE_FLAG
+
+      - name: Dry-run summary
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        shell: pwsh
+        run: |
+          Write-Host '=== DRY RUN ==='
+          Write-Host "Would publish PSDocs v${{ steps.version.outputs.full }} (channel=${{ steps.version.outputs.channel }}) to PSGallery."
+          Write-Host "Would create GitHub Release for tag ${{ steps.version.outputs.tag }}."
+          Write-Host '--- release notes ---'
+          Get-Content ./release-notes.md

@@ -1,5 +1,10 @@
-# Release VS Code Extension (Stable)
-# Triggered by vscode-v* tags for stable releases
+# Release VS Code Extension
+# Stable: tag `vscode-vX.Y.Z`           -> extension `vicperdana.psdocs-vscode`
+# Preview: tag `vscode-preview-vX.Y.Z`  -> extension `vicperdana.psdocs-vscode-preview` (separate Marketplace listing)
+#
+# VS Code Marketplace does not accept SemVer prerelease suffixes (e.g. -preview.1) in
+# the package version, so the channel is encoded in the tag prefix and routed to the
+# build pipeline via -Channel. Both channels use plain X.Y.Z versions in package.json.
 
 name: Release VS Code Extension
 
@@ -7,13 +12,25 @@ on:
   push:
     tags:
       - 'vscode-v*'
+      - 'vscode-preview-v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to simulate (e.g. vscode-v0.4.0 or vscode-preview-v0.4.0)'
+        required: true
+        type: string
+      dry_run:
+        description: 'Skip vsce publish and gh release create (validate + build only).'
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
 
 jobs:
   release:
-    name: Release Stable
+    name: Release
     runs-on: ubuntu-latest
     environment: release
     
@@ -34,22 +51,61 @@ jobs:
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
           Install-Module -Name InvokeBuild -MinimumVersion 5.4.0 -Scope CurrentUser -Force
 
-      - name: Extract version from tag
+      - name: Parse tag and detect channel
         id: version
+        shell: pwsh
         run: |
-          VERSION=${GITHUB_REF#refs/tags/vscode-v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Releasing version: $VERSION"
+          $tag = if ('${{ github.event_name }}' -eq 'workflow_dispatch') { '${{ inputs.tag }}' } else { '${{ github.ref_name }}' }
+          if ($tag -match '^vscode-preview-v(.+)$') {
+            $version = $Matches[1]
+            $channel = 'preview'
+            $isPrerelease = $true
+          } elseif ($tag -match '^vscode-v(.+)$') {
+            $version = $Matches[1]
+            $channel = 'stable'
+            $isPrerelease = $false
+          } else {
+            Write-Error "Tag '$tag' does not match expected pattern vscode-v* or vscode-preview-v*"
+            exit 1
+          }
+          if ($version -notmatch '^\d+\.\d+\.\d+$') {
+            Write-Error "Version '$version' must be plain SemVer (X.Y.Z) — VS Code Marketplace does not accept prerelease suffixes."
+            exit 1
+          }
+          "tag=$tag"             | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "version=$version"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "channel=$channel"     | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          "is_prerelease=$($isPrerelease.ToString().ToLower())" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Tag: $tag -> version=$version channel=$channel"
+
+      - name: Validate version matches package.json
+        shell: pwsh
+        run: |
+          $pkg = Get-Content ./packages/vscode-extension/package.json -Raw | ConvertFrom-Json
+          $expected = '${{ steps.version.outputs.version }}'
+          if ($pkg.version -ne $expected) {
+            Write-Error "package.json version '$($pkg.version)' does not match tag version '$expected'. Update packages/vscode-extension/package.json before tagging."
+            exit 1
+          }
+          Write-Host "package.json version '$($pkg.version)' matches tag '$expected'."
+
+      - name: Extract release notes
+        shell: pwsh
+        run: |
+          ./scripts/extract-release-notes.ps1 `
+            -ChangelogPath ./packages/vscode-extension/CHANGELOG.md `
+            -Version '${{ steps.version.outputs.version }}' `
+            -OutputPath ./release-notes.md
 
       - name: Install dependencies
         working-directory: packages/vscode-extension
         run: npm ci
 
-      - name: Build stable channel
+      - name: Build (${{ steps.version.outputs.channel }})
         shell: pwsh
         working-directory: packages/vscode-extension
         run: |
-          Invoke-Build Build -Channel 'stable' -Build '${{ steps.version.outputs.version }}'
+          Invoke-Build Build -Channel '${{ steps.version.outputs.channel }}' -Build '${{ steps.version.outputs.version }}'
 
       - name: Find VSIX file
         id: vsix
@@ -65,17 +121,33 @@ jobs:
           echo "Found VSIX: $VSIX_FILE"
 
       - name: Publish to VS Marketplace
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         working-directory: packages/vscode-extension/out/package
         env:
           VSCE_PAT: ${{ secrets.VSCE_PAT }}
+          PRE_RELEASE_FLAG: ${{ steps.version.outputs.is_prerelease == 'true' && '--pre-release' || '' }}
         run: |
-          npx @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.file }}" --pat "$VSCE_PAT"
+          npx @vscode/vsce publish --packagePath "${{ steps.vsix.outputs.file }}" --pat "$VSCE_PAT" $PRE_RELEASE_FLAG
 
       - name: Create GitHub Release
+        if: ${{ github.event_name != 'workflow_dispatch' || inputs.dry_run != true }}
         env:
           GH_TOKEN: ${{ github.token }}
+          PRERELEASE_FLAG: ${{ steps.version.outputs.is_prerelease == 'true' && '--prerelease' || '' }}
+          TITLE_SUFFIX: ${{ steps.version.outputs.is_prerelease == 'true' && ' (Preview)' || '' }}
         run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "VS Code Extension v${{ steps.version.outputs.version }}" \
-            --notes-file packages/vscode-extension/CHANGELOG.md \
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "VS Code Extension v${{ steps.version.outputs.version }}$TITLE_SUFFIX" \
+            --notes-file ./release-notes.md \
+            $PRERELEASE_FLAG \
             "${{ steps.vsix.outputs.path }}"
+
+      - name: Dry-run summary
+        if: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
+        shell: pwsh
+        run: |
+          Write-Host '=== DRY RUN ==='
+          Write-Host "Would publish VS Code extension v${{ steps.version.outputs.version }} (channel=${{ steps.version.outputs.channel }}) to VS Marketplace."
+          Write-Host "Would create GitHub Release for tag ${{ steps.version.outputs.tag }} with VSIX ${{ steps.vsix.outputs.file }}."
+          Write-Host '--- release notes ---'
+          Get-Content ./release-notes.md

@@ -1,13 +1,15 @@
-# Release process for PSDocs for Azure
+# Release process
 
-The following sections describe the process for making a new release.
+The release process for all packages in this monorepo (PSDocs, PSDocs.Azure,
+VS Code extension) is documented in the repo-root [RELEASING.md][releasing]
+runbook.
 
-- Update [CHANGELOG](../CHANGELOG.md) with all changes since the last release (including all pre-release versions)
-- Submit a Pull Request for review
-- Navigate to [Releases](https://github.com/Azure/PSDocs.Azure/releases) and select **Draft a new release**
-- [SemVer](https://semver.org/) is used to version the releases.  To use the correct release/tag the following options are used:
-  - A stable release: increment from the previous release *e.g. v0.2.0*
-  - A pre-release: select the **This is a pre-release** option and select the build version from the previous build in Azure DevOps Pipelines.  This version can be found from previous build run. *E.g.,  for the recent Pull Request go to Pull Request -> Checks -> Analyze -> Azure Pipelines -> PSDocs.Azure-CI Build **[#0.2.0-B2103003](https://github.com/Azure/PSDocs.Azure/pull/52/checks?check_run_id=2066087539)***
-  - Wait for the deployment to be released in [PowerShell Gallery](https://www.powershellgallery.com/packages/PSDocs.Azure/)
-- After a successful release, create another PR updating:
-  - [.azure-pipelines/azure-pipelines.yaml](https://github.com/Azure/PSDocs.Azure/blob/main/.azure-pipelines/azure-pipelines.yaml) with the next version increment *e.g. if the newly released version is 0.2.0, set this to `version: '0.3.0'`*
+That runbook covers:
+
+- One-time setup of GitHub Actions secrets and the `release` environment.
+- Tag conventions per package (stable and preview).
+- Step-by-step instructions for cutting a release.
+- Pre-release flow for both PowerShell Gallery and VS Marketplace.
+- Troubleshooting and rollback.
+
+[releasing]: https://github.com/Azure/PSDocs.Azure/blob/main/RELEASING.md

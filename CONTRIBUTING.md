@@ -57,7 +57,8 @@ Check out the links below to get started.
 
 ### Release Process
 
-Refer to [release process](docs/release.md)
+See [RELEASING.md](RELEASING.md) for the full release runbook covering all three packages
+(PSDocs, PSDocs.Azure, VS Code extension), tag conventions, and the pre-release flow.
 
 ## Thank You!
 
