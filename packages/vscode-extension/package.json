@@ -78,6 +78,7 @@
     "@types/mocha": "^10.0.6",
     "@types/node": "^24.6.1",
     "@types/vscode": "~1.89.0",
+    "@vscode/test-electron": "^2.5.2",
     "@typescript-eslint/eslint-plugin": "^8.45.0",
     "@typescript-eslint/parser": "^8.45.0",
     "esbuild": "^0.25.10",
@@ -85,8 +86,7 @@
     "glob": "^11.1.0",
     "mocha": "^11.1.0",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^8.45.0",
-    "vscode-test": "^1.6.1"
+    "typescript-eslint": "^8.45.0"
   },
   "dependencies": {
     "@vscode/vsce": "^3.3.2"
