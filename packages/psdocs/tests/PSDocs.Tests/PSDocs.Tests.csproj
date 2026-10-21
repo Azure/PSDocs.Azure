@@ -20,6 +20,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <!-- Pin patched versions of vulnerable transitive dependencies -->
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" /><!-- GHSA-98g6-xh36-x2p7 -->
+    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" /><!-- GHSA-447r-wph3-92pm -->
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\PSDocs\PSDocs.csproj" />
   </ItemGroup>
