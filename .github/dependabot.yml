@@ -3,7 +3,11 @@
 #
 
 # Please see the documentation for all configuration options:
-# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+# https://docs.github.com/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+#
+# Reviewers are assigned via .github/CODEOWNERS.
+# Security updates are raised as soon as an advisory is published,
+# independent of the version update schedule below.
 
 version: 2
 updates:
@@ -11,33 +15,52 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+    groups:
+      github-actions:
+        patterns:
+          - '*'
     labels:
       - 'ci-quality'
-    reviewers:
-      - 'azure/psdocs-azure'
 
-  # Maintain dependencies for NuGet
+  # Maintain dependencies for NuGet (PSDocs.Azure and PSDocs)
   - package-ecosystem: 'nuget'
-    directory: '/'
+    directories:
+      - '/packages/psdocs-azure/src/PSDocs.Azure'
+      - '/packages/psdocs/src/PSDocs'
+      - '/packages/psdocs/src/PSDocs.Benchmark'
+      - '/packages/psdocs/tests/PSDocs.Tests'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
+    groups:
+      nuget-minor-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
     labels:
       - 'dependencies'
-    reviewers:
-      - 'azure/psdocs-azure'
 
-  # Maintain dependencies for Python
+  # Maintain dependencies for the VS Code extension
+  - package-ecosystem: 'npm'
+    directory: '/packages/vscode-extension'
+    schedule:
+      interval: 'weekly'
+    groups:
+      npm-minor-patch:
+        update-types:
+          - 'minor'
+          - 'patch'
+    labels:
+      - 'dependencies'
+
+  # Maintain dependencies for Python (documentation site)
   - package-ecosystem: 'pip'
     directory: '/'
     schedule:
-      interval: 'daily'
+      interval: 'weekly'
     groups:
-      dev:
-        dependency-type: development
-      release:
-        dependency-type: production
+      docs:
+        patterns:
+          - '*'
     labels:
       - 'ci-quality'
-    reviewers:
-      - 'azure/psdocs-azure'
