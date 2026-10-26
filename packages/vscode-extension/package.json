@@ -74,7 +74,7 @@
     "msazurermtools.azurerm-vscode-tools"
   ],
   "devDependencies": {
-    "@eslint/js": "^9.28.0",
+    "@eslint/js": "^10.0.1",
     "@types/mocha": "^10.0.6",
     "@types/node": "^24.6.1",
     "@types/vscode": "~1.89.0",
