@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/ms_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1198,8 +1198,8 @@ MkDocs is a command-line tool that converts markdown into HTML.</p>
 <div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span>
 <span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v2.2.2</span>
 <span class="w">  </span><span class="nt">with</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;3.9&#39;</span>
-<span class="w">    </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;x64&#39;</span>
+<span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">'3.9'</span>
+<span class="w">    </span><span class="nt">architecture</span><span class="p">:</span><span class="w"> </span><span class="s">'x64'</span>
 
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
 <span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
@@ -1265,39 +1265,39 @@ DocFX is a command-line tool that converts markdown into HTML.
 <span class="w">  </span><span class="nt">jobs</span><span class="p">:</span>
 
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Documentation&#39;</span>
+<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Documentation'</span>
 <span class="w">    </span><span class="nt">pool</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$(imageName)</span>
 <span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 
 <span class="w">    </span><span class="c1"># Install pipeline dependencies</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">powershell</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./.azure-pipelines/pipeline-deps.ps1</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Install</span><span class="nv"> </span><span class="s">dependencies&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Install</span><span class="nv"> </span><span class="s">dependencies'</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniversalPackages@0</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Download</span><span class="nv"> </span><span class="s">docfx&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Download</span><span class="nv"> </span><span class="s">docfx'</span>
 <span class="w">      </span><span class="nt">inputs</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">download</span>
-<span class="w">        </span><span class="nt">vstsFeed</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Tools&#39;</span>
-<span class="w">        </span><span class="nt">vstsFeedPackage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;docfx&#39;</span>
+<span class="w">        </span><span class="nt">vstsFeed</span><span class="p">:</span><span class="w"> </span><span class="s">'Tools'</span>
+<span class="w">        </span><span class="nt">vstsFeedPackage</span><span class="p">:</span><span class="w"> </span><span class="s">'docfx'</span>
 <span class="w">        </span><span class="nt">vstsPackageVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2.56.2</span>
 <span class="w">        </span><span class="nt">downloadDirectory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out/docfx</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UniversalPackages@0</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Download</span><span class="nv"> </span><span class="s">wkhtmltopdf&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Download</span><span class="nv"> </span><span class="s">wkhtmltopdf'</span>
 <span class="w">      </span><span class="nt">inputs</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">download</span>
-<span class="w">        </span><span class="nt">vstsFeed</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Tools&#39;</span>
-<span class="w">        </span><span class="nt">vstsFeedPackage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;wkhtmltopdf&#39;</span>
+<span class="w">        </span><span class="nt">vstsFeed</span><span class="p">:</span><span class="w"> </span><span class="s">'Tools'</span>
+<span class="w">        </span><span class="nt">vstsFeedPackage</span><span class="p">:</span><span class="w"> </span><span class="s">'wkhtmltopdf'</span>
 <span class="w">        </span><span class="nt">vstsPackageVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.12.5</span>
 <span class="w">        </span><span class="nt">downloadDirectory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out/wkhtmltopdf</span>
 
 <span class="w">    </span><span class="c1"># Build documentation</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">pwsh</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Invoke-Build BuildDocs</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Build</span><span class="nv"> </span><span class="s">documentation&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Build</span><span class="nv"> </span><span class="s">documentation'</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">publish</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">out/docs/_site</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Publish</span><span class="nv"> </span><span class="s">docs</span><span class="nv"> </span><span class="s">site&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Publish</span><span class="nv"> </span><span class="s">docs</span><span class="nv"> </span><span class="s">site'</span>
 <span class="w">      </span><span class="nt">artifact</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">docs-site</span>
 </code></pre></div>
 
@@ -1314,46 +1314,46 @@ DocFX is a command-line tool that converts markdown into HTML.
 <span class="w">  </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Publish</span>
 <span class="w">  </span><span class="nt">dependsOn</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Build</span>
 <span class="w">  </span><span class="nt">variables</span><span class="p">:</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">${{ if eq(variables[&#39;Build.SourceBranch&#39;], &#39;refs/heads/master&#39;) }}</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}</span><span class="p p-Indicator">:</span>
 <span class="w">      </span><span class="nt">publishSlot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">staging</span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">${{ if ne(variables[&#39;Build.SourceBranch&#39;], &#39;refs/heads/master&#39;) }}</span><span class="p p-Indicator">:</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">${{ if ne(variables['Build.SourceBranch'], 'refs/heads/master') }}</span><span class="p p-Indicator">:</span>
 <span class="w">      </span><span class="nt">publishSlot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">preview</span>
 <span class="w">  </span><span class="nt">jobs</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
 <span class="c1">#   - template: jobs/docs.deploy.yaml</span>
 <span class="c1">#     parameters:</span>
-<span class="c1">#       connectionService: &#39;&lt;subscription_name&gt;&#39;</span>
-<span class="c1">#       outPath: &#39;$(Build.SourcesDirectory)/out/&#39;</span>
-<span class="c1">#       slotName: &#39;$(publishSlot)&#39;</span>
+<span class="c1">#       connectionService: '&lt;subscription_name&gt;'</span>
+<span class="c1">#       outPath: '$(Build.SourcesDirectory)/out/'</span>
+<span class="c1">#       slotName: '$(publishSlot)'</span>
 
 <span class="w">    </span><span class="c1"># Get docs</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DownloadPipelineArtifact@1</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Download</span><span class="nv"> </span><span class="s">docs&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Download</span><span class="nv"> </span><span class="s">docs'</span>
 <span class="w">      </span><span class="nt">inputs</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.artifact</span><span class="nv"> </span><span class="s">}}&#39;</span>
-<span class="w">        </span><span class="nt">downloadPath</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site/&#39;</span>
+<span class="w">        </span><span class="nt">artifactName</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.artifact</span><span class="nv"> </span><span class="s">}}'</span>
+<span class="w">        </span><span class="nt">downloadPath</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site/'</span>
 
 <span class="w">        </span><span class="c1"># Package web site</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ArchiveFiles@2</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Package</span><span class="nv"> </span><span class="s">site&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Package</span><span class="nv"> </span><span class="s">site'</span>
 <span class="w">      </span><span class="nt">inputs</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">archiveType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zip</span>
 <span class="w">        </span><span class="nt">includeRootFolder</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
-<span class="w">        </span><span class="nt">rootFolderOrFile</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site/&#39;</span>
-<span class="w">        </span><span class="nt">archiveFile</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site.zip&#39;</span>
+<span class="w">        </span><span class="nt">rootFolderOrFile</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site/'</span>
+<span class="w">        </span><span class="nt">archiveFile</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site.zip'</span>
 
 <span class="w">    </span><span class="c1"># Deploy web site</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">task</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AzureRmWebAppDeployment@4</span>
-<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Deploy</span><span class="nv"> </span><span class="s">docs</span><span class="nv"> </span><span class="s">site&#39;</span>
+<span class="w">      </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Deploy</span><span class="nv"> </span><span class="s">docs</span><span class="nv"> </span><span class="s">site'</span>
 <span class="w">      </span><span class="nt">inputs</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">azureSubscription</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.connectionService</span><span class="nv"> </span><span class="s">}}&#39;</span>
+<span class="w">        </span><span class="nt">azureSubscription</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.connectionService</span><span class="nv"> </span><span class="s">}}'</span>
 <span class="w">        </span><span class="nt">WebAppName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ parameters.appName }}</span>
 <span class="w">        </span><span class="nt">deployToSlotOrASE</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">        </span><span class="nt">ResourceGroupName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ parameters.resourceGroup }}</span>
 <span class="w">        </span><span class="nt">SlotName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ parameters.slotName }}</span>
 <span class="w">        </span><span class="nt">DeploymentType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">zipDeploy</span>
-<span class="w">        </span><span class="nt">packageForLinux</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site.zip&#39;</span>
+<span class="w">        </span><span class="nt">packageForLinux</span><span class="p">:</span><span class="w"> </span><span class="s">'${{</span><span class="nv"> </span><span class="s">parameters.outPath</span><span class="nv"> </span><span class="s">}}docs-site.zip'</span>
 </code></pre></div>
 
 -->
@@ -1375,7 +1375,7 @@ DocFX is a command-line tool that converts markdown into HTML.
 <span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Publish to Azure</span>
 <span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
 <span class="w">    </span><span class="no">cd ./site</span>
-<span class="w">    </span><span class="no">az webapp up -l &#39;&lt;enter&gt;&#39; -n &#39;&lt;enter&gt;&#39; -g &#39;&lt;enter&gt;&#39; --subscription &#39;&lt;enter&gt;&#39; --html</span>
+<span class="w">    </span><span class="no">az webapp up -l '&lt;enter&gt;' -n '&lt;enter&gt;' -g '&lt;enter&gt;' --subscription '&lt;enter&gt;' --html</span>
 </code></pre></div>
 <ul>
 <li>Create an <a href="https://github.com/azure/login#configure-deployment-credentials">deployment credentials</a> <code>AZURE_CREDENTIALS</code> for the workflow to use to authenticate to Azure.</li>
@@ -1481,7 +1481,7 @@ By using this feature Azure AD takes care of all the heavy lifting in regards to
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.indexes", {"navigation.sections": {"level": 1}}, "navigation.tabs"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>

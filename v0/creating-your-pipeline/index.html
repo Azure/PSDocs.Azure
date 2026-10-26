@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../assets/ms_icon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1063,21 +1063,21 @@ Add the following code to the workflow file.</p>
 <p>Create a new Azure DevOps YAML pipeline by creating <code>.azure-pipelines/publish-docs.yaml</code>.
 Add the following code to the YAML pipeline file.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">jobs</span><span class="p">:</span>
-<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Publish&#39;</span>
-<span class="w">  </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Generate</span><span class="nv"> </span><span class="s">ARM</span><span class="nv"> </span><span class="s">template</span><span class="nv"> </span><span class="s">docs&#39;</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">job</span><span class="p">:</span><span class="w"> </span><span class="s">'Publish'</span>
+<span class="w">  </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Generate</span><span class="nv"> </span><span class="s">ARM</span><span class="nv"> </span><span class="s">template</span><span class="nv"> </span><span class="s">docs'</span>
 <span class="w">  </span><span class="nt">pool</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;windows-2019&#39;</span>
+<span class="w">    </span><span class="nt">vmImage</span><span class="p">:</span><span class="w"> </span><span class="s">'windows-2019'</span>
 <span class="w">  </span><span class="nt">steps</span><span class="p">:</span>
 
 <span class="w">  </span><span class="c1"># Generate markdown files using PSDocs</span>
 <span class="w">  </span><span class="c1"># Scan for Azure template file recursively in the templates/ directory</span>
 <span class="w">  </span><span class="c1"># Then generate a docs using a standard naming convention. i.e. &lt;name&gt;_&lt;version&gt;.md</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">powershell</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">      </span><span class="no">Install-Module -Name &#39;PSDocs.Azure&#39; -Repository PSGallery -Force;</span>
+<span class="w">      </span><span class="no">Install-Module -Name 'PSDocs.Azure' -Repository PSGallery -Force;</span>
 <span class="w">      </span><span class="no">Get-AzDocTemplateFile -Path templates/ | ForEach-Object {</span>
-<span class="w">        </span><span class="no">Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $_.TemplateFile -Convention &#39;Azure.NameByParentPath&#39;;</span>
+<span class="w">        </span><span class="no">Invoke-PSDocument -Module PSDocs.Azure -OutputPath out/docs/ -InputObject $_.TemplateFile -Convention 'Azure.NameByParentPath';</span>
 <span class="w">      </span><span class="no">}</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Generate</span><span class="nv"> </span><span class="s">docs&#39;</span>
+<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">'Generate</span><span class="nv"> </span><span class="s">docs'</span>
 </code></pre></div>
 <p>This will automatically install compatible versions of all dependencies.</p>
 </div>
@@ -1172,7 +1172,7 @@ Add the following code to the YAML pipeline file.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.indexes", {"navigation.sections": {"level": 1}}, "navigation.tabs"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "stable", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   </body>
