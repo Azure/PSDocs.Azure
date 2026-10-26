@@ -1,0 +1,25 @@
+#
+# PSRule configuration (monorepo root)
+#
+# Used by the repository-wide OSS compliance scan (PSRule.Rules.MSFT.OSS) that
+# runs from the repository root in .github/workflows/codeql.yml. Per-package
+# scans continue to use packages/*/ps-rule.yaml.
+#
+# Please see the documentation for all configuration options:
+# https://microsoft.github.io/PSRule/
+
+output:
+  culture:
+  - en-US
+
+input:
+  pathIgnore:
+  # Generated resource designer files (cannot carry a hand-authored header).
+  - '*.Designer.cs'
+  # Vendored subtrees imported from upstream Microsoft repositories; these
+  # maintain their own licensing/headers and must not be modified here.
+  - 'packages/psdocs/**'
+  - 'packages/vscode-extension/**'
+  # Root build orchestrator requires a shebang on line 1 so it can be invoked
+  # as `./build.ps1`; MSFT.OSS.License requires the header to be the first line.
+  - 'build.ps1'
