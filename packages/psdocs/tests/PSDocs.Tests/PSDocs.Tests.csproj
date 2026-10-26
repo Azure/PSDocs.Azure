@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeCoverage" Version="17.13.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.3.8" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.6.9" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
       <PrivateAssets>all</PrivateAssets>
@@ -22,8 +22,8 @@
 
   <!-- Pin patched versions of vulnerable transitive dependencies -->
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" /><!-- GHSA-98g6-xh36-x2p7 -->
-    <PackageReference Include="System.Formats.Asn1" Version="8.0.1" /><!-- GHSA-447r-wph3-92pm -->
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.1" /><!-- GHSA-98g6-xh36-x2p7 -->
+    <PackageReference Include="System.Formats.Asn1" Version="8.0.2" /><!-- GHSA-447r-wph3-92pm -->
   </ItemGroup>
 
   <ItemGroup>
